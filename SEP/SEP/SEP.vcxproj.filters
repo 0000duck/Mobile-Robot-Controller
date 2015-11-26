@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\headers">
+      <UniqueIdentifier>{63a2c3a4-838f-468a-a0da-084f04b86bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\SIM">
+      <UniqueIdentifier>{b872b121-3650-4a07-8b23-db8082ba1557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\SIM\Robot">
+      <UniqueIdentifier>{a9c71f9b-2108-4dfa-aff6-982c318cf4a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\SIM\Sensor">
+      <UniqueIdentifier>{ed3a7a1a-672f-4ed7-abe8-c9eb1d0b0d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\ADD-ON">
+      <UniqueIdentifier>{2aa1af63-6ba9-439d-8b92-ea454d055940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\ADD-ON\Map">
+      <UniqueIdentifier>{fb9891d2-304e-4855-9d56-1a242089fb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\ADD-ON\VirtualRobot">
+      <UniqueIdentifier>{f0f2d6d3-dcd7-4465-bb42-f9d20df72f4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\headers\ADD-ON\Movement">
+      <UniqueIdentifier>{0297731b-61b1-441f-b4f8-4ed02bf39b75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="moveManager.h">
+      <Filter>소스 파일\headers\ADD-ON\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualRobot.h">
+      <Filter>소스 파일\headers\ADD-ON\VirtualRobot</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>소스 파일\headers\ADD-ON\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="mapmanager.h">
+      <Filter>소스 파일\headers\ADD-ON\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="datainterface.h">
+      <Filter>소스 파일\headers\ADD-ON\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="robot.h">
+      <Filter>소스 파일\headers\SIM\Robot</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor.h">
+      <Filter>소스 파일\headers\SIM\Sensor</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
