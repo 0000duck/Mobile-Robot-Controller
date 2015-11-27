@@ -25,11 +25,11 @@ int MoveManager::CompareCurrentPos()
 }
 void MoveManager::MakeNextMoveData()
 {
-
+	//지혜꺼 다시 돌림
 }
 void MoveManager::GetNextMoveData()
 {
-
+	//결과물에서 보고 함
 }
 
 //이거만 따로 있어서 Analyze함수들에서 어떻게 써야할지 모르겠으나 일단 일관성 있게 쓴다.
