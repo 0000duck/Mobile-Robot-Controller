@@ -1,4 +1,4 @@
-#include <Common.h>
+#include "Common.h"
 class VirtualRobot
 {
 public:
@@ -7,7 +7,8 @@ public:
 	void CheckSensingData();
 	void VirtualMove();
 	void ComputeOffset();
-	void InitVirtualRobot();
+	void InitVirtualRobot(Position startP);
+	VirtualRobot();
 private:
 	int state;
 };

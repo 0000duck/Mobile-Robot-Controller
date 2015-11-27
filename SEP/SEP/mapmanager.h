@@ -2,11 +2,14 @@
 class MapManager
 {
 public:
-	int CreateMapModel();
+	int CreateMapModel(int** mapdata);
 	int GetNearMapNodeData();
-	int AddColorBlob();
+	void AddColorBlob(int colorblobInfo);
 	int GetForwardMapNode();
-	int AddHazardPoint();
+	void AddHazardPoint(int hazardInfo);
+	int mapWidth, mapHeight;
+	MapModel mapModel;
 private:
 	void AnalyzeMapData();
-}
+
+};

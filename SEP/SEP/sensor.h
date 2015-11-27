@@ -1,9 +1,9 @@
-
+#include "Common.h"
 
 class SensorBase
 {
 public :
-	virtual void Use();
+	virtual void Use(void *result);
 
 private:
 
@@ -15,7 +15,7 @@ protected:
 	SensorBase Sensors[SensorCount];
 
 public:
-	void SensorUse();
+	void SensorUse(int type, void* result);
 	SensorSystem();
 
 };
@@ -23,14 +23,14 @@ public:
 class PositioningSensor : SensorBase
 {
 public :
-	void Use();
+	void Use(void *result);
 	Position position;
 };
 
 class ColorSensor : SensorBase
 {
 public:
-	void Use();
+	void Use(void *result);
 
 private:
 	bool IsColorBlobCheck()
@@ -42,7 +42,7 @@ private:
 class HazardSensor : SensorBase
 {
 public :
-	void Use();
+	void Use(void *result);
 
 private:
 	bool IsHazardCheck();

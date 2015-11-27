@@ -1,22 +1,29 @@
-#include<map.h>
-
-class moveManager
+#include"map.h"
+#include"datainterface.h"
+#include"mapmanager.h"
+#include<list>
+using namespace std;
+class MoveManager
 {
 public:
-	List<mapNode> SeachSpotList[];
-	List<mapNode> RemainSearchSpotList[];
+	list<MapNode> SearchSpotList;
+	list<MapNode> RemainSearchSpotList;
 	void InitializeMoveData();
 	void AnalyzeSensingData();
 	int CompareCurrentPos();
-	void MakeNextMoveDate();
-	void GetNextMoveDate();
-	void GetPositioningSensorDate();
+	void MakeNextMoveData();
+	void GetNextMoveData();
+	void GetPositioningSensorData(void *result);
+
+	MoveManager(int** mpaInput);
+	DataInterface dataInterface;
+	MapManager mapManager;
+	VirtualRobot virtualRobot;
 private:
 	bool CheckMoveDataInvalid();
 	void Explore();
-	void GetMapModel();
+	void GetMapModel(int** mpaInput);
 	void AnalyzePositioningSensorData();
-	void AnalyzeColorSensorDate();
-	void AnalyzeHazardSensor();
-
+	void AnalyzeColorSensorData();
+	void AnalyzeHazardSensorData();//¿Ã∏ß πŸ≤ﬁ
 };

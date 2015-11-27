@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5F6CEACD-B567-4C2E-87EF-D4287D642884}</ProjectGuid>
+    <ProjectGuid>{19A15E17-E228-4222-88A1-317CCCD77D37}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SEP</RootNamespace>
+    <RootNamespace>My1127SE</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,25 +76,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="datainterface.h" />
-    <ClInclude Include="global.h" />
-    <ClInclude Include="map.h" />
-    <ClInclude Include="mapmanager.h" />
-    <ClInclude Include="moveManager.h" />
-    <ClInclude Include="robot.h" />
-    <ClInclude Include="sensor.h" />
-    <ClInclude Include="VirtualRobot.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="datainterface.cpp" />
-    <ClCompile Include="MainFlow.cpp" />
-    <ClCompile Include="map.cpp" />
-    <ClCompile Include="MapManager.cpp" />
-    <ClCompile Include="movemanager.cpp" />
-    <ClCompile Include="robot.cpp" />
-    <ClCompile Include="sensor.cpp" />
-    <ClCompile Include="virtualrobot.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

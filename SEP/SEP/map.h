@@ -1,4 +1,9 @@
+/*
+Map에 대한 입력은
+우선은 2차원 수열로 한다고 가정한다.
 
+*/
+#include"Common.h"
 class DataObject
 {
 public:
@@ -7,13 +12,19 @@ public:
 
 class MapNode
 {
-protected :
+public :
 	bool isDetected;
-	int PosX,PosY;
+	int PosX, PosY;
+	DataObject data;
+protected:
+	
 };
 
 class MapModel
 {
 private:
-	MapNode NotedNodeList[];
+	
+public:
+	MapModel();
+	MapNode Map[mapHeight][mapWidth];
 };
