@@ -27,8 +27,9 @@ namespace RobotControllerUI
             if (!GraphicManager.GetManager().InitDX(this.GraphicView))
             {
                 MessageBox.Show("Could not initialize Direct3D.");
-                
+            
             }
+            GraphicManager.GetManager().RenderInit();
         }
     }
 }

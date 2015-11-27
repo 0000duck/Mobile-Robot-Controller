@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
+using RobotControllerUI.DrawObject;
 
 namespace RobotControllerUI
 {
@@ -12,6 +13,8 @@ namespace RobotControllerUI
     /// </summary>
     public class GraphicManager
     {
+        MySprite TestSprite;
+
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
 
@@ -42,11 +45,14 @@ namespace RobotControllerUI
                 PresentParameters pp = new PresentParameters();
                 pp.Windowed = true;
                 pp.SwapEffect = SwapEffect.Discard;
+                pp.EnableAutoDepthStencil = true;
+                pp.AutoDepthStencilFormat = DepthFormat.D16;
+
                 dx_Device = new Device(0, DeviceType.Hardware, hViewControl,
                                         CreateFlags.SoftwareVertexProcessing, pp);
                 return true;
             }
-            catch (DirectXException e)
+            catch (Exception)
             {
                 return false;
             } 
@@ -61,6 +67,14 @@ namespace RobotControllerUI
         /// </summary>
         private void ObjectAction()
         { }
+        /// <summary>
+        /// Rendering 초기화작업
+        /// </summary>
+        public void RenderInit()
+        {
+            TestSprite = new MySprite(dx_Device);
+            TestSprite.TextureLoad("Memo.jpg");
+        }
         public void Render()
         {
             //배경 클리어
@@ -68,11 +82,44 @@ namespace RobotControllerUI
                             System.Drawing.Color.FromArgb(0,0, 255).ToArgb(),
                             1.0f,
                             0);
+            //Depth 클리어
+
+            dx_Device.Clear(ClearFlags.ZBuffer, 0, 1.0f, 0);
+            OnResetDevice(dx_Device, null);
             dx_Device.BeginScene();
+           
+            dx_Device.Transform.View = Matrix.LookAtLH(
+                new Vector3(0.0f , 3.0f , -5.0f),
+                new Vector3(0.0f, 0.0f, 0.0f),
+                new Vector3(0.0f, 1.0f, 0.0f)
+                );
+
+            dx_Device.Transform.Projection = Matrix.PerspectiveFovLH(
+                (float)Math.PI / 4,
+                1.0f,
+                1.0f,
+                100.0f);
+
             //Object 동작 처리
+       
             // Object들 그리기
+            TestSprite.Render();
+
             dx_Device.EndScene();
             dx_Device.Present();
+        }
+        /// <summary>
+        /// 랜더링 상대를 결정함
+        /// </summary>
+        /// <param name="Sender"> Device</param>
+        /// <param name="e"></param>
+        public void OnResetDevice(object Sender, EventArgs e)
+        {
+            Device dev = (Device)Sender;
+            dev.RenderState.CullMode = Cull.None;
+            dev.RenderState.Lighting = false;
+            dev.RenderState.ZBufferEnable = true;
+            
         }
     }
 }
