@@ -9,9 +9,36 @@ using Microsoft.DirectX.Direct3D;
 
 namespace RobotControllerUI.DrawObject
 {
-    public class ModelForDraw
+    /// <summary>
+    /// 실제로 그려지는 오브젝트들의 Base클래스
+    /// </summary>
+    public class ModelForDraw : MySprite
     {
-        //private VertexBuffer VBuffers;
-         
+        /// <summary>
+        /// 가시성>> 밝혀진 오브젝트인가?
+        /// </summary>
+        public bool bVisiblity = true;
+        /// <summary>
+        /// 생성자
+        /// </summary>
+        /// <param name="dev">device</param>
+        public ModelForDraw(Device dev) : base(dev)
+        {
+
+          
+        }
+        public override void Render()
+        {
+            base.Render();
+        }
+        protected override void SetTextureSetting()
+        {
+            base.SetTextureSetting();
+        }
+        protected override void ReleaseTextureSetting()
+        {
+            base.ReleaseTextureSetting();
+        }
+
     }
 }

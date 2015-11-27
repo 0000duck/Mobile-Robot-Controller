@@ -14,6 +14,7 @@ namespace RobotControllerUI
     public class GraphicManager
     {
         MySprite TestSprite;
+        MapforDraw TestMap;
 
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
@@ -74,6 +75,8 @@ namespace RobotControllerUI
         {
             TestSprite = new MySprite(dx_Device);
             TestSprite.TextureLoad("Memo.jpg");
+            TestMap = new MapforDraw(dx_Device, 10 , 10);
+            TestMap.TextureLoad("Dirt.jpg");
         }
         public void Render()
         {
@@ -98,12 +101,15 @@ namespace RobotControllerUI
                 (float)Math.PI / 4,
                 1.0f,
                 1.0f,
-                100.0f);
+                1000.0f);
 
             //Object 동작 처리
-       
+            TestSprite.Update();
+            TestMap.Update();
+
             // Object들 그리기
             TestSprite.Render();
+            TestMap.Render();
 
             dx_Device.EndScene();
             dx_Device.Present();
