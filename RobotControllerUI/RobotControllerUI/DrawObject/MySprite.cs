@@ -133,6 +133,7 @@ namespace RobotControllerUI.DrawObject
         protected virtual void ReleaseTextureSetting()
         {
             //현재설정이 디폴트
+            dev.SetTexture(0,null);
         }
         /// <summary>
         /// Texture폴더에 있는 이미지를 Load해 주는 함수

@@ -25,10 +25,12 @@ namespace RobotControllerUI.DrawObject
         public ModelForDraw(Device dev) : base(dev)
         {
 
-          
+            GraphicManager.GetManager().AddDrawObbject(this);
         }
         public override void Render()
         {
+            if (bVisiblity == false) return;
+
             base.Render();
         }
         protected override void SetTextureSetting()

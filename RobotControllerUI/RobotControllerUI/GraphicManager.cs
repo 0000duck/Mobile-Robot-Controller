@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.DirectX;
@@ -13,12 +14,12 @@ namespace RobotControllerUI
     /// </summary>
     public class GraphicManager
     {
-        MySprite TestSprite;
+        ModelForDraw TestSprite;
         MapforDraw TestMap;
-
+        Grid BasicGrid;
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
-
+        protected List<ModelForDraw> DrawObjectList;
         /// <summary>
         /// 싱글톤 클래스 접근자
         /// </summary>
@@ -28,12 +29,27 @@ namespace RobotControllerUI
             if (Instance == null)
             {
                 Instance = new GraphicManager();
+             
             }
             return Instance;
         }
 
-        private GraphicManager() { }
+        private GraphicManager()
+        {
+            DrawObjectList = new List<ModelForDraw>();
+        }
 
+        /// <summary>
+        /// Draw Object를 추가 한다.
+        /// </summary>
+        /// <param name="obj"></param>
+        public void AddDrawObbject(ModelForDraw obj)
+        {
+            if (obj == null) return;
+
+            DrawObjectList.Add(obj);
+
+        }
 
         /// <summary>
         /// 다이렉트 X 초기화 함수
@@ -59,24 +75,35 @@ namespace RobotControllerUI
             } 
         }
         /// <summary>
-        /// Object들을 그리는 Render함수 등록된 Object들을 그리게 할것
+        /// Object들을 그리는 Render함수 등록된 Object들을 그린다
         /// </summary>
         private void ObjectsRender()
-        { }
+        {
+            foreach (ModelForDraw obj in DrawObjectList)
+            {
+                obj.Render();
+            }
+        }
         /// <summary>
         /// Object들의 동작처리
         /// </summary>
         private void ObjectAction()
-        { }
+        {
+            foreach (ModelForDraw obj in DrawObjectList)
+            {
+                obj.Update();
+            }
+        }
         /// <summary>
         /// Rendering 초기화작업
         /// </summary>
         public void RenderInit()
         {
-            TestSprite = new MySprite(dx_Device);
+            TestSprite = new ModelForDraw(dx_Device);
             TestSprite.TextureLoad("Memo.jpg");
-            TestMap = new MapforDraw(dx_Device, 10 , 10);
+            TestMap = new MapforDraw(dx_Device, 32 , 32);
             TestMap.TextureLoad("Dirt.jpg");
+            BasicGrid = new Grid(dx_Device, 1, 1, 32, 32, 0.01f);
         }
         public void Render()
         {
@@ -104,12 +131,15 @@ namespace RobotControllerUI
                 1000.0f);
 
             //Object 동작 처리
-            TestSprite.Update();
-            TestMap.Update();
+            // TestSprite.Update();
+            // TestMap.Update();
+            ObjectAction();
 
             // Object들 그리기
-            TestSprite.Render();
-            TestMap.Render();
+            //TestSprite.Render();
+            //TestMap.Render();
+            ObjectsRender();
+            BasicGrid.DrawGird();
 
             dx_Device.EndScene();
             dx_Device.Present();
