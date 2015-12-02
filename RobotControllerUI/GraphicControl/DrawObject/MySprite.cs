@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-namespace RobotControllerUI.DrawObject
+namespace GraphicControl.DrawObject
 {
     /// <summary>
     /// Texture를 포함 하고 있는 정 사각형의 평면
@@ -123,7 +123,10 @@ namespace RobotControllerUI.DrawObject
             dev.TextureState[0].ColorOperation = TextureOperation.Modulate;
             dev.TextureState[0].ColorArgument1 = TextureArgument.TextureColor;
             dev.TextureState[0].ColorArgument2 = TextureArgument.Diffuse;
-            dev.TextureState[0].AlphaOperation = TextureOperation.Disable;
+
+            dev.TextureState[0].ColorOperation = TextureOperation.SelectArg1;
+            dev.TextureState[0].ColorArgument1 = TextureArgument.TextureColor;
+            dev.TextureState[0].ColorArgument2 = TextureArgument.Diffuse;
 
 
         }
@@ -139,11 +142,11 @@ namespace RobotControllerUI.DrawObject
         /// Texture폴더에 있는 이미지를 Load해 주는 함수
         /// </summary>
         /// <param name="FileName"></param>
-        public void TextureLoad(string FileName)
+        public void TextureLoad(string FileName )
         {
-            ImageTexture = TextureLoader.FromFile(dev,
-                Application.StartupPath + @"\..\..\Texture\"+FileName);
-
+            //라이브러리로 바꾸면서 상대경로로 이용
+            ImageTexture = TextureLoader.FromFile(dev, Application.StartupPath+@"\..\..\Texture\" +FileName);
+            
         }
     }
 }

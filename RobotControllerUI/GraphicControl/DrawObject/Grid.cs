@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 
-namespace RobotControllerUI.DrawObject
+namespace GraphicControl.DrawObject
 {
     /// <summary>
     /// 보조격자
@@ -56,7 +55,7 @@ namespace RobotControllerUI.DrawObject
                 new CustomVertex.PositionColored[2];
             HorizonVert[0].X = 1.0f; HorizonVert[0].Y = 0; HorizonVert[0].Z = 0;
             HorizonVert[0].Color = System.Drawing.Color.White.ToArgb();
-
+            
             HorizonVert[1].X = 0; HorizonVert[1].Y = 0; HorizonVert[1].Z = 0;
             HorizonVert[1].Color = System.Drawing.Color.White.ToArgb();
 

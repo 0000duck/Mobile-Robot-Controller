@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 
-namespace RobotControllerUI.DrawObject
+namespace GraphicControl.DrawObject
 {
     /// <summary>
     /// Map을 그리기 위한 객체
@@ -41,7 +40,7 @@ namespace RobotControllerUI.DrawObject
             World = mScale * mPos;
         }
     
-
+        
         protected override void SetTextureSetting()
         {
             base.SetTextureSetting();

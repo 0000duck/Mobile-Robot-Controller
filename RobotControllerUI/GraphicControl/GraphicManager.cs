@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using Microsoft.DirectX;
+using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
-using RobotControllerUI.DrawObject;
+using GraphicControl.DrawObject;
 
-namespace RobotControllerUI
+namespace GraphicControl
 {
     /// <summary>
     /// DirectX Device를 가지고 있는 그리기 전용 클래스
@@ -50,7 +50,14 @@ namespace RobotControllerUI
             DrawObjectList.Add(obj);
 
         }
-
+        /// <summary>
+        /// Robot 움직임 Callback 시작
+        /// </summary>
+        /// <param name="Direction">바양</param>
+        public void OnMoveRobot(int Direction)
+        {
+            TestSprite.OnMove(Direction);
+        }
         /// <summary>
         /// 다이렉트 X 초기화 함수
         /// </summary>
@@ -64,7 +71,7 @@ namespace RobotControllerUI
                 pp.SwapEffect = SwapEffect.Discard;
                 pp.EnableAutoDepthStencil = true;
                 pp.AutoDepthStencilFormat = DepthFormat.D16;
-
+               
                 dx_Device = new Device(0, DeviceType.Hardware, hViewControl,
                                         CreateFlags.SoftwareVertexProcessing, pp);
                 return true;
@@ -91,8 +98,11 @@ namespace RobotControllerUI
         {
             foreach (ModelForDraw obj in DrawObjectList)
             {
+                
                 obj.Update();
             }
+
+            TestSprite.Update();
         }
         /// <summary>
         /// Rendering 초기화작업
@@ -100,10 +110,13 @@ namespace RobotControllerUI
         public void RenderInit()
         {
             TestSprite = new ModelForDraw(dx_Device);
-            TestSprite.TextureLoad("Memo.jpg");
+            TestSprite.TextureLoad("Memo.jpg" );
+            //움직임 초기화
+            TestSprite.MoveInit();
             TestMap = new MapforDraw(dx_Device, 32 , 32);
             TestMap.TextureLoad("Dirt.jpg");
             BasicGrid = new Grid(dx_Device, 1, 1, 32, 32, 0.01f);
+            
         }
         public void Render()
         {
@@ -155,6 +168,13 @@ namespace RobotControllerUI
             dev.RenderState.CullMode = Cull.None;
             dev.RenderState.Lighting = false;
             dev.RenderState.ZBufferEnable = true;
+           // dev.RenderState.SourceBlend = Blend.SourceColor;
+           // dev.RenderState.DestinationBlend = Blend.DestinationColor;
+            dev.RenderState.AlphaBlendEnable = true;
+            //dev.RenderState.BlendOperation = BlendOperation.Add;
+
+           // dev.RenderState.AlphaTestEnable = true;
+
             
         }
     }
