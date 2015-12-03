@@ -3,7 +3,7 @@ Map에 대한 입력은
 우선은 2차원 수열로 한다고 가정한다.
 
 */
-#include"Common.h"
+
 class DataObject
 {
 public:

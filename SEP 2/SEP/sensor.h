@@ -1,51 +1,54 @@
 #include "Common.h"
+#include"map.h"
 
+#define SENSOR_MAX 10
 class SensorBase
 {
 public :
-	virtual void Use(void *result);
-
+	SensorBase();
+	virtual void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 private:
 
 };
+
 class SensorSystem
 {
 protected:
-	const int SensorCount = SENSORNUM;
-	SensorBase Sensors[SensorCount];
+	int SensorCount;
+	SensorBase* Sensors[SENSOR_MAX];
 
 public:
-	void SensorUse(int type, void* result, MapModel mapmodel, Position currentPosition);
+	void SensorUse(int type, void* result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	SensorSystem();
 
 };
 
 
-class PositioningSensor : SensorBase
+class PositioningSensor : public SensorBase
 {
 public :
-	void Use(void *result, MapModel mapmodel, Position currentPosition);
+	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	Position position;
+	void setPosition(int x, int y);
 };
 
 
-class ColorSensor : SensorBase
+class ColorSensor : public SensorBase
 {
 public:
-	void Use(void *result, MapModel mapmodel, Position currentPosition);
-
+	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
+	ColorSensor();
 private:
-	bool IsColorBlobCheck()
-	{
-		//LOGIC
-	}
+	
+	bool IsColorBlobCheck();
+	
 };
 
 
-class HazardSensor : SensorBase
+class HazardSensor : public SensorBase
 {
 public :
-	void Use(void *result, MapModel mapmodel, Position currentPosition);
+	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 
 private:
 	bool IsHazardCheck();

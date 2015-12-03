@@ -13,7 +13,6 @@ int main()
 	}
 	startP.x = 0;
 	startP.y = 0;
-	startP.direction = 2;
 
 	//RealMapNode[1][1] = 5;
 	MoveManager moveManager(GivingMapNode, startP);

@@ -19,10 +19,11 @@ public:
 	void GetPositioningSensorData(void *result);
 	void Explore();
 
+	MoveManager();
 	MoveManager(int** mpaInput, Position start);
-	DataInterface dataInterface;
-	MapManager mapManager;
-	VirtualRobot virtualRobot;
+	DataInterface *dataInterface;
+	MapManager *mapManager;
+	VirtualRobot *virtualRobot;
 
 private:
 	bool CheckMoveDataInvalid();

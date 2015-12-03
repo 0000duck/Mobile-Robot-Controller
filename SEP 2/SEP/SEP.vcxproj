@@ -83,6 +83,7 @@
     <ClInclude Include="mapmanager.h" />
     <ClInclude Include="moveManager.h" />
     <ClInclude Include="robot.h" />
+    <ClInclude Include="satellite.h" />
     <ClInclude Include="sensor.h" />
     <ClInclude Include="VirtualRobot.h" />
   </ItemGroup>
@@ -93,6 +94,7 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="movemanager.cpp" />
     <ClCompile Include="robot.cpp" />
+    <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sensor.cpp" />
     <ClCompile Include="virtualrobot.cpp" />
   </ItemGroup>

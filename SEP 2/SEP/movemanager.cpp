@@ -1,6 +1,6 @@
 #include"moveManager.h"
 #include"global.h"
-
+#include"satellite.h"
 #define UNKNOWN 1000
 
 void MoveManager::InitializeMoveData()
@@ -13,16 +13,16 @@ void MoveManager::InitDis()										//dis 초기화
 {
 	int i, j;
 
-	dis = (int**)malloc((sizeof(int)*mapManager.mapWidth*mapManager.mapHeight));	//	mapWidth, height는 우선 글로벌로 가지고 있다.
+	dis = (int**)malloc((sizeof(int)*mapManager->mapWidth*mapManager->mapHeight));	//	mapWidth, height는 우선 글로벌로 가지고 있다.
 
-	for (i = 0; i < mapManager.mapHeight; i++)
+	for (i = 0; i < mapManager->mapHeight; i++)
 	{
-		dis[i] = (int*)malloc((sizeof(int)*mapManager.mapWidth));
+		dis[i] = (int*)malloc((sizeof(int)*mapManager->mapWidth));
 	}
 	
-	for(i=1; i<mapManager.mapWidth; i++)
+	for(i=1; i<mapManager->mapWidth; i++)
 	{
-		for(j=1; j<mapManager.mapHeight; j++)
+		for(j=1; j<mapManager->mapHeight; j++)
 			dis[i][j]=UNKNOWN;
 	}
 
@@ -34,7 +34,7 @@ void MoveManager::CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 �
 {
 	int i, j;
 
-	if(mapManager.mapModel.Map[x][y].data.kind==HAZARD);						//hazard면 계산하지 않음.
+	if (mapManager->mapModel.Map[x][y].data.kind == HAZARD);						//hazard면 계산하지 않음.
 	else if((CurrentTarget.PosX<x)&&(CurrentTarget.PosY<y))						//x, y를 기준으로 목표지점이 3사분면에 있을 때
 		CalThird(x, y);
 	else if ((CurrentTarget.PosX<x) && (CurrentTarget.PosY>y))					//x, y를 기준으로 목표지점이 2사분면에 있을 때
@@ -222,7 +222,7 @@ int MoveManager::CompareCurrentPos()
 	GetPositioningSensorData(result);
 	Position *CP = (Position*)result;
 
-	if ( CP->x== virtualRobot.CurrentPosition.x &&CP->y == virtualRobot.CurrentPosition.y)
+	if ( CP->x== virtualRobot->CurrentPosition.x &&CP->y == virtualRobot->CurrentPosition.y)
 		return 0;//정상종료
 	else
 	{
@@ -256,9 +256,9 @@ void MoveManager::GetNextMoveData()					//움직일 방향으로 로봇을 돌리는 곳
 	int MData;
 
 	MData=MakeNextMoveData();
-	virtualRobot.CurrentDirection = MData;
-	dataInterface.robotMovementInterface.robot.Rotate(MData);
-	
+	virtualRobot->CurrentDirection = MData;
+
+	dataInterface->robotMovementInterface->MoveRequest(MData);
 
 
 }
@@ -266,20 +266,22 @@ void MoveManager::GetNextMoveData()					//움직일 방향으로 로봇을 돌리는 곳
 //이거만 따로 있어서 Analyze함수들에서 어떻게 써야할지 모르겠으나 일단 일관성 있게 쓴다.
 void MoveManager::GetPositioningSensorData(void *result)//우선 가지고만 있는다.
 {
-	dataInterface.UseSensor(POSITIONING_SENSOR, result);
+	dataInterface->UseSensor(POSITIONING_SENSOR, result, mapManager->mapModel, dataInterface->robotMovementInterface->robot.rPosition, dataInterface->robotMovementInterface->robot.rDirection);
 
 	//AnalyzePositioningSensorData(*(Position *)result);//여기서 Analyze까지 할지 안할지 모르겠다
 }
 
 MoveManager::MoveManager(int** mapInput, Position start)
 {
+	dataInterface = new DataInterface();
+	virtualRobot = new VirtualRobot(start);
 	SetMapModel(mapInput,mapWidth, mapHeight, start);
 	//SetMapModel(mapInput);
-	dataInterface.robotMovementInterface.robot.robotPosition.x = start.x;//나중에 함수로 바꿈
-	dataInterface.robotMovementInterface.robot.robotPosition.y = start.y;
-	virtualRobot = *new VirtualRobot(start);	//생성자호출
-	dataInterface.robotMovementInterface.robot = *new Robot(start);
+	virtualRobot = new VirtualRobot(start);	//생성자호출
+	dataInterface->robotMovementInterface->robot = new Robot(start, 2);
 }
+
+
 
 void MoveManager::Explore()
 {
@@ -296,24 +298,25 @@ void MoveManager::Explore()
 			
 			GetNextMoveData();
 			AnalyzeHazardSensorData();
-			AnalyzeColorSensorData();
-			Forward = mapManager.GetForwardMapNode(dataInterface.robotMovementInterface.robot.robotPosition, dataInterface.robotMovementInterface.robot.CurrentDirection);
+			AnalyzeColorSensorData();.
+			Forward = mapManager->GetForwardMapNode(dataInterface->robotMovementInterface->robot->rPosition, dataInterface->robotMovementInterface->robot-CurrentDirection);
 			
+		
 			while (Forward.data.kind == HAZARD)					//앞에 있는 노드가 Hazard가 아닐때까지 회전.
 			{
 				GetNextMoveData();
-				Forward = mapManager.GetForwardMapNode(dataInterface.robotMovementInterface.robot.robotPosition, dataInterface.robotMovementInterface.robot.CurrentDirection);
+				Forward = mapManager->GetForwardMapNode(dataInterface->robotMovementInterface->robot.robotPosition, dataInterface->robotMovementInterface->robot.CurrentDirection);
 				AnalyzeHazardSensorData();
 			}
 
-			dataInterface.robotMovementInterface.robot.Move();//실제 로봇 move
-			virtualRobot.VirtualMove();
+			dataInterface->robotMovementInterface->robot.Move();//실제 로봇 move
+			virtualRobot->VirtualMove();
 
 		}
 
 		RemainSearchSpotList.pop_front();					//탐사가 완료되었으니 리스트에서 제거
 		
-		for (i = 0; i < mapManager.mapHeight; i++)			//할당받은 메모리 반납
+		for (i = 0; i < mapManager->mapHeight; i++)			//할당받은 메모리 반납
 			free(dis[i]);
 		free(dis);
 
@@ -323,7 +326,7 @@ void MoveManager::Explore()
 
 void MoveManager::SetMapModel(int** mapInput, int mapWidth, int mapHeight, Position start)
 {
-	mapManager = *new MapManager(mapInput, mapWidth, mapHeight, start);
+	mapManager = new MapManager(mapInput, mapWidth, mapHeight, start);
 }
 
 void MoveManager::AnalyzePositioningSensorData()
@@ -336,13 +339,13 @@ void MoveManager::AnalyzePositioningSensorData()
 void MoveManager::AnalyzeHazardSensorData()//처리까지함
 {
 	void *result;
-	dataInterface.UseSensor(HAZARD_SENSOR, result);//현재는 4방향 다 받아오므로 그와 맞게 함수를 짬
-	mapManager.AddHazardPoint(*(int*)result);
+	dataInterface->UseSensor(HAZARD_SENSOR, result, mapManager->mapModel, dataInterface->robotMovementInterface->robot.rPosition, dataInterface->robotMovementInterface->robot.rDirection);
+	mapManager->AddHazardPoint(*(int*)result);
 }
 
 void MoveManager::AnalyzeColorSensorData()
 {
 	void *result;
-	dataInterface.UseColorSensor(result);
-	mapManager.AddColorBlob(*(int*)result);
+	dataInterface->UseColorSensor(result, mapManager->mapModel, dataInterface->robotMovementInterface->robot.rPosition, dataInterface->robotMovementInterface->robot.rDirection);
+	mapManager->AddColorBlob(*(int*)result);
 }

@@ -90,6 +90,9 @@
     <ClInclude Include="global.h">
       <Filter>소스 파일\headers</Filter>
     </ClInclude>
+    <ClInclude Include="satellite.h">
+      <Filter>소스 파일\headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="robot.cpp">
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="virtualrobot.cpp">
       <Filter>소스 파일\sources\ADD-ON\VirtualRobot</Filter>
+    </ClCompile>
+    <ClCompile Include="satellite.cpp">
+      <Filter>소스 파일\sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

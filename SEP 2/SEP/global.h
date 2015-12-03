@@ -27,12 +27,3 @@ map
 
 
 //여기부터 가상 정보
-Position VirtualPosition;
-//가상 맵은 MapModel이 가지고 있음
-VirtualRobot virtualRobot;
-
-
-
-
-//가상 정보 끝
-SensorSystem sensor;

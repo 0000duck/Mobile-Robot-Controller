@@ -1,19 +1,22 @@
 #include"Common.h"
 
+class Robot;
+
 class RobotMovementInterface
 {
 public:
 	int MoveRequest(int direction);
-	Robot robot;
+	Robot* robot;
+	RobotMovementInterface();
 };
 
 class Robot
 {
 public:
 	//현재 바라보는 방향 추가
-	int CurrentDirection;
-	Position robotPosition;
+	Position rPosition;
+	int rDirection;
 	void Move();
 	void Rotate(int numOfRotate);// 90도로 몇번 움직일지
-	Robot(Position start);
+	Robot( Position start, int direction);
 }; 

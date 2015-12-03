@@ -9,13 +9,13 @@ int MapManager::CreateMapModel(int** mapdata)//입력을어떻게 할지 아직 못정함
 	{
 		for (int j = 0; j < mapWidth; j++)
 		{
-			mapModel.Map[i][j].isDetected = false;
-			mapModel.Map[i][j].PosX = i;
-			mapModel.Map[i][j].PosY = j;
-			mapModel.Map[i][j].data.kind = mapdata[i][j];//map의 속성이 hazard인지 exploration points 인지 등등 설정
+			mapModel->Map[i][j].isDetected = false;
+			mapModel->Map[i][j].PosX = i;
+			mapModel->Map[i][j].PosY = j;
+			mapModel->Map[i][j].data.kind = mapdata[i][j];//map의 속성이 hazard인지 exploration points 인지 등등 설정
 		}
 	}
-	mapModel.Map[startx][starty].isDetected = true;
+	mapModel->Map[startx][starty].isDetected = true;
 	//현재위치 = 탐험됨으로 바꿈
 }
 
@@ -27,19 +27,19 @@ void MapManager::AddColorBlob(int pos)// 8,4,2,6의 방향을 1000,0100,0010,0001로 
 	int t = 8;//나중에 일관성있게 바꿈 
 	if (pos & 0x1000)
 	{
-		mapModel.Map[virtualRobot.CurrentPosition.x][virtualRobot.CurrentPosition.y - 1].data.kind = COLORBLOB;
+		mapModel->Map[virtualRobot.CurrentPosition.x][virtualRobot.CurrentPosition.y - 1].data.kind = COLORBLOB;
 	}
 	if (pos & 0x0100)
 	{
-		mapModel.Map[virtualRobot.CurrentPosition.x - 1][virtualRobot.CurrentPosition.y].data.kind = COLORBLOB;
+		mapModel->Map[virtualRobot.CurrentPosition.x - 1][virtualRobot.CurrentPosition.y].data.kind = COLORBLOB;
 	}
 	if (pos & 0x0010)
 	{
-		mapModel.Map[virtualRobot.CurrentPosition.x][virtualRobot.CurrentPosition.y + 1].data.kind = COLORBLOB;
+		mapModel->Map[virtualRobot.CurrentPosition.x][virtualRobot.CurrentPosition.y + 1].data.kind = COLORBLOB;
 	}
 	if (pos & 0x0001)
 	{
-		mapModel.Map[virtualRobot.CurrentPosition.x + 1][virtualRobot.CurrentPosition.y].data.kind = COLORBLOB;
+		mapModel->Map[virtualRobot.CurrentPosition.x + 1][virtualRobot.CurrentPosition.y].data.kind = COLORBLOB;
 	}
 }
 

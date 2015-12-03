@@ -8,7 +8,7 @@ public:
 	MapNode GetForwardMapNode(Position robotPos, int robotDirection);
 	void AddHazardPoint(int hazardInfo);
 	int mapWidth, mapHeight;
-	MapModel mapModel;
+	MapModel *mapModel;
 	MapManager(int** mapInput, int mapX, int mapY, Position Start);
 private:
 	void AnalyzeMapData();
