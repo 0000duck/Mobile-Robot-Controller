@@ -175,5 +175,23 @@ namespace RobotControllerUI
         {
             HandleDeleteItemToList(HazardList, HazardListBox);
         }
+        /// <summary>
+        /// Map 생성 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputMapBtn_Click(object sender, EventArgs e)
+        {
+            MapLoadDialog MapLoader = new MapLoadDialog();
+
+            var Result =  MapLoader.ShowDialog();
+            if (Result == DialogResult.OK)
+            {
+                string path = MapLoader.ImageFile;
+                MapMiniView.Load(@path);
+                MapMiniView.SizeMode = PictureBoxSizeMode.StretchImage;
+                GraphicManager.GetManager().MapLoad(MapLoader.XMax , MapLoader.YMax);
+            }
+        }
     }
 }

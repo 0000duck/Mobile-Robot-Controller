@@ -11,7 +11,7 @@ namespace GraphicControl.DrawObject
     /// <summary>
     /// Map을 그리기 위한 객체
     /// </summary>
-    class MapforDraw : ModelForDraw
+    class MapforDraw : MySprite
     {
         public Vector2 MapSize;
         public MapforDraw(Device dev , float Width, float Height  ) : base(dev)
@@ -70,19 +70,19 @@ namespace GraphicControl.DrawObject
             CustomVertex.PositionNormalTextured[] verts =
                 new CustomVertex.PositionNormalTextured[4];
 
-            verts[0].X = 0.5f; verts[0].Y =0; verts[0].Z = -0.5f;
+            verts[0].X = 1; verts[0].Y =0; verts[0].Z = 0f;
             verts[0].Nx = 0; verts[0].Ny = 0; verts[0].Nz = -1;
             verts[0].Tu = Scale.X; verts[0].Tv = Scale.Y;
 
-            verts[1].X = -0.5f; verts[1].Y = 0; verts[1].Z = -0.5f;
+            verts[1].X = 0; verts[1].Y = 0; verts[1].Z = 0;
             verts[1].Nx = 0; verts[1].Ny = 0; verts[1].Nz = -1;
             verts[1].Tu = 0; verts[1].Tv = Scale.Y;
 
-            verts[2].X = 0.5f; verts[2].Y = 0; verts[2].Z = 0.5f;
+            verts[2].X = 1; verts[2].Y = 0; verts[2].Z = 1;
             verts[2].Nx = 0; verts[2].Ny = 0; verts[2].Nz = -1;
             verts[2].Tu = Scale.X; verts[2].Tv = 0;
 
-            verts[3].X = -0.5f; verts[3].Y = 0; verts[3].Z = 0.5f;
+            verts[3].X = 0; verts[3].Y = 0; verts[3].Z = 1;
             verts[3].Nx = 0; verts[3].Ny = 0; verts[3].Nz = -1;
             verts[3].Tu = 0; verts[3].Tv = 0;
             stm.Write(verts);

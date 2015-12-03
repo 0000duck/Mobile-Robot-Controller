@@ -39,6 +39,7 @@ namespace GraphicControl
         /// <param name="e"></param>
         void TimerTick(object sender, EventArgs e)
         {
+           
             if (TickEvent == null) return;
             TickEvent();
         }

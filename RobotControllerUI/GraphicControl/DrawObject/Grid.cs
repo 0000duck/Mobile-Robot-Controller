@@ -83,18 +83,18 @@ namespace GraphicControl.DrawObject
         /// </summary>
         public void DrawGird()
         {
-            for (float x = -XMax/2 ; x < XMax/2 ; x += XOffset)
+            for (float x = 0 ; x < XMax ; x += XOffset)
             {
                 Matrix Scale = Matrix.Scaling(0, 0, ZMax);
-                Matrix Pos = Matrix.Translation(x, Height, -ZMax/2);
+                Matrix Pos = Matrix.Translation(x, Height,0);
                 dev.Transform.World = Scale * Pos;
                 DrawLine(false);
             }
 
-            for (float z = -ZMax/2; z < ZMax/2; z += ZOffset)
+            for (float z = 0; z < ZMax; z += ZOffset)
             {
                 Matrix Scale = Matrix.Scaling(XMax, 0, 0);
-                Matrix Pos = Matrix.Translation(-XMax/2, Height, z );
+                Matrix Pos = Matrix.Translation(0, Height, z );
                 dev.Transform.World = Scale * Pos;
                 DrawLine(true);
             }

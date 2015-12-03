@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.InputMapBtn = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.MapMiniView = new System.Windows.Forms.PictureBox();
             this.MapTxtInput = new System.Windows.Forms.TextBox();
             this.StartTxtInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.ZoomInBtn = new System.Windows.Forms.Button();
             this.ZoomOutBtn = new System.Windows.Forms.Button();
             this.GraphicView = new RobotControllerUI.MyDxPannel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MapMiniView)).BeginInit();
             this.Spot.SuspendLayout();
             this.Hazard.SuspendLayout();
             this.SuspendLayout();
@@ -66,14 +66,15 @@
             this.InputMapBtn.TabIndex = 1;
             this.InputMapBtn.Text = "Input Map";
             this.InputMapBtn.UseVisualStyleBackColor = true;
+            this.InputMapBtn.Click += new System.EventHandler(this.InputMapBtn_Click);
             // 
-            // pictureBox1
+            // MapMiniView
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(707, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.MapMiniView.Location = new System.Drawing.Point(707, 12);
+            this.MapMiniView.Name = "MapMiniView";
+            this.MapMiniView.Size = new System.Drawing.Size(128, 128);
+            this.MapMiniView.TabIndex = 2;
+            this.MapMiniView.TabStop = false;
             // 
             // MapTxtInput
             // 
@@ -311,13 +312,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.StartTxtInput);
             this.Controls.Add(this.MapTxtInput);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.MapMiniView);
             this.Controls.Add(this.InputMapBtn);
             this.Controls.Add(this.GraphicView);
             this.Name = "InteractiveUI";
             this.Text = "AddON";
             this.Load += new System.EventHandler(this.InteractiveUI_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MapMiniView)).EndInit();
             this.Spot.ResumeLayout(false);
             this.Spot.PerformLayout();
             this.Hazard.ResumeLayout(false);
@@ -329,7 +330,7 @@
 
         #endregion
         private System.Windows.Forms.Button InputMapBtn;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox MapMiniView;
         private System.Windows.Forms.TextBox MapTxtInput;
         private System.Windows.Forms.TextBox StartTxtInput;
         private System.Windows.Forms.Label label1;

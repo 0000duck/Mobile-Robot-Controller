@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="DrawObject\Grid.cs" />
     <Compile Include="DrawObject\MapforDraw.cs" />
     <Compile Include="DrawObject\ModelForDraw.cs" />

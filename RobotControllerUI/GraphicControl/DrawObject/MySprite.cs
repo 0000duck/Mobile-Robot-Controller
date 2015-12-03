@@ -71,19 +71,19 @@ namespace GraphicControl.DrawObject
             CustomVertex.PositionNormalTextured[] verts =
                 new CustomVertex.PositionNormalTextured[4];
 
-            verts[0].X = 0.5f; verts[0].Y = -0.5f; verts[0].Z = 0.5f;
+            verts[0].X = 0.5f; verts[0].Y = -0.5f; verts[0].Z =0;
             verts[0].Nx = 0; verts[0].Ny = 0; verts[0].Nz = -1;
             verts[0].Tu = Scale.X; verts[0].Tv = Scale.Y;
 
-            verts[1].X = -0.5f; verts[1].Y = -0.5f; verts[1].Z = 0.5f;
+            verts[1].X = -0.5f; verts[1].Y = -0.5f; verts[1].Z = 0;
             verts[1].Nx = 0; verts[1].Ny = 0; verts[1].Nz = -1;
             verts[1].Tu = 0; verts[1].Tv = Scale.Y;
 
-            verts[2].X = 0.5f; verts[2].Y = 0.5f; verts[2].Z = 0.5f;
+            verts[2].X = 0.5f; verts[2].Y = 0.5f; verts[2].Z = 0;
             verts[2].Nx = 0; verts[2].Ny = 0; verts[2].Nz = -1;
             verts[2].Tu = Scale.X; verts[2].Tv = 0;
 
-            verts[3].X = -0.5f; verts[3].Y = 0.5f; verts[3].Z = 0.5f;
+            verts[3].X = -0.5f; verts[3].Y = 0.5f; verts[3].Z =0;
             verts[3].Nx = 0; verts[3].Ny = 0; verts[3].Nz = -1;
             verts[3].Tu = 0; verts[3].Tv = 0;
             stm.Write(verts);
@@ -94,7 +94,7 @@ namespace GraphicControl.DrawObject
         /// </summary>
         public virtual void Update()
         {
-            Matrix mPos = Matrix.Translation(Position);
+            Matrix mPos = Matrix.Translation(Position.X , Position.Y , Position.Z);
             Matrix mRot = Matrix.RotationY(Rotation.Y);
             Matrix mScale = Matrix.Scaling(Scale);
 
@@ -145,8 +145,8 @@ namespace GraphicControl.DrawObject
         public void TextureLoad(string FileName )
         {
             //라이브러리로 바꾸면서 상대경로로 이용
-            ImageTexture = TextureLoader.FromFile(dev, Application.StartupPath+@"\..\..\Texture\" +FileName);
-            
+  
+            ImageTexture = TextureLoader.FromFile(dev,Application.StartupPath + @"\..\..\Texture\" + FileName);
         }
     }
 }

@@ -25,8 +25,9 @@ namespace GraphicControl.DrawObject
         public const int UP = 0;
         public const int DOWN = 1;
         public const int LEFT = 2;
-        public const int RIGHT = 3; 
-        
+        public const int RIGHT = 3;
+
+        protected Vector3 DisireVector;
         
         /// <summary>
         /// 컨트롤 가능한 객체로 전환 해주는 함수
@@ -36,6 +37,7 @@ namespace GraphicControl.DrawObject
         {
             MoveCallBack = MoveCallBackFunc;
             bMoveable = true;
+            DisireVector = new Vector3(Position.X, Position.Y, Position.Z);
         }
 
         /// <summary>
@@ -47,6 +49,34 @@ namespace GraphicControl.DrawObject
             MoveCallBack = DefaultMoveFunc;    
         }
 
+        public override void Update()
+        {
+            if (bMoveable)
+                DynamicMove();
+  Matrix mPos = Matrix.Translation(Position.X + 0.5f, Position.Y + 0.5f, Position.Z + 0.5f);
+            Matrix mRot = Matrix.RotationY(Rotation.Y);
+            Matrix mScale = Matrix.Scaling(Scale);
+
+            // W = S * R * T
+            World = mScale * mRot * mPos;
+
+        }
+        private void DynamicMove()
+        {
+            Vector3 MoveVector = DisireVector - Position;
+            float Distance = MoveVector.Length();
+            if (Distance < 0.001f)
+            {
+                DisireVector.X = Position.X; DisireVector.Y = Position.Y; DisireVector.Z = Position.Z;
+                return;
+            }
+            MoveVector.Normalize();
+
+            // Legacy Code (프레임을 60으로 고정하고 있기때문에 그 기준으로 계산) >> 실제로는 deltatime을 계산하는 타이머를 만들어 계산해야됨
+            float DeltaTime = (float)1 / 60;
+            Position += MoveVector*DeltaTime;
+
+        }
         /// <summary>
         /// Default Move 함수
         /// </summary>
@@ -56,16 +86,16 @@ namespace GraphicControl.DrawObject
             switch (Direction)
             {
                 case UP:
-                    Position.Z += 1;
+                    DisireVector.Z += 1;
                     break;
                 case DOWN:
-                    Position.Z -= 1;
+                    DisireVector.Z -= 1;
                     break;
                 case LEFT:
-                    Position.X -= 1;
+                    DisireVector.X -= 1;
                     break;
                 case RIGHT:
-                    Position.X += 1;
+                    DisireVector.X += 1;
                     break;
                 default:
                     break;

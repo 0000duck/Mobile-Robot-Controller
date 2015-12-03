@@ -14,8 +14,10 @@ namespace GraphicControl
     /// </summary>
     public class GraphicManager
     {
+        Camera MainCamera;
+       
         ModelForDraw TestSprite;
-        MapforDraw TestMap;
+        MapforDraw Map;
         Grid BasicGrid;
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
@@ -83,9 +85,12 @@ namespace GraphicControl
         }
         /// <summary>
         /// Object들을 그리는 Render함수 등록된 Object들을 그린다
+        /// Draw순서 맵 >> Grid >> Object 유지할것
         /// </summary>
         private void ObjectsRender()
         {
+            if(Map != null)Map.Render();
+            if (BasicGrid != null) BasicGrid.DrawGird();
             foreach (ModelForDraw obj in DrawObjectList)
             {
                 obj.Render();
@@ -96,6 +101,8 @@ namespace GraphicControl
         /// </summary>
         private void ObjectAction()
         {
+            if (Map != null) Map.Update();
+
             foreach (ModelForDraw obj in DrawObjectList)
             {
                 
@@ -110,16 +117,23 @@ namespace GraphicControl
         public void RenderInit()
         {
             TestSprite = new ModelForDraw(dx_Device);
-            TestSprite.TextureLoad("Memo.jpg" );
+            TestSprite.TextureLoad("Memo.dds" );
             //움직임 초기화
             TestSprite.MoveInit();
-            TestMap = new MapforDraw(dx_Device, 32 , 32);
-            TestMap.TextureLoad("Dirt.jpg");
-            BasicGrid = new Grid(dx_Device, 1, 1, 32, 32, 0.01f);
-            
+            MainCamera = new Camera(dx_Device);
+           
         }
+
+        public void MapLoad(int SizeX , int SizeY)
+        {
+            Map = new MapforDraw(dx_Device, SizeX, SizeY);
+            Map.TextureLoad("Dirt.jpg");
+            BasicGrid = new Grid(dx_Device, 1, 1, SizeX, SizeY, 0.01f);
+        }
+   
         public void Render()
         {
+            
             //배경 클리어
             dx_Device.Clear(ClearFlags.Target,
                             System.Drawing.Color.FromArgb(0,0, 255).ToArgb(),
@@ -130,13 +144,9 @@ namespace GraphicControl
             dx_Device.Clear(ClearFlags.ZBuffer, 0, 1.0f, 0);
             OnResetDevice(dx_Device, null);
             dx_Device.BeginScene();
-           
-            dx_Device.Transform.View = Matrix.LookAtLH(
-                new Vector3(0.0f , 3.0f , -5.0f),
-                new Vector3(0.0f, 0.0f, 0.0f),
-                new Vector3(0.0f, 1.0f, 0.0f)
-                );
 
+
+            MainCamera.CameraUpdate(TestSprite.Position);
             dx_Device.Transform.Projection = Matrix.PerspectiveFovLH(
                 (float)Math.PI / 4,
                 1.0f,
@@ -144,15 +154,12 @@ namespace GraphicControl
                 1000.0f);
 
             //Object 동작 처리
-            // TestSprite.Update();
-            // TestMap.Update();
+     
             ObjectAction();
 
             // Object들 그리기
-            //TestSprite.Render();
-            //TestMap.Render();
             ObjectsRender();
-            BasicGrid.DrawGird();
+          
 
             dx_Device.EndScene();
             dx_Device.Present();
@@ -168,12 +175,12 @@ namespace GraphicControl
             dev.RenderState.CullMode = Cull.None;
             dev.RenderState.Lighting = false;
             dev.RenderState.ZBufferEnable = true;
-           // dev.RenderState.SourceBlend = Blend.SourceColor;
-           // dev.RenderState.DestinationBlend = Blend.DestinationColor;
+            dev.RenderState.SourceBlend = Blend.SourceAlpha;
+            dev.RenderState.DestinationBlend = Blend.InvSourceAlpha;
             dev.RenderState.AlphaBlendEnable = true;
-            //dev.RenderState.BlendOperation = BlendOperation.Add;
+           // dev.RenderState.BlendOperation = BlendOperation.Add;
 
-           // dev.RenderState.AlphaTestEnable = true;
+            dev.RenderState.AlphaTestEnable = true;
 
             
         }
