@@ -1,7 +1,7 @@
-#include"robot.h"
+#include"Common.h"
 #include"global.h"
-#include"satellite.h"
-int RobotMovementInterface::MoveRequest(int direction)
+#include"robot.h"
+void RobotMovementInterface::MoveRequest(int direction)
 {
 
 	int RotateNum=0;

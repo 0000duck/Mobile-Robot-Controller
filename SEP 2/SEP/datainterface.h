@@ -1,7 +1,7 @@
-#include"Common.h"
+#pragma once
+#include"map.h"
 #include"sensor.h"
 #include"robot.h"
-#include"mapmanager.h"
 class DataInterface
 {
 public:

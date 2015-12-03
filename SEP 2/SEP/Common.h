@@ -11,11 +11,8 @@
 #define HAZARD_SENSOR 12
 #define POSITIONING_SENSOR 13
 
-#define POSITIONING SENSOR_NUMBER 2
-#define HAZARD_SENSOR_NUMBER
-
 #define POSITIONING_ERROR 44
-
+#define SENSOR_MAX 3
 
 typedef struct Position
 {

@@ -3,7 +3,7 @@ Map에 대한 입력은
 우선은 2차원 수열로 한다고 가정한다.
 
 */
-
+#pragma once
 class DataObject
 {
 public:
@@ -25,6 +25,6 @@ class MapModel
 private:
 	
 public:
-	MapModel();
-	MapNode Map[mapHeight][mapWidth];
+	MapModel(int width, int height);
+	MapNode** Map;
 };

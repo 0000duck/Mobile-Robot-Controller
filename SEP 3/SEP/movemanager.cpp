@@ -7,7 +7,7 @@ void MoveManager::InitializeMoveData()
 {
 	InitDis();
 	CalPath(CurrentPosition.x, CurrentPosition.y);
-
+	
 }
 void InitDis()										//dis 초기화
 {
@@ -32,7 +32,7 @@ void CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 계산하는 부분.
 {
 	int i, j;
 
-	if(Map[x][y].kind==HAZARD);						//hazard면 계산하지 않음.
+	if(mapManager.mapModel.Map[x][y].kind==HAZARD);						//hazard면 계산하지 않음.
 	else if((Current.PosX>x)&&(Current.PosY>y))						//Current를 기준으로 x, y이 3사분면에 있을 때
 		CalThird(x, y);
 	else if ((Current.PosX>x) && (Current.PosY<y))					//Current를 기준으로 x, y이 2사분면에 있을 때

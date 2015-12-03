@@ -61,6 +61,9 @@
     <Filter Include="소스 파일\sources\ADD-ON\Movement">
       <UniqueIdentifier>{d0652892-7ac5-4361-b7ca-3f68adeabb23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\garbage">
+      <UniqueIdentifier>{e0379eb0-9cd4-4b81-baff-831d7b57b48a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="moveManager.h">
@@ -91,7 +94,7 @@
       <Filter>소스 파일\headers</Filter>
     </ClInclude>
     <ClInclude Include="satellite.h">
-      <Filter>소스 파일\headers</Filter>
+      <Filter>소스 파일\garbage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +123,7 @@
       <Filter>소스 파일\sources\ADD-ON\VirtualRobot</Filter>
     </ClCompile>
     <ClCompile Include="satellite.cpp">
-      <Filter>소스 파일\sources</Filter>
+      <Filter>소스 파일\garbage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

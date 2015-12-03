@@ -1,10 +1,10 @@
-#include"map.h"
-#include"datainterface.h"
-#include"mapmanager.h"
-#include"VirtualRobot.h"
-#include<list>
-
+#pragma once
 using namespace std;
+#include<list>
+#include"datainterface.h"
+#include"VirtualRobot.h"
+#include"map.h"
+#include"mapmanager.h"
 
 class MoveManager
 {
@@ -40,4 +40,5 @@ private:
 	void CalFourth(int x, int y);
 	int **dis;
 	MapNode CurrentTarget;
+	Position robotPos;
 };

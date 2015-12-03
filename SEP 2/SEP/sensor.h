@@ -1,7 +1,6 @@
-#include "Common.h"
+#pragma once
+#include"Common.h"
 #include"map.h"
-
-#define SENSOR_MAX 10
 class SensorBase
 {
 public :

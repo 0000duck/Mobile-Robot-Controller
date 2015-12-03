@@ -1,8 +1,9 @@
+
 #include"datainterface.h"
 
 void DataInterface::UseColorSensor(void* result, MapModel *mapmodel, Position currentPosition)
 {
-	sensorSystem->SensorUse(COLORBLOB_SENSOR, result, mapmodel, currentPosition);
+	sensorSystem->SensorUse(COLORBLOB_SENSOR, result, mapmodel, currentPosition,2);
 }
 
 void DataInterface::UseSensor(int type, void*result, MapModel *mapmodel, Position currentPosition, int direction)
@@ -21,4 +22,5 @@ void DataInterface::Move(int direction)
 DataInterface::DataInterface()
 {
 	robotMovementInterface = new RobotMovementInterface();
+	sensorSystem = new SensorSystem();
 }

@@ -1,5 +1,8 @@
-#include"VirtualRobot.h"
-#include"global.h"
+#include "Common.h"
+#include "global.h"
+#include "VirtualRobot.h"
+
+
 /*
 void VirtualRobot::CheckSensingData()
 {
@@ -9,14 +12,14 @@ void VirtualRobot::CheckSensingData()
 void VirtualRobot::VirtualMove()
 {
 	//여기에 gui를 달 수도 있다.아니면 VirtualMove와 Gui를 동시에 호출할 수도 있다.
-	if (CurrentDirection == 8)
-		CurrentPosition.y--;
-	if (CurrentDirection == 4)
-		CurrentPosition.x--;
-	if (CurrentDirection == 2)
-		CurrentPosition.y++;
-	if (CurrentDirection == 6)
-		CurrentPosition.x++;
+	if (vDirection == 8)
+		vPosition.y--;
+	if (vDirection == 4)
+		vPosition.x--;
+	if (vDirection == 2)
+		vPosition.y++;
+	if (vDirection == 6)
+		vPosition.x++;
 }
 
 /*
@@ -28,9 +31,9 @@ void VirtualRobot::ComputeOffset()
 
 void VirtualRobot::InitVirtualRobot(Position Startp)
 {
-	CurrentPosition.x = Startp.x;
-	CurrentPosition.y = Startp.y;
-	CurrentDirection = 2;
+	vPosition.x = Startp.x;
+	vPosition.y = Startp.y;
+	vDirection = 2;
 }
 
 VirtualRobot::VirtualRobot(Position Startp)

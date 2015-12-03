@@ -1,14 +1,7 @@
+#pragma once
 #include"Common.h"
+#include"global.h"
 
-class Robot;
-
-class RobotMovementInterface
-{
-public:
-	int MoveRequest(int direction);
-	Robot* robot;
-	RobotMovementInterface();
-};
 
 class Robot
 {
@@ -18,5 +11,15 @@ public:
 	int rDirection;
 	void Move();
 	void Rotate(int numOfRotate);// 90도로 몇번 움직일지
-	Robot( Position start, int direction);
-}; 
+	Robot(Position start, int direction);
+};
+
+
+class RobotMovementInterface
+{
+public:
+	void MoveRequest(int direction);
+	Robot* robot;
+	RobotMovementInterface();
+};
+

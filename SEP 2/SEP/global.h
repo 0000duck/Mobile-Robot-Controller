@@ -1,4 +1,4 @@
-
+#pragma once
 #include"robot.h"
 #include"mapmanager.h"
 #include"VirtualRobot.h"
@@ -14,7 +14,7 @@ const unsigned int mapWidth = 30, mapHeight = 30;
 Position startP;
 //int **mapInput;
 //여기부터 실제정보
-Position CurrentPosition;//비록 robot이 가지고 있지만, 센서가 이 값을
+//비록 robot이 가지고 있지만, 센서가 이 값을
 						//가지는 것은 global로 가지는게 적절하다고 판단하여 함
 int **GivingMapNode;		//실제 지도
 /*
