@@ -34,10 +34,10 @@
             this.StartTxtInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.SearchSpotList = new System.Windows.Forms.ListBox();
-            this.HarzardList = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.SpotListBox = new System.Windows.Forms.ListBox();
+            this.HazardListBox = new System.Windows.Forms.ListBox();
+            this.SpotTextBox = new System.Windows.Forms.TextBox();
+            this.HazardTxtBox = new System.Windows.Forms.TextBox();
             this.Spot = new System.Windows.Forms.GroupBox();
             this.SpotDeleteBtn = new System.Windows.Forms.Button();
             this.SpotAddBtn = new System.Windows.Forms.Button();
@@ -107,46 +107,46 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Strart";
             // 
-            // SearchSpotList
+            // SpotListBox
             // 
-            this.SearchSpotList.FormattingEnabled = true;
-            this.SearchSpotList.HorizontalScrollbar = true;
-            this.SearchSpotList.ItemHeight = 15;
-            this.SearchSpotList.Location = new System.Drawing.Point(60, 50);
-            this.SearchSpotList.MultiColumn = true;
-            this.SearchSpotList.Name = "SearchSpotList";
-            this.SearchSpotList.Size = new System.Drawing.Size(100, 49);
-            this.SearchSpotList.TabIndex = 11;
+            this.SpotListBox.FormattingEnabled = true;
+            this.SpotListBox.HorizontalScrollbar = true;
+            this.SpotListBox.ItemHeight = 15;
+            this.SpotListBox.Location = new System.Drawing.Point(60, 50);
+            this.SpotListBox.MultiColumn = true;
+            this.SpotListBox.Name = "SpotListBox";
+            this.SpotListBox.Size = new System.Drawing.Size(100, 49);
+            this.SpotListBox.TabIndex = 11;
             // 
-            // HarzardList
+            // HazardListBox
             // 
-            this.HarzardList.FormattingEnabled = true;
-            this.HarzardList.ItemHeight = 15;
-            this.HarzardList.Location = new System.Drawing.Point(59, 49);
-            this.HarzardList.Name = "HarzardList";
-            this.HarzardList.Size = new System.Drawing.Size(100, 49);
-            this.HarzardList.TabIndex = 12;
+            this.HazardListBox.FormattingEnabled = true;
+            this.HazardListBox.ItemHeight = 15;
+            this.HazardListBox.Location = new System.Drawing.Point(59, 49);
+            this.HazardListBox.Name = "HazardListBox";
+            this.HazardListBox.Size = new System.Drawing.Size(100, 49);
+            this.HazardListBox.TabIndex = 12;
             // 
-            // textBox1
+            // SpotTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(60, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 25);
-            this.textBox1.TabIndex = 13;
+            this.SpotTextBox.Location = new System.Drawing.Point(60, 19);
+            this.SpotTextBox.Name = "SpotTextBox";
+            this.SpotTextBox.Size = new System.Drawing.Size(100, 25);
+            this.SpotTextBox.TabIndex = 13;
             // 
-            // textBox2
+            // HazardTxtBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(59, 20);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 25);
-            this.textBox2.TabIndex = 14;
+            this.HazardTxtBox.Location = new System.Drawing.Point(59, 20);
+            this.HazardTxtBox.Name = "HazardTxtBox";
+            this.HazardTxtBox.Size = new System.Drawing.Size(100, 25);
+            this.HazardTxtBox.TabIndex = 14;
             // 
             // Spot
             // 
             this.Spot.Controls.Add(this.SpotDeleteBtn);
             this.Spot.Controls.Add(this.SpotAddBtn);
-            this.Spot.Controls.Add(this.textBox1);
-            this.Spot.Controls.Add(this.SearchSpotList);
+            this.Spot.Controls.Add(this.SpotTextBox);
+            this.Spot.Controls.Add(this.SpotListBox);
             this.Spot.Location = new System.Drawing.Point(679, 265);
             this.Spot.Name = "Spot";
             this.Spot.Size = new System.Drawing.Size(194, 110);
@@ -162,6 +162,7 @@
             this.SpotDeleteBtn.TabIndex = 17;
             this.SpotDeleteBtn.Text = "-";
             this.SpotDeleteBtn.UseVisualStyleBackColor = true;
+            this.SpotDeleteBtn.Click += new System.EventHandler(this.SpotDeleteBtn_Click);
             // 
             // SpotAddBtn
             // 
@@ -171,6 +172,7 @@
             this.SpotAddBtn.TabIndex = 16;
             this.SpotAddBtn.Text = "+";
             this.SpotAddBtn.UseVisualStyleBackColor = true;
+            this.SpotAddBtn.Click += new System.EventHandler(this.SpotAddBtn_Click);
             // 
             // HarzardDeletetn
             // 
@@ -180,6 +182,7 @@
             this.HarzardDeletetn.TabIndex = 19;
             this.HarzardDeletetn.Text = "-";
             this.HarzardDeletetn.UseVisualStyleBackColor = true;
+            this.HarzardDeletetn.Click += new System.EventHandler(this.HarzardDeletetn_Click);
             // 
             // HarzardAddBtn
             // 
@@ -189,13 +192,14 @@
             this.HarzardAddBtn.TabIndex = 18;
             this.HarzardAddBtn.Text = "+";
             this.HarzardAddBtn.UseVisualStyleBackColor = true;
+            this.HarzardAddBtn.Click += new System.EventHandler(this.HarzardAddBtn_Click);
             // 
             // Hazard
             // 
             this.Hazard.Controls.Add(this.HarzardDeletetn);
             this.Hazard.Controls.Add(this.HarzardAddBtn);
-            this.Hazard.Controls.Add(this.textBox2);
-            this.Hazard.Controls.Add(this.HarzardList);
+            this.Hazard.Controls.Add(this.HazardTxtBox);
+            this.Hazard.Controls.Add(this.HazardListBox);
             this.Hazard.Location = new System.Drawing.Point(681, 387);
             this.Hazard.Name = "Hazard";
             this.Hazard.Size = new System.Drawing.Size(192, 113);
@@ -330,10 +334,10 @@
         private System.Windows.Forms.TextBox StartTxtInput;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox SearchSpotList;
-        private System.Windows.Forms.ListBox HarzardList;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ListBox SpotListBox;
+        private System.Windows.Forms.ListBox HazardListBox;
+        private System.Windows.Forms.TextBox SpotTextBox;
+        private System.Windows.Forms.TextBox HazardTxtBox;
         private System.Windows.Forms.GroupBox Spot;
         private System.Windows.Forms.Button SpotDeleteBtn;
         private System.Windows.Forms.Button SpotAddBtn;
