@@ -4,8 +4,7 @@
 class SensorBase
 {
 public :
-	SensorBase();
-	virtual void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
+	virtual void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)=0;
 private:
 
 };
@@ -36,7 +35,6 @@ class ColorSensor : public SensorBase
 {
 public:
 	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
-	ColorSensor();
 private:
 	
 	bool IsColorBlobCheck();

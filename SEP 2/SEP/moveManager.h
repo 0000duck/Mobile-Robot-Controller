@@ -1,15 +1,14 @@
 #pragma once
-using namespace std;
-#include<list>
 #include"datainterface.h"
+#include<list>
 #include"VirtualRobot.h"
-#include"map.h"
 #include"mapmanager.h"
 
+using namespace std;
 class MoveManager
 {
 public:
-	list<MapNode> SearchSpotList;
+	//list<MapNode> SearchSpotList;
 	list<MapNode> RemainSearchSpotList;
 	void InitializeMoveData();
 	void AnalyzeSensingData();
@@ -20,7 +19,7 @@ public:
 	void Explore();
 
 	MoveManager();
-	MoveManager(int** mpaInput, Position start);
+	MoveManager(int** mpaInput, Position start, int mapWidth, int mapHeight,MapNode exp);
 	DataInterface *dataInterface;
 	MapManager *mapManager;
 	VirtualRobot *virtualRobot;

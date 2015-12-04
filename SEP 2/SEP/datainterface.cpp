@@ -1,4 +1,3 @@
-
 #include"datainterface.h"
 
 void DataInterface::UseColorSensor(void* result, MapModel *mapmodel, Position currentPosition)

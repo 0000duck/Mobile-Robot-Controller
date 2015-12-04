@@ -13,7 +13,7 @@ using namespace std;
 void MoveManager::InitializeMoveData()
 {
 	InitDis();
-	CalPath(robotPos.x, robotPos.y);
+	CalPath(CurrentTarget.PosX, CurrentTarget.PosY);
 
 }
 void MoveManager::InitDis()										//dis 초기화
@@ -33,8 +33,7 @@ void MoveManager::InitDis()										//dis 초기화
 			dis[i][j]=UNKNOWN;
 	}
 
-	CurrentTarget = RemainSearchSpotList.front;
-
+	CurrentTarget = RemainSearchSpotList.front();
 }
 
 void MoveManager::CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 계산하는 부분. 방향을 잡는 용도로만 쓰일 듯.
@@ -42,171 +41,243 @@ void MoveManager::CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 �
 	int i, j;
 
 	if (mapManager->mapModel->Map[x][y].data.kind == HAZARD);						//hazard면 계산하지 않음.
-	else if((CurrentTarget.PosX<x)&&(CurrentTarget.PosY<y))						//x, y를 기준으로 목표지점이 3사분면에 있을 때
+	else if ((dataInterface->robotMovementInterface->robot->rPosition.x>x) && (dataInterface->robotMovementInterface->robot->rPosition.y>y))						//Current를 기준으로 x, y이 3사분면에 있을 때
 		CalThird(x, y);
-	else if ((CurrentTarget.PosX<x) && (CurrentTarget.PosY>y))					//x, y를 기준으로 목표지점이 2사분면에 있을 때
+	else if ((dataInterface->robotMovementInterface->robot->rPosition.x<x) && (dataInterface->robotMovementInterface->robot->rPosition.y>y))					//Current를 기준으로 x, y이 2사분면에 있을 때
 		CalSecond(x, y);
-	else if ((CurrentTarget.PosX>x) && (CurrentTarget.PosY<y))					//x, y를 기준으로 목표지점이 4사분면에 있을 때
+	else if ((dataInterface->robotMovementInterface->robot->rPosition.x>x) && (dataInterface->robotMovementInterface->robot->rPosition.y<y))					//Current를 기준으로 x, y이 4사분면에 있을 때
 		CalFourth(x, y);
-	else if ((CurrentTarget.PosX>x) && (CurrentTarget.PosY > y))				//x, y를 기준으로 목표지점이 1사분면에 있을 때
+	else if ((dataInterface->robotMovementInterface->robot->rPosition.x<x) && (dataInterface->robotMovementInterface->robot->rPosition.y < y))				//Current를 기준으로 x, y이 1사분면에 있을 때
 		CalFirst(x, y);
-	else if(x==CurrentTarget.PosX)								//x, y가 목표지점과 x축으로 일직선상에 놓여있을 때
+	else if (x == dataInterface->robotMovementInterface->robot->rPosition.x)								//Current가 x, y과 x축으로 일직선상에 놓여있을 때
 	{
-		if(y>CurrentTarget.PosY)					//x, y를 기준으로 목표지점이 아래에 있을 때
+		if (y<dataInterface->robotMovementInterface->robot->rPosition.y)					//Current를 기준으로 x, y이 아래쪽에 있을 때
 		{
-			for(j=y; j>CurrentTarget.PosY; j--)
-				dis[x][j-1]=dis[x][j]+1;
-		}
-		else										//x, y를 기준으로 목표지점이 위에 있을 때
-		{
-			for(j=y; j<CurrentTarget.PosY; j++)
-				dis[x][j+1]=dis[x][j]+1;
-		}
-	}
-	else if(y==CurrentTarget.PosY)								//x, y가 목표지점과 y축으로 일직선상에 놓여있을 때
-	{
-		if(x>CurrentTarget.PosX)					//x, y를 기준으로 목표지점이 왼쪽에 있을 때
-		{
-			for(i=x; i>CurrentTarget.PosX; i--)
-				dis[i-1][y]=dis[i][y]+1;
-		}
-		else										//x, y를 기준으로 목표지점이 오른쪽에 있을 때
-		{
-			for(i=x; i<CurrentTarget.PosX; i++)
-				dis[i+1][y]=dis[i][y]+1;
-		}
-	}
-
-}
-void MoveManager::CalFirst(int x, int y)				//x, y를 기준으로 목표지점이 1사분면에 있을 때
-{
-	int i, j;
-
-	for (i = CurrentTarget.PosX; i>x; i--)
-	{
-		for (j = CurrentTarget.PosY; j>y; j--)
-		{
-			if ((i == CurrentTarget.PosX) && (j == CurrentTarget.PosY))			//시작점인 경우
-				continue;
-			if ((dis[i + 1][j]>dis[i][j] + 1) && (i != CurrentTarget.PosX))			//오른쪽 검사
+			for (j = y; j<dataInterface->robotMovementInterface->robot->rPosition.y; j++)
 			{
-				dis[i + 1][j] = dis[i][j] + 1;
-				CalPath(i + 1, j);
+				if (mapManager->mapModel->Map[j + 1][x].data.kind == HAZARD);
+				else if (dis[j + 1][x]>dis[j][x] + 1)
+					dis[j + 1][x] = dis[j][x] + 1;
 			}
-			if ((dis[i - 1][j]>dis[i][j] + 1) && (i != x))			//왼쪽 검사
+		}
+		else										//Current를 기준으로 x, y이 위쪽에 있을 때
+		{
+			for (j = y; j>dataInterface->robotMovementInterface->robot->rPosition.y; j--)
 			{
-				dis[i - 1][j] = dis[i][j] + 1;
-				CalPath(i - 1, j);
-			}
-			if ((dis[i][j + 1]>dis[i][j] + 1) && (j != CurrentTarget.PosY))			//위쪽 검사
-			{
-				dis[i][j + 1] = dis[i][j] + 1;
-				CalPath(i, j + 1);
-			}
-			if ((dis[i][j - 1]>dis[i][j] + 1) && (j != y))			//밑쪽 검사
-			{
-				dis[i][j - 1] = dis[i][j] + 1;
-				CalPath(i, j - 1);
+				if (mapManager->mapModel->Map[j - 1][x].data.kind == HAZARD);
+				else if (dis[j - 1][x]>dis[j][x] + 1)
+					dis[j - 1][x] = dis[j][x] + 1;
 			}
 		}
 	}
-}
-void MoveManager::CalSecond(int x, int y)				//x, y를 기준으로 목표지점이 2사분면에 있을 때
-{
-	int i, j;
-
-	for (i = CurrentTarget.PosX; i<x; i++)
+	else if (y == dataInterface->robotMovementInterface->robot->rPosition.y)								//Current가 x, y과 y축으로 일직선상에 놓여있을 때
 	{
-		for (j = CurrentTarget.PosY; j>y; j--)
+		if (x<dataInterface->robotMovementInterface->robot->rPosition.x)					//Current를 기준으로 x, y이 왼쪽에 있을 때
 		{
-			if ((i == CurrentTarget.PosX) && (j == CurrentTarget.PosY))			//시작점인 경우
-				continue;
-			if ((dis[i + 1][j]>dis[i][j] + 1) && (i != x))			//오른쪽 검사
+			for (i = x; i<dataInterface->robotMovementInterface->robot->rPosition.x; i++)
 			{
-				dis[i + 1][j] = dis[i][j] + 1;
-				CalPath(i + 1, j);
-			}
-			if ((dis[i - 1][j]>dis[i][j] + 1) && (i != CurrentTarget.PosX))			//왼쪽 검사
-			{
-				dis[i - 1][j] = dis[i][j] + 1;
-				CalPath(i - 1, j);
-			}
-			if ((dis[i][j + 1]>dis[i][j] + 1) && (j != CurrentTarget.PosY))			//위쪽 검사
-			{
-				dis[i][j + 1] = dis[i][j] + 1;
-				CalPath(i, j + 1);
-			}
-			if ((dis[i][j - 1]>dis[i][j] + 1) && (j != y))			//밑쪽 검사
-			{
-				dis[i][j - 1] = dis[i][j] + 1;
-				CalPath(i, j - 1);
+				if (mapManager->mapModel->Map[y][i + 1].data.kind == HAZARD);
+				else if (dis[y][i + 1]>dis[y][i] + 1)
+					dis[y][i + 1] = dis[y][i] + 1;
 			}
 		}
-	}
-}
-void MoveManager::CalThird(int x, int y)				//x, y를 기준으로 목표지점이 3사분면에 있을 때 
-{
-	int i, j;
-
-	for (i = CurrentTarget.PosX; i<x; i++)
-	{
-		for (j = CurrentTarget.PosY; j<y; j++)
+		else										//Current를 기준으로 x, y이 오른쪽에 있을 때
 		{
-			if ((i == CurrentTarget.PosX) && (j == CurrentTarget.PosY))			//시작점인 경우
-				continue;
-			if ((dis[i + 1][j]>dis[i][j] + 1)&&(i!=x))			//오른쪽 검사
+			for (i = x; i>dataInterface->robotMovementInterface->robot->rPosition.x; i--)
 			{
-				dis[i + 1][j] = dis[i][j] + 1;
-				CalPath(i + 1, j);
-			}
-			if ((dis[i - 1][j]>dis[i][j] + 1)&&(i!=CurrentTarget.PosX))			//왼쪽 검사
-			{
-				dis[i - 1][j] = dis[i][j] + 1;
-				CalPath(i - 1, j);
-			}
-			if ((dis[i][j + 1]>dis[i][j] + 1)&&(j!=y))			//위쪽 검사
-			{
-				dis[i][j + 1] = dis[i][j] + 1;
-				CalPath(i, j + 1);
-			}
-			if ((dis[i][j - 1]>dis[i][j] + 1)&&(j!=CurrentTarget.PosY))			//밑쪽 검사
-			{
-				dis[i][j - 1] = dis[i][j] + 1;
-				CalPath(i, j - 1);
+				if (mapManager->mapModel->Map[y][i - 1].data.kind == HAZARD);
+				else if (dis[y][i - 1]>dis[y][i] + 1)
+					dis[y][i - 1] = dis[y][i] + 1;
 			}
 		}
 	}
 
 }
-void MoveManager::CalFourth(int x, int y)				//x, y를 기준으로 목표지점이 4사분면에 있을 때
+void MoveManager::CalFirst(int x, int y)				//Current를 기준으로 목표지점이 1사분면에 있을 때
 {
 	int i, j;
 
-	for (i = CurrentTarget.PosX; i>x; i--)
+	for (i = x; i>dataInterface->robotMovementInterface->robot->rPosition.x; i--)
 	{
-		for (j = CurrentTarget.PosY; j<y; j++)
+		for (j = y; j>dataInterface->robotMovementInterface->robot->rPosition.y; j--)
 		{
-			if ((i == CurrentTarget.PosX) && (j == CurrentTarget.PosY))			//시작점인 경우
-				continue;
-			if ((dis[i + 1][j]>dis[i][j] + 1) && (i != CurrentTarget.PosX))			//오른쪽 검사
+			if ((i != x) && (dis[j][i + 1]>dis[j][i] + 1))			//오른쪽 검사
 			{
-				dis[i + 1][j] = dis[i][j] + 1;
-				CalPath(i + 1, j);
+				if (mapManager->mapModel->Map[j][i + 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i + 1] = dis[j][i] + 1;
+					CalPath(j, i + 1);
+				}
 			}
-			if ((dis[i - 1][j]>dis[i][j] + 1) && (i != x))			//왼쪽 검사
+			if ((i != dataInterface->robotMovementInterface->robot->rPosition.x) && (dis[j][i - 1]>dis[j][i] + 1))			//왼쪽 검사
 			{
-				dis[i - 1][j] = dis[i][j] + 1;
-				CalPath(i - 1, j);
+				if (mapManager->mapModel->Map[j][i - 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i - 1] = dis[j][i] + 1;
+					CalPath(j, i - 1);
+				}
 			}
-			if ((dis[i][j + 1]>dis[i][j] + 1) && (j != y))			//위쪽 검사
+			if ((j != y)&(dis[j + 1][i]>dis[j][i] + 1))			//위쪽 검사
 			{
-				dis[i][j + 1] = dis[i][j] + 1;
-				CalPath(i, j + 1);
+				if (mapManager->mapModel->Map[j + 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j + 1, i);
+				}
 			}
-			if ((dis[i][j - 1]>dis[i][j] + 1) && (j != CurrentTarget.PosY))			//밑쪽 검사
+			if ((j != dataInterface->robotMovementInterface->robot->rPosition.y) && (dis[j - 1][i]>dis[j][i] + 1))			//아래쪽 검사
 			{
-				dis[i][j - 1] = dis[i][j] + 1;
-				CalPath(i, j - 1);
+				if (mapManager->mapModel->Map[j - 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j - 1, i);
+				}
+			}
+		}
+	}
+}
+void MoveManager::CalSecond(int x, int y)				//Current를 기준으로 목표지점이 2사분면에 있을 때
+{
+	int i, j;
+
+	for (i = x; i<dataInterface->robotMovementInterface->robot->rPosition.x; i++)
+	{
+		for (j = y; j>dataInterface->robotMovementInterface->robot->rPosition.y; j--)
+		{
+			if ((i != dataInterface->robotMovementInterface->robot->rPosition.x) && (dis[j][i + 1]>dis[j][i] + 1))			//오른쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i + 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i + 1] = dis[j][i] + 1;
+					CalPath(j, i + 1);
+				}
+			}
+			if ((i != x) && (dis[j][i - 1]>dis[j][i] + 1))			//왼쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i - 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i - 1] = dis[j][i] + 1;
+					CalPath(j, i - 1);
+				}
+			}
+			if ((j != y)&(dis[j + 1][i]>dis[j][i] + 1))			//위쪽 검사
+			{
+				if (mapManager->mapModel->Map[j + 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j + 1, i);
+				}
+			}
+			if ((j != dataInterface->robotMovementInterface->robot->rPosition.y) && (dis[j - 1][i]>dis[j][i] + 1))			//아래쪽 검사
+			{
+				if (mapManager->mapModel->Map[j - 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j - 1, i);
+				}
+			}
+		}
+	}
+}
+void MoveManager::CalThird(int x, int y)				//Current를 기준으로 목표지점이 3사분면에 있을 때 
+{
+	int i, j;
+
+	for (i = x; i<dataInterface->robotMovementInterface->robot->rPosition.x; i++)
+	{
+		for (j = y; j<dataInterface->robotMovementInterface->robot->rPosition.y; j++)
+		{
+			if ((i != dataInterface->robotMovementInterface->robot->rPosition.x) && (dis[j][i + 1]>dis[j][i] + 1))			//오른쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i + 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i + 1] = dis[j][i] + 1;
+					CalPath(j, i + 1);
+				}
+			}
+			if ((i != x) && (dis[j][i - 1]>dis[j][i] + 1))			//왼쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i - 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i - 1] = dis[j][i] + 1;
+					CalPath(j, i - 1);
+				}
+			}
+			if ((j != dataInterface->robotMovementInterface->robot->rPosition.y)&(dis[j + 1][i]>dis[j][i] + 1))			//위쪽 검사
+			{
+				if (mapManager->mapModel->Map[j + 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j + 1, i);
+				}
+			}
+			if ((j != y) && (dis[j - 1][i]>dis[j][i] + 1))			//아래쪽 검사
+			{
+				if (mapManager->mapModel->Map[j - 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j - 1, i);
+				}
+			}
+		}
+	}
+
+}
+void MoveManager::CalFourth(int x, int y)				//Current를 기준으로 목표지점이 4사분면에 있을 때
+{
+	int i, j;
+
+	for (i = x; i>dataInterface->robotMovementInterface->robot->rPosition.x; i--)
+	{
+		for (j = y; j<dataInterface->robotMovementInterface->robot->rPosition.y; j++)
+		{
+			if ((i != x) && (dis[j][i + 1]>dis[j][i] + 1))			//오른쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i + 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i + 1] = dis[j][i] + 1;
+					CalPath(j, i + 1);
+				}
+			}
+			if ((i != dataInterface->robotMovementInterface->robot->rPosition.x) && (dis[j][i - 1]>dis[j][i] + 1))			//왼쪽 검사
+			{
+				if (mapManager->mapModel->Map[j][i - 1].data.kind == HAZARD);
+				else
+				{
+					dis[j][i - 1] = dis[j][i] + 1;
+					CalPath(j, i - 1);
+				}
+			}
+			if ((j != dataInterface->robotMovementInterface->robot->rPosition.y)&(dis[j + 1][i]>dis[j][i] + 1))			//위쪽 검사
+			{
+				if (mapManager->mapModel->Map[j + 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j + 1, i);
+				}
+			}
+			if ((j != y) && (dis[j - 1][i]>dis[j][i] + 1))			//아래쪽 검사
+			{
+				if (mapManager->mapModel->Map[j - 1][i].data.kind == HAZARD);
+				else
+				{
+					dis[j][i] = dis[j][i] + 1;
+					CalPath(j - 1, i);
+				}
 			}
 		}
 	}
@@ -225,7 +296,7 @@ void MoveManager::AnalyzeSensingData()
 
 int MoveManager::CompareCurrentPos()
 {
-	void* result;
+	void* result = new void*;
 	GetPositioningSensorData(result);
 	Position *CP = (Position*)result;
 	robotPos = *CP;
@@ -235,6 +306,7 @@ int MoveManager::CompareCurrentPos()
 	{
 		return POSITIONING_ERROR;
 	}
+	delete result;
 }
 int MoveManager::MakeNextMoveData()					//말 그대로 다음 움직임 결정하는 곳
 {
@@ -278,14 +350,19 @@ void MoveManager::GetPositioningSensorData(void *result)//우선 가지고만 있는다.
 	//AnalyzePositioningSensorData(*(Position *)result);//여기서 Analyze까지 할지 안할지 모르겠다
 }
 
-MoveManager::MoveManager(int** mapInput, Position start)
+MoveManager::MoveManager(int** mapInput, Position start,int mapWidth, int mapHeight, MapNode ExP)
 {
 	robotPos = start;
 	dataInterface = new DataInterface();
+	dataInterface->sensorSystem->SensorUse.SensorUse()
 	virtualRobot = new VirtualRobot(start);
+
 	dataInterface->robotMovementInterface->robot = new Robot(start, 2);// 2는 처음 바라보는 방향이 2번 방향이라는 뜻
 	
 	SetMapModel(mapInput,mapWidth, mapHeight, start);
+	int* p = new int[1];
+	*p = 4;
+	RemainSearchSpotList.push_front(ExP);
 }
 
 
@@ -295,7 +372,7 @@ void MoveManager::Explore()
 	MapNode Forward;
 	int i;
 
-	while(RemainSearchSpotList.size > 0)					//모둔 목표지점을 탐사하는 루프
+	while(RemainSearchSpotList.size() > 0)					//모둔 목표지점을 탐사하는 루프
 	{
 		InitializeMoveData();
 
@@ -333,7 +410,9 @@ void MoveManager::Explore()
 
 void MoveManager::SetMapModel(int** mapInput, int mapWidth, int mapHeight, Position start)
 {
+	
 	mapManager = new MapManager(mapInput, mapWidth, mapHeight, start);
+	
 }
 
 void MoveManager::AnalyzePositioningSensorData()
@@ -345,14 +424,16 @@ void MoveManager::AnalyzePositioningSensorData()
 }
 void MoveManager::AnalyzeHazardSensorData()//처리까지함
 {
-	void *result;
+	void *result = new void*;
 	dataInterface->UseSensor(HAZARD_SENSOR, result, mapManager->mapModel, dataInterface->robotMovementInterface->robot->rPosition, dataInterface->robotMovementInterface->robot->rDirection);
 	mapManager->AddHazardPoint(*(int*)result, robotPos);
+	delete result;
 }
 
 void MoveManager::AnalyzeColorSensorData()
 {
-	void *result;
+	void *result = new void*;
 	dataInterface->UseColorSensor(result, mapManager->mapModel, dataInterface->robotMovementInterface->robot->rPosition);
 	mapManager->AddColorBlob(*(int*)result, robotPos);
+	delete result;
 }

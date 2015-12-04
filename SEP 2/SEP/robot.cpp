@@ -1,6 +1,7 @@
+#include<stdio.h>
+#include"robot.h"
 #include"Common.h"
 #include"global.h"
-#include"robot.h"
 void RobotMovementInterface::MoveRequest(int direction)
 {
 
@@ -19,7 +20,7 @@ RobotMovementInterface::RobotMovementInterface()
 
 void Robot::Move()
 {
-	
+	printf("%d %d",rPosition.x, rPosition.y);
 }
 
 void Robot::Rotate(int num)

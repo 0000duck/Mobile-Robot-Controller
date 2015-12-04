@@ -107,6 +107,9 @@ MapManager::MapManager(int** mapInput, int mapX, int mapY,Position start)
 	mapHeight = mapY;
 	startx = start.x;
 	starty = start.y;
+
 	mapModel = new MapModel(mapX, mapY);
+
 	CreateMapModel(mapInput);
+
 }
