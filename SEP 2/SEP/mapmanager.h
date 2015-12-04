@@ -12,6 +12,8 @@ public:
 	void AddHazardPoint(int hazardInfo, Position pos);
 	MapNode GetForwardMapNode(Position robotPos, int robotDirection);
 	MapNode PreviousNode;
+	void CalAble(int x, int y);
+	void SetDisable();
 
 	int mapWidth, mapHeight;
 	MapModel *mapModel;

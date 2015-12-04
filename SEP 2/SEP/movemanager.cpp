@@ -14,7 +14,7 @@ void MoveManager::InitializeMoveData()
 {
 	InitDis();
 	dis[CurrentTarget.PosY][CurrentTarget.PosX] = 0;
-	while(disEnd())
+	while(DisEnd())
 		CalPath(CurrentTarget.PosX, CurrentTarget.PosY);
 }
 void MoveManager::InitDis()										//dis 초기화
@@ -82,7 +82,7 @@ void MoveManager::CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 �
 			}
 	}
 }
-int MoveManager::disEnd()					//dis가 모두 계산됐는지 확인
+int MoveManager::DisEnd()					//dis가 모두 계산됐는지 확인
 {
 	int i, j;
 	
@@ -200,6 +200,8 @@ void MoveManager::Explore()
 		
 			while (Forward.data.kind == HAZARD)					//앞에 있는 노드가 Hazard가 아닐때까지 회전.
 			{
+				mapManager->CalAble(robotPos.x, robotPos.y);
+				mapManager->SetDisable();
 				GetNextMoveData();
 				Forward = mapManager->GetForwardMapNode(dataInterface->robotMovementInterface->robot->rPosition, dataInterface->robotMovementInterface->robot->rDirection);
 				AnalyzeHazardSensorData();

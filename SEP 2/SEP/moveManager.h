@@ -34,7 +34,7 @@ private:
 	void AnalyzeHazardSensorData();//¿Ã∏ß πŸ≤ﬁ
 	void InitDis();
 	void CalPath(int x, int y);
-	int disEnd();
+	int DisEnd();
 	void RobotMoveRequest();
 	int **dis;
 	MapNode CurrentTarget;
