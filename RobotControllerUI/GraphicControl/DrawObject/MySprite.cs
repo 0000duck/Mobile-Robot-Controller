@@ -102,17 +102,25 @@ namespace GraphicControl.DrawObject
             World = mScale * mRot * mPos;
            
         }
+      
         /// <summary>
         /// Sprite Draw 함수
         /// </summary>
         public virtual void Render()
         {
-            SetTextureSetting();
+            SetVB();
             dev.Transform.World = World;
-            dev.SetStreamSource(0, VBuffer, 0);
-            dev.VertexFormat = VertexFormats.PositionNormal | VertexFormats.Texture1;
             dev.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
             ReleaseTextureSetting();
+        }
+        /// <summary>
+        /// Vertex buffer 즉 도형을 셋팅 하는함수 
+        /// </summary>
+        public virtual void SetVB()
+        {
+            SetTextureSetting();
+            dev.SetStreamSource(0, VBuffer, 0);
+            dev.VertexFormat = VertexFormats.PositionNormal | VertexFormats.Texture1;
         }
         /// <summary>
         /// Texture와 TextureStage를 셋팅해주는 함수

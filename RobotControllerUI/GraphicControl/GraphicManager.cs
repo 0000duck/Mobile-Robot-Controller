@@ -5,23 +5,31 @@ using Microsoft.DirectX;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
 using GraphicControl.DrawObject;
+using System.Runtime.InteropServices;
+using GraphicControl.Interface;
 
 namespace GraphicControl
 {
+
     /// <summary>
     /// DirectX Device를 가지고 있는 그리기 전용 클래스
     /// 싱글톤 클래스
     /// </summary>
-    public class GraphicManager
+  
+    public class GraphicManager 
     {
         Camera MainCamera;
-       
-        ModelForDraw TestSprite;
+
+        ModelManager DrawModelManager;
+        DrawObj RobotObj;
+        ModelMoveController RobotMover;
+
         MapforDraw Map;
+
         Grid BasicGrid;
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
-        protected List<ModelForDraw> DrawObjectList;
+        protected List<DrawObj> DrawObjectList;
         /// <summary>
         /// 싱글톤 클래스 접근자
         /// </summary>
@@ -38,14 +46,15 @@ namespace GraphicControl
 
         private GraphicManager()
         {
-            DrawObjectList = new List<ModelForDraw>();
+            DrawObjectList = new List<DrawObj>();
+            
         }
 
         /// <summary>
         /// Draw Object를 추가 한다.
         /// </summary>
         /// <param name="obj"></param>
-        public void AddDrawObbject(ModelForDraw obj)
+        public void AddDrawObbject(DrawObj obj)
         {
             if (obj == null) return;
 
@@ -56,10 +65,26 @@ namespace GraphicControl
         /// Robot 움직임 Callback 시작
         /// </summary>
         /// <param name="Direction">바양</param>
-        public void OnMoveRobot(int Direction)
+        public void MoveRobot(int Direction)
         {
-            TestSprite.OnMove(Direction);
+            RobotMover.OnMove(Direction);
         }
+        /// <summary>
+        /// type을 받아서 객체 생성
+        /// </summary>
+        /// <param name="KindObj"></param>
+        public void CreateObj(int KindObj , float X2d, float Y2d)
+        { }
+        /// <summary>
+        /// 탐색이 시작됨을 알려줌
+        /// </summary>
+        public void Start()
+        { }
+        /// <summary>
+        /// 탐색이 종료됨을 알려줌
+        /// </summary>
+        public void End()
+        { }
         /// <summary>
         /// 다이렉트 X 초기화 함수
         /// </summary>
@@ -91,9 +116,9 @@ namespace GraphicControl
         {
             if(Map != null)Map.Render();
             if (BasicGrid != null) BasicGrid.DrawGird();
-            foreach (ModelForDraw obj in DrawObjectList)
+            foreach (DrawObj obj in DrawObjectList)
             {
-                obj.Render();
+                obj.Render(DrawModelManager);
             }
         }
         /// <summary>
@@ -103,23 +128,30 @@ namespace GraphicControl
         {
             if (Map != null) Map.Update();
 
-            foreach (ModelForDraw obj in DrawObjectList)
+            foreach (DrawObj obj in DrawObjectList)
             {
                 
                 obj.Update();
             }
 
-            TestSprite.Update();
+            RobotMover.MoveUnit();
         }
         /// <summary>
         /// Rendering 초기화작업
         /// </summary>
         public void RenderInit()
         {
-            TestSprite = new ModelForDraw(dx_Device);
-            TestSprite.TextureLoad("Memo.dds" );
+            DrawModelManager = new ModelManager(dx_Device);
+            DrawModelManager.CreateDrawModel(dx_Device, ModelManager.ROBOT, "Memo.dds");
+
+
+            RobotObj = new DrawObj(dx_Device, ModelManager.ROBOT);
+            
             //움직임 초기화
-            TestSprite.MoveInit();
+            RobotMover = new ModelMoveController(RobotObj);
+
+   
+
             MainCamera = new Camera(dx_Device);
            
         }
@@ -146,7 +178,7 @@ namespace GraphicControl
             dx_Device.BeginScene();
 
 
-            MainCamera.CameraUpdate(TestSprite.Position);
+            MainCamera.CameraUpdate(RobotObj.Position);
             dx_Device.Transform.Projection = Matrix.PerspectiveFovLH(
                 (float)Math.PI / 4,
                 1.0f,
@@ -156,10 +188,10 @@ namespace GraphicControl
             //Object 동작 처리
      
             ObjectAction();
-
+        
             // Object들 그리기
             ObjectsRender();
-          
+
 
             dx_Device.EndScene();
             dx_Device.Present();

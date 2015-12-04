@@ -14,6 +14,7 @@ namespace RobotControllerUI
     {
         Bitmap map;
         string imagefile;
+        public List<Spot> LoadedHazardList;
         public string ImageFile
         {
             get
@@ -41,6 +42,7 @@ namespace RobotControllerUI
         public MapLoadDialog()
         {
             InitializeComponent();
+            LoadedHazardList = new List<Spot>();
         }
         /// <summary>
         /// ImageFile 탐색 버튼
@@ -83,11 +85,15 @@ namespace RobotControllerUI
             {
                 for (int y = 0; y < YMax; y++)
                 {
-                     Color col =  map.GetPixel(x, y);
+                    // y가 0베이스
+                     Color col =  map.GetPixel(x, YMax-y-1);
                     if (col.R > 240
                         && col.G < 60
                         && col.B < 60)
+                    {
                         HazardCnt++;
+                        LoadedHazardList.Add(new Spot(x, y));
+                    }
 
                     else if (col.G > 240
                         && col.R < 60

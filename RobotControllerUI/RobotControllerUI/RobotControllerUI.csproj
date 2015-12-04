@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spot.cs" />
     <EmbeddedResource Include="InteractiveUI.resx">
       <DependentUpon>InteractiveUI.cs</DependentUpon>
     </EmbeddedResource>

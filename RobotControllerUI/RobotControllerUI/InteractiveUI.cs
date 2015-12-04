@@ -17,8 +17,9 @@ namespace RobotControllerUI
     public partial class InteractiveUI : Form
     {
 
-        private List<string> SpotList;
-        private List<string> HazardList;
+        private List<Spot> SpotList;
+        private List<Spot> HazardList;
+        private Spot MapSize;
         /// <summary>
         /// View의 프레임을 조절하는 타이머
         /// </summary>
@@ -59,8 +60,8 @@ namespace RobotControllerUI
             VeiwFrameTimer.Start();
 
 
-            SpotList = new List<string>();
-            HazardList = new List<string>();
+            SpotList = new List<Spot>();
+            HazardList = new List<Spot>();
 
         }
        
@@ -72,7 +73,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void Upbtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().OnMoveRobot(ModelForDraw.UP);
+            GraphicManager.GetManager().MoveRobot(ModelMoveController.UP);
            
             
         }
@@ -83,7 +84,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void DownBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().OnMoveRobot(ModelForDraw.DOWN);
+            GraphicManager.GetManager().MoveRobot(ModelMoveController.DOWN);
           
         }
         /// <summary>
@@ -93,7 +94,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void LeftBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().OnMoveRobot(ModelForDraw.LEFT);
+            GraphicManager.GetManager().MoveRobot(ModelMoveController.LEFT);
         
         }
         /// <summary>
@@ -103,7 +104,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void RightBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().OnMoveRobot(ModelForDraw.RIGHT);
+            GraphicManager.GetManager().MoveRobot(ModelMoveController.RIGHT);
       
         }
         /// <summary>
@@ -112,12 +113,14 @@ namespace RobotControllerUI
         /// <param name="box"> Item을 가져올 textbox</param>
         /// <param name="List">List 박스</param>
         /// <param name="RealList">실제 리스트</param>
-        private void HandleAddItemToList(TextBox box, ListBox List, List<string> RealList)
+        private void HandleAddItemToList(TextBox box, ListBox List, List<Spot> RealList)
         {
             if (box.Text == null) return;
             string StringItem = box.Text;
 
-            RealList.Add(StringItem);
+            Spot NewSpot = new RobotControllerUI.Spot(StringItem);
+
+            RealList.Add(NewSpot);
 
             List.DataSource = null;
             List.DataSource = RealList;
@@ -128,7 +131,7 @@ namespace RobotControllerUI
         /// </summary>
         /// <param name="RealList"></param>
         /// <param name="LBox"></param>
-        private void HandleDeleteItemToList(List<string> RealList, ListBox LBox)
+        private void HandleDeleteItemToList(List<Spot> RealList, ListBox LBox)
         {
             int SelectedIndex = LBox.SelectedIndex;
 
@@ -187,11 +190,34 @@ namespace RobotControllerUI
             var Result =  MapLoader.ShowDialog();
             if (Result == DialogResult.OK)
             {
+                //Map Size Load
+                MapSizeLoad(MapLoader.XMax, MapLoader.YMax);
+                //HazardList 추가
+                AddLoadedHazard(MapLoader.LoadedHazardList);
+
                 string path = MapLoader.ImageFile;
                 MapMiniView.Load(@path);
                 MapMiniView.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                
                 GraphicManager.GetManager().MapLoad(MapLoader.XMax , MapLoader.YMax);
             }
+        }
+        private void MapSizeLoad(float xmax, float ymax)
+        {
+            MapSize = new Spot(xmax, ymax);
+            MapTxtInput.Text = MapSize.ToString();
+        }
+        /// <summary>
+        /// Map에서 읽어온 HazardList 처리
+        /// </summary>
+        /// <param name="LoadSpot"></param>
+        private void AddLoadedHazard(List<Spot> LoadSpot)
+        {
+            if (LoadSpot == null || LoadSpot.Count == 0) return;
+            HazardList.AddRange(LoadSpot);
+            HazardListBox.DataSource = null;
+            HazardListBox.DataSource = HazardList;
         }
     }
 }
