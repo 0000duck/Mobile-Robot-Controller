@@ -41,3 +41,17 @@ VirtualRobot::VirtualRobot(Position Startp)
 	InitVirtualRobot(Startp);
 }
 
+
+
+void VirtualRobot::virtualRotate(int num)
+{
+	int temp = 0;	//현재 바라보는 방향에서 
+	for (int i = 0; i < POSSIBLEDIRECTION; i++)
+	{
+		if (vDirection == rotateDirection[i])
+			break;
+		else
+			temp++;
+	}
+	vDirection = rotateDirection[num + temp];
+}

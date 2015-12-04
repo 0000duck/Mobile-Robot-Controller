@@ -17,8 +17,8 @@ protected:
 
 public:
 	void SensorUse(int type, void* result, MapModel *mapmodel, Position currentPosition, int currentDirection);
-	SensorSystem();
-
+	SensorSystem(Position position);
+	
 };
 
 
@@ -27,7 +27,7 @@ class PositioningSensor : public SensorBase
 public :
 	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	Position position;
-	void setPosition(int x, int y);
+	PositioningSensor(Position c);
 };
 
 

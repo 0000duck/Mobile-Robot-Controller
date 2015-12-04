@@ -11,6 +11,7 @@ public:
 	void AddColorBlob(int colorblobInfo, Position pos);
 	void AddHazardPoint(int hazardInfo, Position pos);
 	MapNode GetForwardMapNode(Position robotPos, int robotDirection);
+	MapNode PreviousNode;
 	int mapWidth, mapHeight;
 	MapModel *mapModel;
 	MapManager(int** mapInput, int mapX, int mapY, Position Start);

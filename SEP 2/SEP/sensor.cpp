@@ -6,12 +6,12 @@
 
 
 
-SensorSystem::SensorSystem()
+SensorSystem::SensorSystem(Position position)
 {
 	SensorCount = SENSORNUM;
 	Sensors[0] = new ColorSensor();
 	Sensors[1] = new HazardSensor();
-	Sensors[2] = new PositioningSensor();
+	Sensors[2] = new PositioningSensor(position);
 }
 
 void SensorSystem::SensorUse(int type, void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
@@ -41,13 +41,12 @@ void PositioningSensor::Use(void *result, MapModel *mapmodel, Position currentPo
 
 }
 
-
-void PositioningSensor::setPosition(int x, int y)
+PositioningSensor::PositioningSensor(Position c)
 {
-	position.x = x;
-	position.y = y;
-}
+	position.x = c.x;
+	position.y = c.y;
 
+}
 
 void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
 {
@@ -61,11 +60,11 @@ void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition
 
 	if (mapmodel->Map[currentPosition.y + 1][currentPosition.x].data.kind == COLORBLOB)
 			*temp |= 0x0010;
-	if (mapmodel->Map[currentPosition.y - 1][currentPosition.x].data.kind == COLORBLOB)
+	if ((currentPosition.y>0)&&(mapmodel->Map[currentPosition.y - 1][currentPosition.x].data.kind == COLORBLOB))
 			*temp |= 0x1000;
 	if (mapmodel->Map[currentPosition.y][currentPosition.x + 1].data.kind == COLORBLOB)
 			*temp |= 0x0001;
-	if (mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB)
+	if ((currentPosition.x>0) && (mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB))
 			*temp |= 0x0100;
 
 }
@@ -82,7 +81,7 @@ void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPositio
 			*temp |= 0x0010;
 		break;
 	case 8:
-		if (mapmodel->Map[currentPosition.y - 1][currentPosition.x].data.kind == HAZARD)
+		if ((currentPosition.y>0)&&(mapmodel->Map[currentPosition.y - 1][currentPosition.x].data.kind == HAZARD))
 			*temp |= 0x1000;
 		break;
 	case 6:
@@ -90,7 +89,7 @@ void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPositio
 			*temp |= 0x0001;
 		break;
 	case 4:
-		if (mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD)
+		if ((currentPosition.x>0)&&(mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD))
 			*temp |= 0x0100;
 		break;
 	}

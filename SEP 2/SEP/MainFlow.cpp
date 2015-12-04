@@ -3,14 +3,18 @@
 #include"moveManager.h"
 //paragmaOnce
 using namespace std;
-int main()
+MoveManager* moveManager;
+
+void init()
 {
-	MapNode mapnode ;
-	mapnode.PosX = 3;
-	mapnode.PosY = 3;
+	static int **GivingMapNode;
+	Position startP;
+	MapNode mapnode;
+	mapnode.PosX = 4;
+	mapnode.PosY = 4;
 	mapnode.data.kind = EXPLROATIONPOINT;
 	mapnode.isDetected = false;
-	const unsigned int mapWidth = 5, mapHeight = 5;
+	const unsigned int mapWidth = 7, mapHeight = 7;
 	FILE * file;
 	file = fopen("map.txt", "r");
 	int i, j;
@@ -22,6 +26,7 @@ int main()
 	}
 
 
+
 	for (i = 0; i < mapHeight; i++)
 	{
 		for (j = 0; j < mapWidth; j++)
@@ -31,11 +36,15 @@ int main()
 		}
 		printf("\n");
 	}
-	startP.x = 0;
-	startP.y = 0;
+	startP.x = 1;
+	startP.y = 1;
 	fclose(file);
+
+	moveManager = new MoveManager(GivingMapNode, startP, mapWidth, mapHeight, mapnode);
+}
+int main()
+{
 	
-	MoveManager moveManager(GivingMapNode, startP,mapWidth,mapHeight, mapnode);
-	
-	moveManager.Explore();
+	init();
+	moveManager->Explore();
 }

@@ -13,13 +13,9 @@ void DataInterface::UseSensor(int type, void*result, MapModel *mapmodel, Positio
 		sensorSystem->SensorUse(type, result, mapmodel, currentPosition, direction);
 }
 
-void DataInterface::Move(int direction)
-{
-	robotMovementInterface->MoveRequest(direction);
-	//sensorSystem[POSINI]. set
-}
-DataInterface::DataInterface()
+
+DataInterface::DataInterface(Position position)
 {
 	robotMovementInterface = new RobotMovementInterface();
-	sensorSystem = new SensorSystem();
+	sensorSystem = new SensorSystem(position);
 }

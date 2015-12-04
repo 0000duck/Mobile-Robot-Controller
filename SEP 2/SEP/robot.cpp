@@ -1,25 +1,35 @@
 #include<stdio.h>
+#include <random>
+#include <ctime>
+#include <iostream>
+#include <functional>
 #include"robot.h"
 #include"Common.h"
 #include"global.h"
-void RobotMovementInterface::MoveRequest(int direction)
+using namespace std;
+using namespace std::tr1;
+void RobotMovementInterface::RotateRequest(int direction)
 {
-
-	int RotateNum=0;
-	while (direction != robot->rDirection){
-		robot->rDirection = rotateDirection[RotateNum];//90도씩 시계방향으로 돈다.
-		RotateNum++;										//
-	}
-	robot->Rotate(RotateNum);
+	robot->Rotate(direction);
+}
+void RobotMovementInterface::MoveRequest()
+{
+	//실수로 길을 틀린다.
+	/*mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
+	uniform_int_distribution<int> distribution(0, 100);       // 생성 범위
+	auto generator = bind(distribution, engine);
+	if (generator() < 10);
+		robot->Rotate(generator() % 4);
+	*/
 	robot->Move();
 }
-
 RobotMovementInterface::RobotMovementInterface()
 {
 }
 
 void Robot::Move()
 {
+
 	printf("%d %d",rPosition.x, rPosition.y);
 }
 

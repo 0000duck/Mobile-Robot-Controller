@@ -13,8 +13,8 @@ using namespace std;
 void MoveManager::InitializeMoveData()
 {
 	InitDis();
+	dis[CurrentTarget.PosY][CurrentTarget.PosX] = 0;
 	CalPath(CurrentTarget.PosX, CurrentTarget.PosY);
-
 }
 void MoveManager::InitDis()										//dis 초기화
 {
@@ -27,9 +27,9 @@ void MoveManager::InitDis()										//dis 초기화
 		dis[i] = (int*)malloc((sizeof(int)*mapManager->mapWidth));
 	}
 	
-	for (i = 1; i<mapManager->mapHeight; i++)
+	for (i = 0; i<mapManager->mapHeight; i++)
 	{
-		for(j=1; j<mapManager->mapWidth; j++)
+		for(j=0; j<mapManager->mapWidth; j++)
 			dis[i][j]=UNKNOWN;
 	}
 
@@ -316,13 +316,13 @@ int MoveManager::MakeNextMoveData()					//말 그대로 다음 움직임 결정하는 곳
 	while (true)
 	{
 		if (val == dis[robotPos.y + 1][robotPos.x] + 1)
-			dir=8;
+			return 2;
 		else if (val == dis[robotPos.y][robotPos.x + 1] + 1)
-			dir=6;
-		else if (val == dis[robotPos.y - 1][robotPos.x] + 1)
-			dir=2;
-		else if (val == dis[robotPos.y][robotPos.x - 1] + 1)
-			dir=4;
+			return 6;
+		else if ((robotPos.y>0)&&(val == dis[robotPos.y - 1][robotPos.x] + 1))
+			return 8;
+		else if ((robotPos.x>0)&&(val == dis[robotPos.y][robotPos.x - 1] + 1))
+			return 4;
 		else
 			val++;
 	}
@@ -335,9 +335,10 @@ void MoveManager::GetNextMoveData()					//움직일 방향으로 로봇을 돌리는 곳
 	int MData;
 
 	MData=MakeNextMoveData();
-	virtualRobot->vDirection = MData;
 
-	dataInterface->robotMovementInterface->MoveRequest(MData);
+	virtualRobot->vDirection = MData;
+	dataInterface->robotMovementInterface->RotateRequest(MData);
+	
 
 
 }
@@ -352,19 +353,18 @@ void MoveManager::GetPositioningSensorData(void *result)//우선 가지고만 있는다.
 
 MoveManager::MoveManager(int** mapInput, Position start,int mapWidth, int mapHeight, MapNode ExP)
 {
-	robotPos = start;
-	dataInterface = new DataInterface();
-	dataInterface->sensorSystem->SensorUse.SensorUse()
-	virtualRobot = new VirtualRobot(start);
-
-	dataInterface->robotMovementInterface->robot = new Robot(start, 2);// 2는 처음 바라보는 방향이 2번 방향이라는 뜻
-	
-	SetMapModel(mapInput,mapWidth, mapHeight, start);
-	int* p = new int[1];
-	*p = 4;
-	RemainSearchSpotList.push_front(ExP);
+	InitMoveManager(mapInput, start, mapWidth, mapHeight, ExP);
 }
 
+void MoveManager::InitMoveManager(int** mapInput, Position start, int mapWidth, int mapHeight, MapNode ExP)
+{
+	robotPos = start;
+	dataInterface = new DataInterface(start);
+	virtualRobot = new VirtualRobot(start);
+	dataInterface->robotMovementInterface->robot = new Robot(start, 2);// 2는 처음 바라보는 방향이 2번 방향이라는 뜻
+	SetMapModel(mapInput, mapWidth, mapHeight, start);
+	RemainSearchSpotList.push_front(ExP);
+}
 
 
 void MoveManager::Explore()
@@ -392,9 +392,8 @@ void MoveManager::Explore()
 				Forward = mapManager->GetForwardMapNode(dataInterface->robotMovementInterface->robot->rPosition, dataInterface->robotMovementInterface->robot->rDirection);
 				AnalyzeHazardSensorData();
 			}
-
-			dataInterface->robotMovementInterface->robot->Move();//실제 로봇 move
-			virtualRobot->VirtualMove();
+			//전에 있던데를 표시함
+			RobotMoveRequest();
 
 		}
 
@@ -408,6 +407,33 @@ void MoveManager::Explore()
 
 }
 
+void MoveManager::RobotMoveRequest()
+{
+	mapManager->PreviousNode.isDetected = true;
+	mapManager->PreviousNode.PosX = robotPos.x;
+	mapManager->PreviousNode.PosY = robotPos.y;
+	
+	switch (dataInterface->robotMovementInterface->robot->rDirection)
+	{
+	case 8:
+		robotPos.x++;
+		break;
+	case 6:
+		robotPos.x++;
+		break;
+	case 2:
+		robotPos.y--;
+		break;
+	case 4:
+		robotPos.x--;
+		break;
+	}
+	
+
+	dataInterface->robotMovementInterface->MoveRequest();
+	virtualRobot->VirtualMove();
+}
+
 void MoveManager::SetMapModel(int** mapInput, int mapWidth, int mapHeight, Position start)
 {
 	
@@ -417,9 +443,26 @@ void MoveManager::SetMapModel(int** mapInput, int mapWidth, int mapHeight, Posit
 
 void MoveManager::AnalyzePositioningSensorData()
 {
+	int rot = 0;
+	int tx = mapManager->PreviousNode.PosX, ty = mapManager->PreviousNode.PosY;
 	if (CompareCurrentPos() != 0)
 	{
 		//원래 있을곳으로 감
+		if (tx == robotPos.x){
+			if (ty > robotPos.y)
+				rot = 2;
+			else rot = 8;
+		}
+		else if (tx > robotPos.x)
+			rot = 6;
+		else rot = 4;
+		if (rot == 0)
+			printf("error \n");
+		dataInterface->robotMovementInterface->RotateRequest(rot);
+		dataInterface->robotMovementInterface->MoveRequest();
+		virtualRobot->virtualRotate(rot);
+		virtualRobot->VirtualMove();
+
 	}
 }
 void MoveManager::AnalyzeHazardSensorData()//처리까지함

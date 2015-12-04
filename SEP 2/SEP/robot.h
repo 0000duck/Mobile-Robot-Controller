@@ -18,7 +18,8 @@ public:
 class RobotMovementInterface
 {
 public:
-	void MoveRequest(int direction);
+	void RotateRequest(int direction);
+	void MoveRequest();
 	Robot* robot;
 	RobotMovementInterface();
 };

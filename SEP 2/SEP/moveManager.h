@@ -26,7 +26,7 @@ public:
 
 private:
 	bool CheckMoveDataInvalid();
-
+	void InitMoveManager(int** mapInput, Position start, int mapWidth, int mapHeight, MapNode ExP);
 	void SetMapModel(int** mpaInput, int mapWidth, int mapHeight, Position start);
 	void AnalyzePositioningSensorData();
 	void AnalyzeColorSensorData();
@@ -37,6 +37,7 @@ private:
 	void CalSecond(int x, int y);
 	void CalThird(int x, int y);
 	void CalFourth(int x, int y);
+	void RobotMoveRequest();
 	int **dis;
 	MapNode CurrentTarget;
 	Position robotPos;

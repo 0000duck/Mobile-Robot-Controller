@@ -72,13 +72,13 @@ MapNode MapManager::GetForwardMapNode(Position robotPos, int robotDirection)//ha
 	switch (robotDirection)
 	{
 	case 8:
-		y--;
+		y++;
 		break;
 	case 6:
 		x++;
 		break;
 	case 2:
-		y++;
+		y--;
 		break;
 	case 4:
 		x--;
