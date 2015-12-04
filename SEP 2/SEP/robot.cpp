@@ -11,17 +11,27 @@ using namespace std;
 using namespace std::tr1;
 void RobotMovementInterface::RotateRequest(int direction)
 {
-	robot->Rotate(direction);
+	int dr = robot->rDirection;
+	if (dr == direction)
+		return;
+	for (int i = 1; i < 4; i++)
+	{
+		robot->Rotate();
+		if (direction == rotateDirection[((robot->dIndex) % 4)]){
+			break;
+		}
+	}
 }
 void RobotMovementInterface::MoveRequest()
 {
-	//실수로 길을 틀린다.
-	/*mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
+
+	/*
+	mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
 	uniform_int_distribution<int> distribution(0, 100);       // 생성 범위
 	auto generator = bind(distribution, engine);
-	if (generator() < 10);
-		robot->Rotate(generator() % 4);
-	*/
+	if (generator()<20&&(robot->rPosition.x>0&&robot->rPosition.y>0))
+		robot->Move();
+		*/
 	robot->Move();
 }
 
@@ -31,22 +41,28 @@ RobotMovementInterface::RobotMovementInterface()
 
 void Robot::Move()
 {
-
-	printf("%d %d",rPosition.x, rPosition.y);
-
+	switch (rDirection)
+	{
+	case 8:
+		rPosition.y--;
+		break;
+	case 2:
+		rPosition.y++;
+		break;
+	case 4:
+		rPosition.x--;
+		break;
+	case 6:
+		rPosition.x++;
+		break;
+	}
 }
 
-void Robot::Rotate(int num)
+void Robot::Rotate()
 {
-	int temp = 0;	//현재 바라보는 방향에서 
-	for (int i = 0; i < POSSIBLEDIRECTION; i++)
-	{
-		if (rDirection == rotateDirection[i])
-			break;
-		else 
-			temp++;
-	}
-	rDirection = rotateDirection[num + temp];
+	
+	rDirection = rotateDirection[(dIndex+1)%4];
+	dIndex = (dIndex + 1) % 4;
 }
 
 Robot::Robot(Position start, int direction)
@@ -54,5 +70,10 @@ Robot::Robot(Position start, int direction)
 	//처음에 아래를 방향으로 한다.
 	rPosition = start;
 	rDirection = direction;
+	for (int i = 0; i < POSSIBLEDIRECTION; i++)
+	{
+		if (rotateDirection[i] == rDirection)
+			dIndex = i;
+	}
 }
 

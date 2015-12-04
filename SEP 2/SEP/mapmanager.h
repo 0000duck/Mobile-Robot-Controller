@@ -10,7 +10,7 @@ public:
 	int GetNearMapNodeData();
 	void AddColorBlob(int colorblobInfo, Position pos);
 	void AddHazardPoint(int hazardInfo, Position pos);
-	MapNode GetForwardMapNode(Position robotPos, int robotDirection);
+	MapNode GetForwardMapNode(Position position, int robotDirection);
 	MapNode PreviousNode;
 
 	int mapWidth, mapHeight;

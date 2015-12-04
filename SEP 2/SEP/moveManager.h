@@ -22,8 +22,7 @@ public:
 	MoveManager(int** mpaInput, Position start, int mapWidth, int mapHeight,MapNode exp);
 	DataInterface *dataInterface;
 	MapManager *mapManager;
-	VirtualRobot *virtualRobot;
-
+	
 private:
 	bool CheckMoveDataInvalid();
 
@@ -37,5 +36,7 @@ private:
 	void RobotMoveRequest();
 	int **dis;
 	MapNode CurrentTarget;
-	Position robotPos;
+	MapNode** Map;
+	VirtualRobot *virtualRobot;
+	Robot *rRobot;
 };

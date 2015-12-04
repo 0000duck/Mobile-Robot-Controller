@@ -4,6 +4,7 @@ Map에 대한 입력은
 
 */
 #pragma once
+#include"Common.h"
 class DataObject
 {
 public:
@@ -14,7 +15,7 @@ class MapNode
 {
 public :
 	bool isDetected;
-	int PosX, PosY;
+	Position position;
 	DataObject data;
 protected:
 	

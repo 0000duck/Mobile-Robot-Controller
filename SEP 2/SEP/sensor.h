@@ -13,9 +13,9 @@ class SensorSystem
 {
 protected:
 	int SensorCount;
-	SensorBase* Sensors[SENSOR_MAX];
 
 public:
+	SensorBase* Sensors[SENSOR_MAX];
 	void SensorUse(int type, void* result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	SensorSystem(Position position);
 };
@@ -27,6 +27,7 @@ public :
 	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	Position position;
 	PositioningSensor(Position c);
+	void SetPosition(Position p);
 };
 
 

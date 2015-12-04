@@ -47,6 +47,11 @@ PositioningSensor::PositioningSensor(Position c)
 	position.y = c.y;
 
 }
+void PositioningSensor::SetPosition(Position p)
+{
+	position = p;
+}
+
 
 void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
 {

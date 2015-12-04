@@ -9,8 +9,8 @@ void MapManager::CreateMapModel(int** mapdata)//입력을어떻게 할지 아직 못정함
 		for (int j = 0; j < mapWidth; j++)
 		{
 			mapModel->Map[i][j].isDetected = false;
-			mapModel->Map[i][j].PosX = i;
-			mapModel->Map[i][j].PosY = j;
+			mapModel->Map[i][j].position.x = j;
+			mapModel->Map[i][j].position.y = i;
 			mapModel->Map[i][j].data.kind = mapdata[i][j];//map의 속성이 hazard인지 exploration points 인지 등등 설정
 		}
 	}
@@ -72,13 +72,13 @@ MapNode MapManager::GetForwardMapNode(Position robotPos, int robotDirection)//ha
 	switch (robotDirection)
 	{
 	case 8:
-		y++;
+		y--;
 		break;
 	case 6:
 		x++;
 		break;
 	case 2:
-		y--;
+		y++;
 		break;
 	case 4:
 		x--;
