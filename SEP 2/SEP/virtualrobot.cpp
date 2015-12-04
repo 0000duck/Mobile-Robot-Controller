@@ -1,3 +1,4 @@
+#pragma once
 #include "Common.h"
 #include "global.h"
 #include "VirtualRobot.h"
@@ -40,7 +41,6 @@ VirtualRobot::VirtualRobot(Position Startp)
 {
 	InitVirtualRobot(Startp);
 }
-
 
 
 void VirtualRobot::virtualRotate(int num)

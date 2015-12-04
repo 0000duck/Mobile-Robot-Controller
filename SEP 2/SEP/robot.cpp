@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include <random>
 #include <ctime>
@@ -23,6 +24,7 @@ void RobotMovementInterface::MoveRequest()
 	*/
 	robot->Move();
 }
+
 RobotMovementInterface::RobotMovementInterface()
 {
 }
@@ -31,6 +33,7 @@ void Robot::Move()
 {
 
 	printf("%d %d",rPosition.x, rPosition.y);
+
 }
 
 void Robot::Rotate(int num)

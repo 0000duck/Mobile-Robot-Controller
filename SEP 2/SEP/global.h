@@ -5,9 +5,6 @@
 //센서, 로봇, 가상로봇, 실제맵 모두 글로벌로 미리 선언한다.(가상맵은 제외)
 
 static int rotateDirection[POSSIBLEDIRECTION] = { 8, 6, 2, 4 };
-
-
-
 //int **mapInput;
 //여기부터 실제정보
 //비록 robot이 가지고 있지만, 센서가 이 값을

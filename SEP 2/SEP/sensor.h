@@ -18,7 +18,6 @@ protected:
 public:
 	void SensorUse(int type, void* result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	SensorSystem(Position position);
-	
 };
 
 

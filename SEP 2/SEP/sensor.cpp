@@ -89,7 +89,7 @@ void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPositio
 			*temp |= 0x0001;
 		break;
 	case 4:
-		if ((currentPosition.x>0)&&(mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD))
+	if ((currentPosition.x>0)&&(mapmodel->Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD))
 			*temp |= 0x0100;
 		break;
 	}
