@@ -14,13 +14,14 @@ void MoveManager::InitializeMoveData()
 {
 	InitDis();
 	dis[CurrentTarget.PosY][CurrentTarget.PosX] = 0;
-	CalPath(CurrentTarget.PosX, CurrentTarget.PosY);
+	while(disEnd())
+		CalPath(CurrentTarget.PosX, CurrentTarget.PosY);
 }
 void MoveManager::InitDis()										//dis ÃÊ±âÈ­
 {
 	int i, j;
 
-	dis = (int**)malloc((sizeof(int)*mapManager->mapWidth*mapManager->mapHeight));	//	mapWidth, height´Â ¿ì¼± ±Û·Î¹ú·Î °¡Áö°í ÀÖ´Ù.
+	dis = (int**)malloc((sizeof(int)*mapManager->mapWidth*mapManager->mapHeight));
 
 	for (i = 0; i < mapManager->mapHeight; i++)
 	{
@@ -41,10 +42,10 @@ void MoveManager::CalPath(int x, int y)							//³ëµå¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁöÀÇ °Å¸®¸¦ °
 {
 	int i=x, j=y;
 
-	if(mapManager->mapModel->Map[x][y].data.kind==HAZARD);						//hazard¸é °è»êÇÏÁö ¾ÊÀ½.
+	if(mapManager->mapModel->Map[y][x].data.kind==HAZARD);						//hazard¸é °è»êÇÏÁö ¾ÊÀ½.
 	else 
 	{
-		if ((i != mapManager->mapWidth-1)&&(dis[j][i+1]>dis[j][i] + 1))			//¿À¸¥ÂÊ °Ë»ç
+		if ((i != mapManager->mapWidth-1)&&(dis[j][i+1]>=dis[j][i] + 1))			//¿À¸¥ÂÊ °Ë»ç
 			{
 				if (mapManager->mapModel->Map[j][i + 1].data.kind == HAZARD);
 				else
@@ -53,7 +54,7 @@ void MoveManager::CalPath(int x, int y)							//³ëµå¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁöÀÇ °Å¸®¸¦ °
 					CalPath(i+1, j);
 				}
 			}
-			if ((i != 0)&&(dis[j][i-1]>dis[j][i] + 1))			//¿ÞÂÊ °Ë»ç
+			if ((i != 0)&&(dis[j][i-1]>=dis[j][i] + 1))			//¿ÞÂÊ °Ë»ç
 			{
 				if (mapManager->mapModel->Map[j][i - 1].data.kind == HAZARD);
 				else
@@ -62,7 +63,7 @@ void MoveManager::CalPath(int x, int y)							//³ëµå¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁöÀÇ °Å¸®¸¦ °
 					CalPath(i-1, j);
 				}
 			}
-			if ((j != mapManager->mapHeight-1)&&(dis[j+1][i]>dis[j][i] + 1))			//À§ÂÊ °Ë»ç
+			if ((j != mapManager->mapHeight-1)&&(dis[j+1][i]>=dis[j][i] + 1))			//À§ÂÊ °Ë»ç
 			{
 				if(mapManager->mapModel->Map[j+1][i].data.kind==HAZARD);
 				else
@@ -71,7 +72,7 @@ void MoveManager::CalPath(int x, int y)							//³ëµå¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁöÀÇ °Å¸®¸¦ °
 					CalPath(i, j+1);
 				}
 			}
-			if ((j != 0)&&(dis[j-1][i]>dis[j][i] + 1))			//¾Æ·¡ÂÊ °Ë»ç
+			if ((j != 0)&&(dis[j-1][i]>=dis[j][i] + 1))			//¾Æ·¡ÂÊ °Ë»ç
 			{
 				if (mapManager->mapModel->Map[j - 1][i].data.kind == HAZARD);
 				else					{
@@ -80,6 +81,23 @@ void MoveManager::CalPath(int x, int y)							//³ëµå¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁöÀÇ °Å¸®¸¦ °
 				}
 			}
 	}
+}
+int MoveManager::disEnd()					//dis°¡ ¸ðµÎ °è»êµÆ´ÂÁö È®ÀÎ
+{
+	int i, j;
+	
+	for(i=0; i<mapManager->mapWidth; i++)
+	{
+		for(j=0; j<mapManager->mapHeight; j++)
+		{
+			if(mapManager->mapModel->Map[j][i].data.kind==HAZARD)
+				continue;
+			if(dis[j][i]==UNKNOWN)
+				return 1;
+		}
+	}
+
+	return 0;
 }
 /*
 void MoveManager::AnalyzeSensingData()
