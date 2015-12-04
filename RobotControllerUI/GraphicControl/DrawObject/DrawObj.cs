@@ -63,7 +63,7 @@ namespace GraphicControl.DrawObject
         /// 움직이는 객체의 움직임 초기화
         /// </summary>
         /// <param name="StartPos"> 초기 위치</param>
-        public void MoveObjectPosInit(Vector3 StartPos)
+        public void ObjectPosInit(Vector3 StartPos)
         {
             Position = StartPos;
             DesireVector = Position;

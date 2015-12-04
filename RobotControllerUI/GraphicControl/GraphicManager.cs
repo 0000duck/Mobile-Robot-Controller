@@ -142,7 +142,8 @@ namespace GraphicControl
         public void RenderInit()
         {
             DrawModelManager = new ModelManager(dx_Device);
-            DrawModelManager.CreateDrawModel(dx_Device, ModelManager.ROBOT, "Memo.dds");
+            DrawModelManager.CreateDrawModel(dx_Device, ModelManager.ROBOT, "Robot.dds");
+            DrawModelManager.CreateDrawModel(dx_Device, ModelManager.HAZARD, "Hazard.jpg");
 
 
             RobotObj = new DrawObj(dx_Device, ModelManager.ROBOT);
@@ -150,10 +151,9 @@ namespace GraphicControl
             //움직임 초기화
             RobotMover = new ModelMoveController(RobotObj);
 
-   
-
             MainCamera = new Camera(dx_Device);
-           
+            
+
         }
 
         public void MapLoad(int SizeX , int SizeY)
@@ -213,8 +213,15 @@ namespace GraphicControl
            // dev.RenderState.BlendOperation = BlendOperation.Add;
 
             dev.RenderState.AlphaTestEnable = true;
+            dev.RenderState.AlphaFunction = Compare.Greater;
+            dev.RenderState.ReferenceAlpha = 0;
 
-            
+
+        }
+        public void CreateHazard(float x, float y)
+        {
+            DrawObj Newobj = new DrawObj(dx_Device, ModelManager.HAZARD);
+            Newobj.ObjectPosInit(new Vector3(x,0,y));
         }
     }
 }

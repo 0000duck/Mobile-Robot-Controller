@@ -219,5 +219,17 @@ namespace RobotControllerUI
             HazardListBox.DataSource = null;
             HazardListBox.DataSource = HazardList;
         }
+        /// <summary>
+        /// Start버튼 눌렀으때
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartBtn_Click(object sender, EventArgs e)
+        {
+            foreach (Spot s in HazardList)
+            {
+                GraphicManager.GetManager().CreateHazard(s.x, s.y);
+            }
+        }
     }
 }

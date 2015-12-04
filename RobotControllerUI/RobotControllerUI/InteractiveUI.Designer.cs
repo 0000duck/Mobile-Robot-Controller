@@ -216,6 +216,7 @@
             this.StartBtn.TabIndex = 21;
             this.StartBtn.Text = "Start";
             this.StartBtn.UseVisualStyleBackColor = true;
+            this.StartBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
             // Upbtn
             // 
