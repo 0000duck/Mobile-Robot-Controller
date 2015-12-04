@@ -13,4 +13,8 @@ MapModel::MapModel(int width, int height)//Map을 입력받고 초기화
 		Map[i] = new MapNode[width];
 	}
 }
+MapNode** MapModel::getMapNode()
+{
+	return Map;
+}
 

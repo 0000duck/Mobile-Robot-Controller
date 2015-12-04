@@ -14,6 +14,7 @@ public:
 	Position getRobotPosition();
 	int getRobotDirection();
 	int getDirectionIndex();
+	//void setRobotPosition(Position p);
 private:
 	Position rPosition;
 	int rDirection;
@@ -26,8 +27,13 @@ class RobotMovementInterface
 public:
 	void RotateRequest(int direction);
 	void MoveRequest();
+	int getRobotDirection();
+	Position getRobotPosition();
+
+	RobotMovementInterface(Position start, int direction);
+private:
 	Robot* robot;
-	RobotMovementInterface();
+
 
 };
 

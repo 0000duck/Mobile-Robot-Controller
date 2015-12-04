@@ -3,14 +3,17 @@
 class VirtualRobot
 {
 public:
-	Position vPosition;
-	int vDirection;
-	void CheckSensingData();
+
+	//void CheckSensingData();
 	void VirtualMove();
 	//void ComputeOffset();
 	void InitVirtualRobot(Position startP);
-	VirtualRobot(Position Startp);
+	VirtualRobot(Position Startp, int direction);
 	void virtualRotate(int numOfRotate);
+	Position getvPosition();
+	int getvDirection();
 private:
+	Position vPosition;
+	int vDirection;
 	//int state;
 };

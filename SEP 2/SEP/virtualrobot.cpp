@@ -34,24 +34,26 @@ void VirtualRobot::InitVirtualRobot(Position Startp)
 {
 	vPosition.x = Startp.x;
 	vPosition.y = Startp.y;
-	vDirection = 2;
+
 }
 
-VirtualRobot::VirtualRobot(Position Startp)
+VirtualRobot::VirtualRobot(Position Startp, int direction)
 {
 	InitVirtualRobot(Startp);
+	vDirection = direction;
 }
 
 
 void VirtualRobot::virtualRotate(int num)
 {
-	int temp = 0;	//현재 바라보는 방향에서 
-	for (int i = 0; i < POSSIBLEDIRECTION; i++)
-	{
-		if (vDirection == rotateDirection[i])
-			break;
-		else
-			temp++;
-	}
-	vDirection = rotateDirection[num + temp];
+	vDirection = num;
+}
+
+Position VirtualRobot::getvPosition()
+{
+	return vPosition;
+}
+int VirtualRobot::getvDirection()
+{
+	return vDirection;
 }

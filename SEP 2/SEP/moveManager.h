@@ -17,11 +17,10 @@ public:
 	void GetNextMoveData();
 	void GetPositioningSensorData(void *result);
 	void Explore();
-
+	void setPositioningSensor();	//현재 로봇의 위치로 센서 값을 설정
 	MoveManager();
 	MoveManager(int** mpaInput, Position start, int mapWidth, int mapHeight,MapNode exp);
-	DataInterface *dataInterface;
-	MapManager *mapManager;
+	
 	
 private:
 	bool CheckMoveDataInvalid();
@@ -35,8 +34,11 @@ private:
 	void CalPath(int x, int y);
 	void RobotMoveRequest();
 	int **dis;
+	MapModel *mapModel;
 	MapNode CurrentTarget;
 	MapNode** Map;
 	VirtualRobot *virtualRobot;
 	Robot *rRobot;
+	DataInterface *dataInterface;
+	MapManager *mapManager;
 };

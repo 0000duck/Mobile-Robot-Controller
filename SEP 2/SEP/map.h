@@ -27,5 +27,7 @@ private:
 	
 public:
 	MapModel(int width, int height);
+	MapNode** getMapNode();
+private:
 	MapNode** Map;
 };

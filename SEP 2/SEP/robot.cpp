@@ -9,15 +9,20 @@
 #include"global.h"
 using namespace std;
 using namespace std::tr1;
+
+RobotMovementInterface::RobotMovementInterface(Position start, int direction)
+{
+	robot = new Robot(start, direction);
+}
 void RobotMovementInterface::RotateRequest(int direction)
 {
-	int dr = robot->rDirection;
+	int dr = robot->getRobotDirection();
 	if (dr == direction)
 		return;
 	for (int i = 1; i < 4; i++)
 	{
 		robot->Rotate();
-		if (direction == rotateDirection[((robot->dIndex) % 4)]){
+		if (direction == rotateDirection[((robot->getDirectionIndex()) % 4)]){
 			break;
 		}
 	}
@@ -35,8 +40,13 @@ void RobotMovementInterface::MoveRequest()
 	robot->Move();
 }
 
-RobotMovementInterface::RobotMovementInterface()
+int RobotMovementInterface::getRobotDirection()
 {
+	return robot->getRobotDirection();
+}
+Position RobotMovementInterface::getRobotPosition()
+{
+	return robot->getRobotPosition();
 }
 
 void Robot::Move()
@@ -77,3 +87,21 @@ Robot::Robot(Position start, int direction)
 	}
 }
 
+Position Robot::getRobotPosition()
+{
+	return rPosition;
+}
+int Robot::getRobotDirection()
+{
+	return rDirection;
+}
+int Robot::getDirectionIndex()
+{
+	return dIndex;
+}
+/*
+void Robot::setRobotPosition(Position p)
+{
+	rPosition = p;
+}
+*/
