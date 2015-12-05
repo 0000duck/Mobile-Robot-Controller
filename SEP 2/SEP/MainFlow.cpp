@@ -4,45 +4,28 @@
 #include"moveManager.h"
 //paragmaOnce
 using namespace std;
-MoveManager* moveManager;
 
-void init()
+class MovementInterface
 {
-	static int **GivingMapNode;
-	Position startP;
-	MapNode mapnode;
-	mapnode.position.x = 4;
-	mapnode.position.y = 4;
-	mapnode.data.kind = EXPLROATIONPOINT;
-	mapnode.isDetected = false;
-	const unsigned int mapWidth = 7, mapHeight = 7;
-	FILE * file;
-	file = fopen("map.txt", "r");
-	int i, j;
-	GivingMapNode = new int*[mapHeight];// (int**)malloc((sizeof(int)*mapWidth*mapHeight));
-
-	for (i = 0; i < mapHeight; i++)
+public :
+	MoveManager* m;
+	MovementInterface(int startY, int startX, int mapHeight, int mapWidth)
 	{
-		GivingMapNode[i] = new int[mapWidth];//(int*)malloc((sizeof(int)*mapWidth));
+		m = MoveManager::GetManager();
+		m->InitMoveManager(startY, startX, mapHeight, mapWidth);
+		m->Explore();
 	}
-
-
-
-	for (i = 0; i < mapHeight; i++)
+	void AddHazardPoint(int y, int x)
 	{
-		for (j = 0; j < mapWidth; j++)
-		{
-			fscanf(file, "%d", &GivingMapNode[i][j]);
-		}
+		m->mapManager->addHazardPointByPoint(y, x);
 	}
-	startP.x = 1;
-	startP.y = 1;
-	fclose(file);
+	void AddColorBlobPoint(int y, int x)
+	{
+		m->mapManager->addColorBlobPointByPoint(y, x);
+	}
+	void move()
+	{
+		m->RobotMoveRequest();
+	}
+};
 
-	moveManager = new MoveManager(GivingMapNode, startP, mapWidth, mapHeight, mapnode);
-}
-int main()
-{
-	init();
-	moveManager->Explore();
-}

@@ -3,7 +3,7 @@
 #include"map.h"
 #include "sensor.h"
 
-
+using namespace std;
 
 
 SensorSystem::SensorSystem(Position position)
@@ -57,52 +57,124 @@ Position PositioningSensor::GetPosition()
 	return position;
 }
 
+int ColorSensor::generator(){
+	return ran.get();
+}
 void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
 {
+
 	MapNode ** Map = mapmodel->getMapNode();
 	int *temp = (int*)result;
 	*temp = 0;
+	int x = currentPosition.x , y = currentPosition.y;
+	//colorblob 랜덤 생성
+	//srand(time(NULL));
+	/*
+	if (x > 0 && x < mapmodel->getMapWidth() - 1 && y>0 && y < mapmodel->getMapHeight() - 1){
+		switch (currentDirection)
+		{
+		case 8:
+			if (Map[currentPosition.y - 1][currentPosition.x].isDetected == false){
+				if (rand() % 100 < 20 && Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL){
+					Map[currentPosition.y - 1][currentPosition.x].isDetected = true;
+					*temp |= UP;
+				}
+			}
+			break;
+
+		case 4:
+			if (Map[currentPosition.y][currentPosition.x - 1].isDetected == false){
+				if (rand() % 100 < 20 && Map[currentPosition.y][currentPosition.x - 1].data.kind == NORMAL){
+					Map[currentPosition.y][currentPosition.x - 1].isDetected = true;
+					*temp |= LEFT;
+				}
+			}
+			break;
+
+		case 2:
+			if (Map[currentPosition.y + 1][currentPosition.x].isDetected == false){
+				if (rand() % 100 < 20 && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL){
+					Map[currentPosition.y + 1][currentPosition.x].isDetected = true;
+					*temp |= DOWN;
+				}
+			}
+			break;
+		case 6:
+			if (Map[currentPosition.y][currentPosition.x + 1].isDetected == false){
+				if (rand() % 100< 20 && Map[currentPosition.y][currentPosition.x + 1].data.kind == NORMAL){
+					Map[currentPosition.y][currentPosition.x + 1].isDetected = true;
+					*temp |= RIGHT;
+				}
+			}
+			break;
+		}
+	}
+	*/
+}
+
+
+int HazardSensor::generator(){
+	return ran.get();
+}
+void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
+{
+
+	MapNode ** Map = mapmodel->getMapNode();
+	int *temp = (int*)result;
+	*temp = 0;
+	int x = currentPosition.x, y = currentPosition.y;
+	//srand(time(NULL));
+	//colorblob 랜덤 생성
+
+
+
+
 	//int값으로 알려준다.
 	//	8
 	//4		6
 	//	2		 현재방향에서 8426방향을 스캔하면서 8426 순서로 COLORBLOB이면 1아니면0을 표시
 	// 842 는 coloblob이고 6은 아니라면 0x1110
 
-	if (Map[currentPosition.y + 1][currentPosition.x].data.kind == COLORBLOB)
-			*temp |= 0x0010;
-	if ((currentPosition.y>0)&&(Map[currentPosition.y - 1][currentPosition.x].data.kind == COLORBLOB))
-			*temp |= 0x1000;
-	if (Map[currentPosition.y][currentPosition.x + 1].data.kind == COLORBLOB)
-			*temp |= 0x0001;
-	if ((currentPosition.x>0) && (Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB))
-			*temp |= 0x0100;
-
-}
-
-void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
-{
-	MapNode ** Map = mapmodel->getMapNode();
-	int *temp = (int*)result;
-	*temp = 0;
 	
-	switch (currentDirection)
-	{
-	case 2:
-		if (Map[currentPosition.y + 1][currentPosition.x].data.kind == HAZARD)
-			*temp |= 0x0010;
-		break;
-	case 8:
-		if ((currentPosition.y>0)&&(Map[currentPosition.y - 1][currentPosition.x].data.kind == HAZARD))
-			*temp |= 0x1000;
-		break;
-	case 6:
-		if (Map[currentPosition.y][currentPosition.x + 1].data.kind == HAZARD)
-			*temp |= 0x0001;
-		break;
-	case 4:
-	if ((currentPosition.x>0)&&(Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD))
-			*temp |= 0x0100;
-		break;
+	if ((x > 0) && (x < mapmodel->getMapWidth() - 1 )&&( y>0) && (y < mapmodel->getMapHeight() - 1)){
+		switch (currentDirection)
+		{
+		case 8:
+			if (Map[currentPosition.y - 1][currentPosition.x].isDetected == false){
+				Map[currentPosition.y - 1][currentPosition.x].isDetected = true;
+				if (generator() < 30 && Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL){
+					*temp |= UP;
+				}
+			}
+			break;
+
+		case 4:
+			if (Map[currentPosition.y ][currentPosition.x - 1].isDetected == false){
+					Map[currentPosition.y ][currentPosition.x - 1].isDetected = true;
+				if (generator() < 30 && Map[currentPosition.y][currentPosition.x - 1].data.kind == NORMAL){
+					*temp |= LEFT;
+				}
+			}
+			break;
+
+		case 2:
+			if (Map[currentPosition.y + 1][currentPosition.x].isDetected == false){
+					Map[currentPosition.y + 1][currentPosition.x].isDetected = true;
+				if (generator() < 30 && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL){
+					*temp |= DOWN;
+				}
+			}
+			break;
+		case 6:
+			if (Map[currentPosition.y][currentPosition.x + 1].isDetected == false){
+					Map[currentPosition.y][currentPosition.x + 1].isDetected = true;
+				if (generator()< 30 && Map[currentPosition.y][currentPosition.x + 1].data.kind == NORMAL){
+					*temp |= RIGHT;
+				}
+			}
+			break;
+		}
 	}
+	
 	
 }

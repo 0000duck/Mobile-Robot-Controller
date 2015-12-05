@@ -1,6 +1,7 @@
 #pragma once
 #include"Common.h"
 #include"map.h"
+#include"global.h"
 class SensorBase
 {
 public :
@@ -38,6 +39,8 @@ class ColorSensor : public SensorBase
 public:
 	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	bool IsColorBlobCheck();
+	int generator();
+	Ran ran;
 private:
 	
 };
@@ -48,6 +51,8 @@ class HazardSensor : public SensorBase
 public :
 	void Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection);
 	bool IsHazardCheck();
+	int generator();
+	Ran ran;
 private:
 };
 

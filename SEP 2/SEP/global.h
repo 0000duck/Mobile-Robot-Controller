@@ -1,6 +1,30 @@
 #pragma once
 
+
+#include <random>
+#include <ctime>
+#include <iostream>
+#include <functional>
 #include "Common.h"
+
+using namespace std;
+
+class Ran{
+public:
+	int get(){
+		return distribution(engine);
+	}
+	Ran(){
+		random_device rd;
+		mt19937_64 _engine(rd());                    // MT19937 난수 엔진
+		engine = _engine;
+		uniform_int_distribution<int> _distribution(0, 100);       // 생성 범위
+		distribution = _distribution;
+	}
+private:
+	mt19937_64 engine;
+	uniform_int_distribution<int> distribution;       // 생성 범위
+};
 
 //센서, 로봇, 가상로봇, 실제맵 모두 글로벌로 미리 선언한다.(가상맵은 제외)
 
