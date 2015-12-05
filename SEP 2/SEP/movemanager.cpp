@@ -221,8 +221,7 @@ void MoveManager::Explore()
 			{
 				curX=rRobot->getRobotPosition().x;
 				curY=rRobot->getRobotPosition().y;
-				mapManager->CalAble(curX, curY);
-				mapManager->SetDisable();
+				mapManager->SearchDis();
 				GetNextMoveData();
 				Forward = mapManager->GetForwardMapNode(dataInterface->getRobotPosition(), dataInterface->getRobotDirection());
 				AnalyzeHazardSensorData();

@@ -118,28 +118,28 @@ void MapManager::CalAble(int x, int y)					//x, y에서 갈 수 있는 곳을 NORMAL로 �
 
 	if(i==mapWidth-1);
 	else if(Map[j][i+1].data.kind==HAZARD);
-	else if(Map[j][i+1].data.kind!=NORMAL)
+	else if(Map[j][i+1].data.kind==INIT)
 	{
 		Map[j][i+1].data.kind=NORMAL;
 		CalAble(i+1, j);
 	}
 	if(i==0);
 	else if(Map[j][i-1].data.kind==HAZARD);
-	else if(Map[j][i-1].data.kind!=NORMAL)
+	else if(Map[j][i-1].data.kind==INIT)
 	{
 		Map[j][i-1].data.kind=NORMAL;
 		CalAble(i-1, j);
 	}
 	if(j==mapHeight-1);
 	else if(Map[j+1][i].data.kind==HAZARD);
-	else if(Map[j+1][i].data.kind!=NORMAL)
+	else if(Map[j+1][i].data.kind==INIT)
 	{
 		Map[j+1][i].data.kind=NORMAL;
 		CalAble(i, j+1);
 	}
 	if(j==0);
 	else if(Map[j-1][i].data.kind==HAZARD);
-	else if(Map[j-1][i].data.kind!=NORMAL)
+	else if(Map[j-1][i].data.kind==INIT)
 	{
 		Map[j-1][i].data.kind=NORMAL;
 		CalAble(i, j-1);
@@ -159,6 +159,29 @@ void MapManager::SetDisable()					//CalAble()후에도 INIT으로 남아있는 부분은 가�
 				Map[j][i].data.kind=HAZARD;
 		}
 	}
+}
+void MapManager::SearchDis()
+{
+	int i, j;
+	MapNode** Map = mapModel->getMapNode();
+	
+	for (int i = 0; i < mapHeight; i++)
+	{
+		for (int j = 0; j < mapWidth; j++)
+		{
+			if(Map[i][j].data.kind==HAZARD)
+				Map[i][j].data.kind=HAZARD;
+			else if(Map[i][j].data.kind==COLORBLOB)
+				Map[i][j].data.kind=COLORBLOB;
+			else
+				Map[i][j].data.kind = INIT;
+			//map의 속성이 hazard가 아니면 INIT으로 설정.
+		}
+	}
+
+	CalAble(startx, starty);
+	SetDisable();
+
 }
 MapManager::MapManager(int** mapInput, int mapX, int mapY,Position start)
 {
