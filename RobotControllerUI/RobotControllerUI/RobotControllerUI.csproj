@@ -91,6 +91,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddOn\AddOnManager.cs" />
+    <Compile Include="AddOn\Map\MapManager.cs" />
+    <Compile Include="AddOn\Map\MapModel.cs" />
+    <Compile Include="AddOn\Map\MapNode.cs" />
+    <Compile Include="AddOn\MoveManager.cs" />
     <Compile Include="InteractiveUI.cs">
       <SubType>Form</SubType>
     </Compile>
