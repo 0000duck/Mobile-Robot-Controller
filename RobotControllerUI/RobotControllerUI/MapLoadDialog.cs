@@ -15,6 +15,7 @@ namespace RobotControllerUI
         Bitmap map;
         string imagefile;
         public List<Spot> LoadedHazardList;
+        public List<Spot> LoadedSearchSpotList;
         public string ImageFile
         {
             get
@@ -36,13 +37,14 @@ namespace RobotControllerUI
         public int YMax { get; protected set; }
 
         public int HazardCnt = 0;
-        public int ImportantCnt = 0;
+        public int SearchCnt = 0;
 
 
         public MapLoadDialog()
         {
             InitializeComponent();
             LoadedHazardList = new List<Spot>();
+            LoadedSearchSpotList = new List<Spot>();
         }
         /// <summary>
         /// ImageFile 탐색 버튼
@@ -98,13 +100,17 @@ namespace RobotControllerUI
                     else if (col.G > 240
                         && col.R < 60
                         && col.B < 60)
-                        ImportantCnt++;
+                    {
+                        SearchCnt++;
+                        LoadedSearchSpotList.Add(new Spot(x, y));
+
+                    }
 
                 }
             }
 
             HazardTBox.Text = HazardCnt.ToString();
-            ImportantTBox.Text = ImportantCnt.ToString();
+            SearchTBox.Text = SearchCnt.ToString();
             XTbox.Text = XMax.ToString();
             YTBox.Text = YMax.ToString();
                

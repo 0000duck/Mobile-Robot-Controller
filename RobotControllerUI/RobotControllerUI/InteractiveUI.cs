@@ -198,6 +198,9 @@ namespace RobotControllerUI
                 //HazardList 추가
                 AddLoadedHazard(MapLoader.LoadedHazardList);
 
+                //SpotList 추가
+                AddSearchSpotList(MapLoader.LoadedSearchSpotList);
+
                 string path = MapLoader.ImageFile;
                 MapMiniView.Load(@path);
                 MapMiniView.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -211,6 +214,7 @@ namespace RobotControllerUI
             MapSize = new Spot(xmax, ymax);
             MapTxtInput.Text = MapSize.ToString();
         }
+
         /// <summary>
         /// Map에서 읽어온 HazardList 처리
         /// </summary>
@@ -222,6 +226,17 @@ namespace RobotControllerUI
             HazardListBox.DataSource = null;
             HazardListBox.DataSource = HazardList;
         }
+        /// <summary>
+        /// Map에서 읽어온 SpotList 처리
+        /// </summary>
+        /// <param name="LoadedSerach"></param>
+        private void AddSearchSpotList(List<Spot> LoadedSerach)
+        {
+            if (LoadedSerach == null || LoadedSerach.Count == 0) return;
+            SpotList.AddRange(LoadedSerach);
+            SpotListBox.DataSource = null;
+            SpotListBox.DataSource = SpotList;
+        } 
         /// <summary>
         /// Start버튼 눌렀으때
         /// </summary>

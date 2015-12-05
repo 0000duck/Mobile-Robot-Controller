@@ -38,7 +38,7 @@
             this.XTbox = new System.Windows.Forms.TextBox();
             this.YTBox = new System.Windows.Forms.TextBox();
             this.HazardTBox = new System.Windows.Forms.TextBox();
-            this.ImportantTBox = new System.Windows.Forms.TextBox();
+            this.SearchTBox = new System.Windows.Forms.TextBox();
             this.LoadBtn = new System.Windows.Forms.Button();
             this.CancleBtn = new System.Windows.Forms.Button();
             this.OkBtn = new System.Windows.Forms.Button();
@@ -81,9 +81,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(348, 145);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 15);
+            this.label3.Size = new System.Drawing.Size(53, 15);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Important";
+            this.label3.Text = "Search";
             // 
             // label4
             // 
@@ -127,13 +127,13 @@
             this.HazardTBox.Size = new System.Drawing.Size(129, 25);
             this.HazardTBox.TabIndex = 8;
             // 
-            // ImportantTBox
+            // SearchTBox
             // 
-            this.ImportantTBox.Location = new System.Drawing.Point(415, 142);
-            this.ImportantTBox.Name = "ImportantTBox";
-            this.ImportantTBox.ReadOnly = true;
-            this.ImportantTBox.Size = new System.Drawing.Size(129, 25);
-            this.ImportantTBox.TabIndex = 9;
+            this.SearchTBox.Location = new System.Drawing.Point(415, 142);
+            this.SearchTBox.Name = "SearchTBox";
+            this.SearchTBox.ReadOnly = true;
+            this.SearchTBox.Size = new System.Drawing.Size(129, 25);
+            this.SearchTBox.TabIndex = 9;
             // 
             // LoadBtn
             // 
@@ -182,7 +182,7 @@
             this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.CancleBtn);
             this.Controls.Add(this.LoadBtn);
-            this.Controls.Add(this.ImportantTBox);
+            this.Controls.Add(this.SearchTBox);
             this.Controls.Add(this.HazardTBox);
             this.Controls.Add(this.YTBox);
             this.Controls.Add(this.XTbox);
@@ -212,7 +212,7 @@
         private System.Windows.Forms.TextBox XTbox;
         private System.Windows.Forms.TextBox YTBox;
         private System.Windows.Forms.TextBox HazardTBox;
-        private System.Windows.Forms.TextBox ImportantTBox;
+        private System.Windows.Forms.TextBox SearchTBox;
         private System.Windows.Forms.Button LoadBtn;
         private System.Windows.Forms.Button CancleBtn;
         private System.Windows.Forms.Button OkBtn;

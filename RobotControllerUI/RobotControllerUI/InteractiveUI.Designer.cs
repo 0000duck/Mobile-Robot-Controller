@@ -111,10 +111,8 @@
             // SpotListBox
             // 
             this.SpotListBox.FormattingEnabled = true;
-            this.SpotListBox.HorizontalScrollbar = true;
             this.SpotListBox.ItemHeight = 15;
             this.SpotListBox.Location = new System.Drawing.Point(60, 50);
-            this.SpotListBox.MultiColumn = true;
             this.SpotListBox.Name = "SpotListBox";
             this.SpotListBox.Size = new System.Drawing.Size(100, 49);
             this.SpotListBox.TabIndex = 11;
