@@ -26,10 +26,20 @@ namespace GraphicControl
 
         MapforDraw Map;
 
+        /// <summary>
+        /// 격자
+        /// </summary>
         Grid BasicGrid;
         private Device dx_Device = null;
         private static GraphicManager Instance = null;
         protected List<DrawObj> DrawObjectList;
+
+        private int UIState;
+        
+        //상태를 나타내는 상수
+        public const int UI_READY =0;
+        public const int UI_RUNING=1;
+        public const int UI_END=2;
         /// <summary>
         /// 싱글톤 클래스 접근자
         /// </summary>
@@ -47,7 +57,9 @@ namespace GraphicControl
         private GraphicManager()
         {
             DrawObjectList = new List<DrawObj>();
-            
+            //초기화 이전상태
+            UIState = -1;
+
         }
 
         /// <summary>
@@ -67,6 +79,7 @@ namespace GraphicControl
         /// <param name="Direction">바양</param>
         public void MoveRobot(int Direction)
         {
+            if (UIState < UI_READY) return;
             RobotMover.OnMove(Direction);
         }
         /// <summary>
@@ -74,17 +87,25 @@ namespace GraphicControl
         /// </summary>
         /// <param name="KindObj"></param>
         public void CreateObj(int KindObj , float X2d, float Y2d)
-        { }
+        {
+            if (UIState < UI_READY) return;
+            DrawObj NewObj = new DrawObj(dx_Device, KindObj);
+            NewObj.ObjectPosInit(new Vector3(X2d , 0 , Y2d));
+        }
         /// <summary>
         /// 탐색이 시작됨을 알려줌
         /// </summary>
         public void Start()
-        { }
+        {
+            UIState = UI_RUNING;
+        }
         /// <summary>
         /// 탐색이 종료됨을 알려줌
         /// </summary>
         public void End()
-        { }
+        {
+            UIState = UI_END;
+        }
         /// <summary>
         /// 다이렉트 X 초기화 함수
         /// </summary>
@@ -152,7 +173,7 @@ namespace GraphicControl
             RobotMover = new ModelMoveController(RobotObj);
 
             MainCamera = new Camera(dx_Device);
-            
+            UIState = UI_READY;
 
         }
 
@@ -218,10 +239,12 @@ namespace GraphicControl
 
 
         }
+   
         public void CreateHazard(float x, float y)
         {
-            DrawObj Newobj = new DrawObj(dx_Device, ModelManager.HAZARD);
-            Newobj.ObjectPosInit(new Vector3(x,0,y));
+            // DrawObj Newobj = new DrawObj(dx_Device, ModelManager.HAZARD);
+            //Newobj.ObjectPosInit(new Vector3(x,0,y));
+            CreateObj(ModelManager.HAZARD, x, y);
         }
     }
 }

@@ -12,6 +12,7 @@ using GraphicControl;
 using GraphicControl.DrawObject;
 
 
+
 namespace RobotControllerUI
 {
     public partial class InteractiveUI : Form
@@ -20,6 +21,7 @@ namespace RobotControllerUI
         private List<Spot> SpotList;
         private List<Spot> HazardList;
         private Spot MapSize;
+
         /// <summary>
         /// View의 프레임을 조절하는 타이머
         /// </summary>
@@ -28,6 +30,7 @@ namespace RobotControllerUI
         public InteractiveUI()
         {
             InitializeComponent();
+            
         }
 
         private void GraphicView_Paint(object sender, PaintEventArgs e)
@@ -94,8 +97,8 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void LeftBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().MoveRobot(ModelMoveController.LEFT);
-        
+             GraphicManager.GetManager().MoveRobot(ModelMoveController.LEFT);
+           
         }
         /// <summary>
         /// Test용 Robot Right 함수
