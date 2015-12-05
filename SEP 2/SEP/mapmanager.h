@@ -10,15 +10,20 @@ public:
 	int GetNearMapNodeData();
 	void AddColorBlob(int colorblobInfo, Position pos);
 	void AddHazardPoint(int hazardInfo, Position pos);
-	MapNode GetForwardMapNode(Position robotPos, int robotDirection);
-	MapNode PreviousNode;
+	MapNode GetForwardMapNode(Position position, int robotDirection);
+	MapManager(int** mapInput, int mapX, int mapY, Position Start);
+	MapModel * getMapModel();
+	int getMapWidth();
+	int getMapHeight();
+	MapNode getPreviousNode();
+	void setPreviousNode(Position pos);
 	void CalAble(int x, int y);
 	void SetDisable();
 
+private:
+	MapNode PreviousNode;
 	int mapWidth, mapHeight;
 	MapModel *mapModel;
-	MapManager(int** mapInput, int mapX, int mapY, Position Start);
-private:
 	void AnalyzeMapData();
 	int startx, starty;
 

@@ -11,8 +11,8 @@ void init()
 	static int **GivingMapNode;
 	Position startP;
 	MapNode mapnode;
-	mapnode.PosX = 4;
-	mapnode.PosY = 4;
+	mapnode.position.x = 4;
+	mapnode.position.y = 4;
 	mapnode.data.kind = EXPLROATIONPOINT;
 	mapnode.isDetected = false;
 	const unsigned int mapWidth = 7, mapHeight = 7;
@@ -33,9 +33,7 @@ void init()
 		for (j = 0; j < mapWidth; j++)
 		{
 			fscanf(file, "%d", &GivingMapNode[i][j]);
-			printf("%d", GivingMapNode[i][j]);
 		}
-		printf("\n");
 	}
 	startP.x = 1;
 	startP.y = 1;
@@ -45,7 +43,6 @@ void init()
 }
 int main()
 {
-	
 	init();
 	moveManager->Explore();
 }
