@@ -18,7 +18,8 @@ void MoveManager::InitializeMoveData()
 {
 	InitDis();
 	dis[CurrentTarget.position.y][CurrentTarget.position.x] = 0;
-	CalPath(CurrentTarget.position.x, CurrentTarget.position.y);
+	while (DisEnd())
+		CalPath(CurrentTarget.position.x, CurrentTarget.position.y);
 }
 void MoveManager::InitDis()										//dis 초기화
 {
@@ -38,8 +39,6 @@ void MoveManager::InitDis()										//dis 초기화
 		for (i = 0; i<mapWidth; i++)
 			dis[j][i]=UNKNOWN;
 	}
-
-	CurrentTarget = RemainSearchSpotList.front();
 
 }
 
@@ -88,6 +87,24 @@ void MoveManager::CalPath(int x, int y)							//노드에서 목표지점까지의 거리를 �
 			}
 	}
 }
+int MoveManager::DisEnd()					//dis가 모두 계산됐는지 확인
+{
+	int i, j;
+	int width = mapManager->getMapWidth(), height = mapManager->getMapHeight();
+
+	for (i = 0; i<width; i++)
+	{
+		for (j = 0; j<height; j++)
+		{
+			if (Map[j][i].data.kind == HAZARD)
+				continue;
+			if (dis[j][i] == UNKNOWN)
+				return 1;
+		}
+	}
+
+	return 0;
+}
 /*
 void MoveManager::AnalyzeSensingData()
 {
@@ -117,16 +134,18 @@ int MoveManager::MakeNextMoveData()					//말 그대로 다음 움직임 결정하는 곳
 	int val;
 	int robotx = dataInterface->getRobotPosition().x;
 	int	roboty = dataInterface->getRobotPosition().y;
+	int mapWidth = mapModel->getMapWidth();
+	int mapHeight = mapModel->getMapHeight();
 	val = dis[roboty][robotx];
 	while (true)
 	{
-		if (val == dis[roboty + 1][robotx] + 1)
+		if ((roboty<mapHeight-1)&&(val == dis[roboty + 1][robotx] + 1) && (Map[roboty + 1][robotx].data.kind != HAZARD))
 			return 2;
-		else if (val == dis[roboty][robotx + 1] + 1)
+		else if ((robotx<mapWidth-1)&&(val == dis[roboty][robotx + 1] + 1) && (Map[roboty][robotx+1].data.kind != HAZARD))
 			return 6;
-		else if ((roboty>0) && (val == dis[roboty - 1][robotx] + 1))
+		else if ((roboty>0) && (val == dis[roboty - 1][robotx] + 1) && (Map[roboty - 1][robotx].data.kind != HAZARD))
 			return 8;
-		else if ((robotx>0) && (val == dis[roboty][robotx - 1] + 1))
+		else if ((robotx>0) && (val == dis[roboty][robotx - 1] + 1) && (Map[roboty][robotx-1].data.kind != HAZARD))
 			return 4;
 		else
 			val++;
@@ -161,10 +180,23 @@ MoveManager::MoveManager(int** mapInput, Position start,int mapWidth, int mapHei
 
 void MoveManager::InitMoveManager(int** mapInput, Position start, int mapWidth, int mapHeight, MapNode ExP)
 {
+	MapNode m, n, k, l;
+	m.position.x = 0;
+	m.position.y = 0;
+	n.position.x = 19;
+	n.position.y = 27;
+	k.position.x = 0;
+	k.position.y = 25;
+	l.position.x = 9;
+	l.position.y = 13;
 	dataInterface = new DataInterface(start,2);
 	virtualRobot = new VirtualRobot(start,2);;// 2는 처음 바라보는 방향이 2번 방향이라는 뜻
 	SetMapModel(mapInput, mapWidth, mapHeight, start);
-	RemainSearchSpotList.push_front(ExP);
+	RemainSearchSpotList.push_front(1);
+	RemainSearchSpotList.push_front(n);
+	RemainSearchSpotList.push_front(m);
+	RemainSearchSpotList.push_front(k);
+	RemainSearchSpotList.push_front(l);
 	mapModel = mapManager->getMapModel();
 	Map = mapModel->getMapNode();
 }
@@ -178,6 +210,15 @@ void MoveManager::Explore()
 
 	while(RemainSearchSpotList.size() > 0)					//모둔 목표지점을 탐사하는 루프
 	{
+		CurrentTarget = RemainSearchSpotList.front();
+
+		if (Map[CurrentTarget.position.y][CurrentTarget.position.x].data.kind == HAZARD)
+		{
+			printf("can't explore\n");
+			RemainSearchSpotList.pop_front();
+			continue;
+		}
+
 		InitializeMoveData();
 
 		while ((dataInterface->getRobotPosition().x != CurrentTarget.position.x) || (dataInterface->getRobotPosition().y != CurrentTarget.position.y))				//한 목표지점을 탐사하는 루프
@@ -192,17 +233,18 @@ void MoveManager::Explore()
 				}
 				printf("\n");
 			}
-			
+
 			AnalyzePositioningSensorData();
 			
 			GetNextMoveData();
 			AnalyzeHazardSensorData();
 			AnalyzeColorSensorData();
 			Forward = mapManager->GetForwardMapNode(dataInterface->getRobotPosition(), dataInterface->getRobotDirection());
-			
+		
 		
 			while (Forward.data.kind == HAZARD)					//앞에 있는 노드가 Hazard가 아닐때까지 회전.
 			{
+				mapManager->SearchDis();
 				GetNextMoveData();
 				Forward = mapManager->GetForwardMapNode(dataInterface->getRobotPosition(), dataInterface->getRobotDirection());
 				AnalyzeHazardSensorData();
@@ -272,8 +314,12 @@ void MoveManager::AnalyzePositioningSensorData()
 			if (rot == 0)
 				printf("error \n");
 			dataInterface->requestRobotRotate(rot);
-			RobotMoveRequest();
-			virtualRobot->virtualRotate(rot);
+			dataInterface->requestRobotMove();
+			setPositioningSensor();
+
+			printf("error fix %d %d", dataInterface->getRobotPosition().y, dataInterface->getRobotPosition().x);
+
+			
 
 		}
 	}
@@ -282,6 +328,25 @@ void MoveManager::AnalyzeHazardSensorData()//처리까지함
 {
 	void *result = new void*;
 	dataInterface->UseSensor(HAZARD_SENSOR, result, mapModel, dataInterface->getRobotPosition(), dataInterface->getRobotDirection());
+
+	if (*(int*)result & 0x1000)
+	{
+		printf("8 ");
+	}
+	if (*(int*)result & 0x0100)
+	{
+		printf("4 ");
+	}
+	if (*(int*)result & 0x0010)
+	{
+		printf("2 ");
+	}
+	if (*(int*)result & 0x0001)
+	{
+		printf("6 ");
+	}
+	if (*(int*)result > 0)
+		printf("hazard added\n");
 	mapManager->AddHazardPoint(*(int*)result, dataInterface->getRobotPosition());
 	delete result;
 }
@@ -312,6 +377,7 @@ void MoveManager::possibleError()
 		if (Forward.data.kind != HAZARD){
 			printf("error 발생 2칸 이동\n");
 			dataInterface->requestRobotMove();
-		}
+			setPositioningSensor();
+			}
 	}
 }

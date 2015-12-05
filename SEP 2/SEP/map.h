@@ -15,6 +15,7 @@ class MapNode
 {
 public :
 	bool isDetected;
+	bool isSensed;
 	Position position;
 	DataObject data;
 protected:

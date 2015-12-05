@@ -9,11 +9,21 @@ void MapManager::CreateMapModel(int** mapdata)//입력을어떻게 할지 아직 못정함
 		for (int j = 0; j < mapWidth; j++)
 		{
 			Map[i][j].isDetected = false;
-			Map[i][j].position.x = j;
-			Map[i][j].position.y = i;
-			Map[i][j].data.kind = mapdata[i][j];//map의 속성이 hazard인지 exploration points 인지 등등 설정
+			Map[i][j].position.x = i;
+			Map[i][j].position.y = j;
+			Map[i][j].isSensed = false;
+			if (mapdata[i][j] == HAZARD)
+				Map[i][j].data.kind = HAZARD;
+			else
+				Map[i][j].data.kind = INIT;
+			//map의 속성이 hazard가 아니면 INIT으로 설정.
 		}
 	}
+
+	CalAble(startx, starty);
+	SetDisable();
+	//현재 위치에서 탐사할 수 없는 영역을 HAZARD라고 표시.
+
 	Map[starty][startx].isDetected = true;
 	//현재위치 = 탐험됨으로 바꿈
 }
@@ -136,4 +146,77 @@ MapNode MapManager::getPreviousNode()
 void MapManager::setPreviousNode(Position pos)
 {
 	PreviousNode.position = pos;
+}
+
+
+
+void MapManager::CalAble(int x, int y)					//x, y에서 갈 수 있는 곳을 NORMAL로 셋팅.
+{
+	int i = x, j = y;
+	MapNode** Map = mapModel->getMapNode();
+
+	if (i == mapWidth - 1);
+	else if (Map[j][i + 1].data.kind == HAZARD);
+	else if (Map[j][i + 1].data.kind == INIT)
+	{
+		Map[j][i + 1].data.kind = NORMAL;
+		CalAble(i + 1, j);
+	}
+	if (i == 0);
+	else if (Map[j][i - 1].data.kind == HAZARD);
+	else if (Map[j][i - 1].data.kind == INIT)
+	{
+		Map[j][i - 1].data.kind = NORMAL;
+		CalAble(i - 1, j);
+	}
+	if (j == mapHeight - 1);
+	else if (Map[j + 1][i].data.kind == HAZARD);
+	else if (Map[j + 1][i].data.kind == INIT)
+	{
+		Map[j + 1][i].data.kind = NORMAL;
+		CalAble(i, j + 1);
+	}
+	if (j == 0);
+	else if (Map[j - 1][i].data.kind == HAZARD);
+	else if (Map[j - 1][i].data.kind == INIT)
+	{
+		Map[j - 1][i].data.kind = NORMAL;
+		CalAble(i, j - 1);
+	}
+
+}
+void MapManager::SetDisable()					//CalAble()후에도 INIT으로 남아있는 부분은 가지 못하는곳으로 간주, HAZARD로 표시.
+{
+	int i, j;
+	MapNode** Map = mapModel->getMapNode();
+
+	for (j = 0; j<mapHeight; j++)
+	{
+		for (i = 0; i<mapWidth; i++)
+		{
+			if (Map[j][i].data.kind == INIT)
+				Map[j][i].data.kind = HAZARD;
+		}
+	}
+}
+void MapManager::SearchDis()
+{
+	int i, j;
+	MapNode** Map = mapModel->getMapNode();
+
+	for (int i = 0; i < mapHeight; i++)
+	{
+		for (int j = 0; j < mapWidth; j++)
+		{
+			if (Map[i][j].data.kind == HAZARD);
+			else if (Map[i][j].data.kind == COLORBLOB);
+			else
+				Map[i][j].data.kind = INIT;
+			//map의 속성이 hazard가 아니면 INIT으로 설정.
+		}
+	}
+
+	CalAble(startx, starty);
+	SetDisable();
+
 }

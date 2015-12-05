@@ -6,7 +6,7 @@
 using namespace std;
 MoveManager* moveManager;
 
-void init()
+void init(int startX, startY, mapHeight, mapWidth, )
 {
 	static int **GivingMapNode;
 	Position startP;
@@ -15,7 +15,7 @@ void init()
 	mapnode.position.y = 4;
 	mapnode.data.kind = EXPLROATIONPOINT;
 	mapnode.isDetected = false;
-	const unsigned int mapWidth = 7, mapHeight = 7;
+	const unsigned int mapWidth = 21, mapHeight = 28;
 	FILE * file;
 	file = fopen("map.txt", "r");
 	int i, j;
@@ -35,14 +35,15 @@ void init()
 			fscanf(file, "%d", &GivingMapNode[i][j]);
 		}
 	}
-	startP.x = 1;
-	startP.y = 1;
+	startP.x = 20;
+	startP.y = 0;
 	fclose(file);
 
 	moveManager = new MoveManager(GivingMapNode, startP, mapWidth, mapHeight, mapnode);
 }
 int main()
 {
+	
 	init();
 	moveManager->Explore();
 }

@@ -1,4 +1,5 @@
 #pragma once
+#define INIT 0
 #define SENSORNUM 3
 #define HAZARD 5
 #define COLORBLOB 6

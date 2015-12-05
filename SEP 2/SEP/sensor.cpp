@@ -126,16 +126,43 @@ void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPositio
 	*temp |= 0x0001;
 	if ((currentPosition.x>0) && (Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB))
 	*temp |= 0x0100;
-	*/
-	if (x > 0 && x < mapmodel->getMapWidth() - 1 && y>0 && y < mapmodel->getMapHeight() - 1){
-		if ((generator() < 10) && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL)
-			*temp |= 0x0010;
-		if (generator() < 10 && Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL)
-			*temp |= 0x1000;
-		if (generator() < 10 && Map[currentPosition.y][currentPosition.x + 1].data.kind == NORMAL)
-			*temp |= 0x0001;
-		if (generator() < 10 && Map[currentPosition.y][currentPosition.x - 1].data.kind == NORMAL)
-			*temp |= 0x0100;
+	*/if (x > 0 && x < mapmodel->getMapWidth() - 1 && y>0 && y < mapmodel->getMapHeight() - 1){
+		switch (currentDirection)
+		{
+		case 8:
+			if (Map[currentPosition.y - 1][currentPosition.x].isDetected == false){
+				if (generator() < 20&&Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL){
+					Map[currentPosition.y - 1][currentPosition.x].isDetected = true;
+					*temp |= 0x1000;
+				}
+			}
+			break;
+
+		case 4:
+			if (Map[currentPosition.y ][currentPosition.x - 1].isDetected == false){
+				if (generator() < 20 && Map[currentPosition.y ][currentPosition.x - 1].data.kind == NORMAL){
+					Map[currentPosition.y ][currentPosition.x - 1].isDetected = true;
+					*temp |= 0x0100;
+				}
+			}
+			break;
+
+		case 2:
+			if (Map[currentPosition.y + 1][currentPosition.x].isDetected == false){
+				if (generator() < 20 && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL){
+					Map[currentPosition.y + 1][currentPosition.x].isDetected = true;
+					*temp |= 0x0010;
+				}
+			}
+			break;
+		case 6:
+			if (Map[currentPosition.y][currentPosition.x + 1].isDetected == false){
+				if (generator() < 20 && Map[currentPosition.y][currentPosition.x + 1].data.kind == NORMAL){
+					Map[currentPosition.y][currentPosition.x + 1].isDetected = true;
+					*temp |= 0x0001;
+				}
+			}
+			break;
+		}
 	}
-	
 }

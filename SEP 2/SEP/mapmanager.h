@@ -17,11 +17,13 @@ public:
 	int getMapHeight();
 	MapNode getPreviousNode();
 	void setPreviousNode(Position pos);
+	void SearchDis();
 private:
 	MapNode PreviousNode;
 	int mapWidth, mapHeight;
 	MapModel *mapModel;
 	void AnalyzeMapData();
 	int startx, starty;
-
+	void CalAble(int x, int y);
+	void SetDisable();
 };
