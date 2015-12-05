@@ -1,0 +1,99 @@
+﻿빌드 시작: 2015-12-05 오후 10:44:43
+     1>2 노드의 "E:\1\workingsapce\desire\desire\desire.vcxproj" 프로젝트(Build 대상)입니다.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SEP.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\desire.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\desire.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt datainterface.cpp MainFlow.cpp map.cpp MapManager.cpp movemanager.cpp robot.cpp sensor.cpp source.cpp virtualrobot.cpp
+         virtualrobot.cpp
+     1>e:\1\workingsapce\desire\desire\virtualrobot.cpp(2): warning C4627: '#include "Common.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\virtualrobot.cpp(3): warning C4627: '#include "global.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\virtualrobot.cpp(4): warning C4627: '#include "VirtualRobot.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\virtualrobot.cpp(60): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         source.cpp
+     1>e:\1\workingsapce\desire\desire\source.cpp(2): warning C4627: '#include <stdio.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\source.cpp(3): warning C4627: '#include <sensor.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\source.cpp(4): warning C4627: '#include <movement.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\source.cpp(5): warning C4627: '#include <map.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\source.cpp(6): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         sensor.cpp
+     1>e:\1\workingsapce\desire\desire\sensor.cpp(1): warning C4627: '#include "Common.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\sensor.cpp(2): warning C4627: '#include "global.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\sensor.cpp(3): warning C4627: '#include "map.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\sensor.cpp(4): warning C4627: '#include "sensor.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\sensor.cpp(181): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         robot.cpp
+     1>e:\1\workingsapce\desire\desire\robot.cpp(2): warning C4627: '#include <stdio.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(3): warning C4627: '#include <random>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(4): warning C4627: '#include <ctime>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(5): warning C4627: '#include <iostream>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(6): warning C4627: '#include <functional>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(7): warning C4627: '#include "robot.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(8): warning C4627: '#include "Common.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(9): warning C4627: '#include "global.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\robot.cpp(108): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         movemanager.cpp
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(1): warning C4627: '#include "Common.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(2): warning C4627: '#include "global.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(3): warning C4627: '#include "map.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(4): warning C4627: '#include "mapmanager.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(5): warning C4627: '#include "VirtualRobot.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(6): warning C4627: '#include <list>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(7): warning C4627: '#include "datainterface.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(8): warning C4627: '#include "moveManager.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(9): warning C4627: '#include <conio.h>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\movemanager.cpp(412): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         MapManager.cpp
+     1>e:\1\workingsapce\desire\desire\mapmanager.cpp(2): warning C4627: '#include "mapmanager.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\mapmanager.cpp(231): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         map.cpp
+     1>e:\1\workingsapce\desire\desire\map.cpp(1): warning C4627: '#include "map.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\map.cpp(31): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         MainFlow.cpp
+     1>e:\1\workingsapce\desire\desire\mainflow.cpp(2): warning C4627: '#include <fstream>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\mainflow.cpp(3): warning C4627: '#include <iostream>': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\mainflow.cpp(4): warning C4627: '#include "moveManager.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\mainflow.cpp(32): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         datainterface.cpp
+     1>e:\1\workingsapce\desire\desire\datainterface.cpp(2): warning C4627: '#include "datainterface.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>e:\1\workingsapce\desire\desire\datainterface.cpp(40): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         코드를 생성하고 있습니다...
+     1>"E:\1\workingsapce\desire\desire\desire.vcxproj" 프로젝트를 빌드했습니다(Build 대상). - 실패
+
+빌드하지 못했습니다.
+
+경과 시간: 00:00:00.63
