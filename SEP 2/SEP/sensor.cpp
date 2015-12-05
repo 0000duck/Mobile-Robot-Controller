@@ -1,9 +1,13 @@
+#include <random>
+#include <ctime>
+#include <iostream>
+#include <functional>
 #include"Common.h"
 #include"global.h"
 #include"map.h"
 #include "sensor.h"
 
-
+using namespace std;
 
 
 SensorSystem::SensorSystem(Position position)
@@ -59,15 +63,22 @@ Position PositioningSensor::GetPosition()
 
 void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
 {
+	mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
+	uniform_int_distribution<int> distribution(0, 100);       // 생성 범위
+	auto generator = bind(distribution, engine);
 	MapNode ** Map = mapmodel->getMapNode();
 	int *temp = (int*)result;
 	*temp = 0;
+	int x = currentPosition.x , y = currentPosition.y;
+	//colorblob 랜덤 생성
+
+
 	//int값으로 알려준다.
 	//	8
 	//4		6
 	//	2		 현재방향에서 8426방향을 스캔하면서 8426 순서로 COLORBLOB이면 1아니면0을 표시
 	// 842 는 coloblob이고 6은 아니라면 0x1110
-
+	/*
 	if (Map[currentPosition.y + 1][currentPosition.x].data.kind == COLORBLOB)
 			*temp |= 0x0010;
 	if ((currentPosition.y>0)&&(Map[currentPosition.y - 1][currentPosition.x].data.kind == COLORBLOB))
@@ -76,33 +87,55 @@ void ColorSensor::Use(void *result, MapModel *mapmodel, Position currentPosition
 			*temp |= 0x0001;
 	if ((currentPosition.x>0) && (Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB))
 			*temp |= 0x0100;
-
+			*/
+	if (x > 0 && x < mapmodel->getMapWidth() - 1 && y>0 && y < mapmodel->getMapHeight() - 1){
+		if ((generator() < 10) && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL)
+			*temp |= 0x0010;
+		if (generator() < 10 && Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL)
+			*temp |= 0x1000;
+		if (generator() < 10 && Map[currentPosition.y ][currentPosition.x + 1].data.kind == NORMAL)
+			*temp |= 0x0001;
+		if (generator() < 10 && Map[currentPosition.y ][currentPosition.x -1 ].data.kind == NORMAL)
+			*temp |= 0x0100;
+	}
 }
 
 void HazardSensor::Use(void *result, MapModel *mapmodel, Position currentPosition, int currentDirection)
 {
+	mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
+	uniform_int_distribution<int> distribution(0, 100);       // 생성 범위
+	auto generator = bind(distribution, engine);
 	MapNode ** Map = mapmodel->getMapNode();
 	int *temp = (int*)result;
 	*temp = 0;
-	
-	switch (currentDirection)
-	{
-	case 2:
-		if (Map[currentPosition.y + 1][currentPosition.x].data.kind == HAZARD)
+	int x = currentPosition.x, y = currentPosition.y;
+	//colorblob 랜덤 생성
+
+
+	//int값으로 알려준다.
+	//	8
+	//4		6
+	//	2		 현재방향에서 8426방향을 스캔하면서 8426 순서로 COLORBLOB이면 1아니면0을 표시
+	// 842 는 coloblob이고 6은 아니라면 0x1110
+	/*
+	if (Map[currentPosition.y + 1][currentPosition.x].data.kind == COLORBLOB)
+	*temp |= 0x0010;
+	if ((currentPosition.y>0)&&(Map[currentPosition.y - 1][currentPosition.x].data.kind == COLORBLOB))
+	*temp |= 0x1000;
+	if (Map[currentPosition.y][currentPosition.x + 1].data.kind == COLORBLOB)
+	*temp |= 0x0001;
+	if ((currentPosition.x>0) && (Map[currentPosition.y][currentPosition.x - 1].data.kind == COLORBLOB))
+	*temp |= 0x0100;
+	*/
+	if (x > 0 && x < mapmodel->getMapWidth() - 1 && y>0 && y < mapmodel->getMapHeight() - 1){
+		if ((generator() < 10) && Map[currentPosition.y + 1][currentPosition.x].data.kind == NORMAL)
 			*temp |= 0x0010;
-		break;
-	case 8:
-		if ((currentPosition.y>0)&&(Map[currentPosition.y - 1][currentPosition.x].data.kind == HAZARD))
+		if (generator() < 10 && Map[currentPosition.y - 1][currentPosition.x].data.kind == NORMAL)
 			*temp |= 0x1000;
-		break;
-	case 6:
-		if (Map[currentPosition.y][currentPosition.x + 1].data.kind == HAZARD)
+		if (generator() < 10 && Map[currentPosition.y][currentPosition.x + 1].data.kind == NORMAL)
 			*temp |= 0x0001;
-		break;
-	case 4:
-	if ((currentPosition.x>0)&&(Map[currentPosition.y][currentPosition.x - 1].data.kind == HAZARD))
+		if (generator() < 10 && Map[currentPosition.y][currentPosition.x - 1].data.kind == NORMAL)
 			*temp |= 0x0100;
-		break;
 	}
 	
 }

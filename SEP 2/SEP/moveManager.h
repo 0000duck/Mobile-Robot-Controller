@@ -18,6 +18,7 @@ public:
 	void GetPositioningSensorData(void *result);
 	void Explore();
 	void setPositioningSensor();	//현재 로봇의 위치로 센서 값을 설정
+	void possibleError();
 	MoveManager();
 	MoveManager(int** mpaInput, Position start, int mapWidth, int mapHeight,MapNode exp);
 	

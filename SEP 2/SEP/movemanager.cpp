@@ -1,3 +1,7 @@
+#include <random>
+#include <ctime>
+#include <iostream>
+#include <functional>
 #include"Common.h"
 #include"global.h"
 #include"map.h"
@@ -205,8 +209,12 @@ void MoveManager::Explore()
 			}
 			//전에 있던데를 표시함
 			RobotMoveRequest();
+			possibleError();// 재수없으면 한번 더간다(수정하는 거에선 안감)
+			
+
 
 		}
+		printf(" 탐사 완료 현위치 : (%d,%d) \n", dataInterface->getRobotPosition().y, dataInterface->getRobotPosition().x);
 
 		RemainSearchSpotList.pop_front();					//탐사가 완료되었으니 리스트에서 제거
 		
@@ -222,9 +230,6 @@ void MoveManager::RobotMoveRequest()
 {
 	//이전 위치를 저장
 	mapManager->setPreviousNode(dataInterface->getRobotPosition());
-
-	
-	
 	//방향 돌리기 추가(PositioningSensor*)
 	//실제 로봇 위치 변경
 	dataInterface->requestRobotMove();
@@ -292,4 +297,21 @@ void MoveManager::AnalyzeColorSensorData()
 void MoveManager::setPositioningSensor()
 {
 	dynamic_cast<PositioningSensor *>(dataInterface->sensorSystem->Sensors[2])->SetPosition(dataInterface->getRobotPosition());
+}
+
+void MoveManager::possibleError()
+{
+	MapNode Forward;
+	mt19937 engine((unsigned int)time(NULL));                    // MT19937 난수 엔진
+	uniform_int_distribution<int> distribution(0, 100);       // 생성 범위
+	auto generator = bind(distribution, engine);
+	//(generator() %2==0) && 
+	if ((generator()<10)&&(dataInterface->getRobotPosition().x > 0) && (dataInterface->getRobotPosition().y > 0) && (dataInterface->getRobotPosition().x<mapManager->getMapWidth()) && (dataInterface->getRobotPosition().y<mapManager->getMapHeight())){
+	
+		Forward = mapManager->GetForwardMapNode(dataInterface->getRobotPosition(), dataInterface->getRobotDirection());
+		if (Forward.data.kind != HAZARD){
+			printf("error 발생 2칸 이동\n");
+			dataInterface->requestRobotMove();
+		}
+	}
 }
