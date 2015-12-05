@@ -27,5 +27,9 @@ public :
 	{
 		m->RobotMoveRequest();
 	}
+	void addExplorationPoint(int y, int x)
+	{
+		m->addExplorationPoint(y, x);
+	}
 };
 

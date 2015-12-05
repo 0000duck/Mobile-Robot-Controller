@@ -1,0 +1,34 @@
+﻿빌드 시작: 2015-12-05 오후 11:00:20
+     1>2 노드의 "E:\1\workingsapce\DE\DE\DE.vcxproj" 프로젝트(Rebuild 대상)입니다.
+     1>ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "..\..\SEP 2\SEP\datainterface.cpp" "..\..\SEP 2\SEP\MainFlow.cpp" "..\..\SEP 2\SEP\map.cpp" "..\..\SEP 2\SEP\MapManager.cpp" "..\..\SEP 2\SEP\movemanager.cpp" "..\..\SEP 2\SEP\robot.cpp" "..\..\SEP 2\SEP\sensor.cpp" "..\..\SEP 2\SEP\source.cpp" "..\..\SEP 2\SEP\virtualrobot.cpp"
+         virtualrobot.cpp
+         source.cpp
+         sensor.cpp
+         robot.cpp
+         movemanager.cpp
+         MapManager.cpp
+     1>e:\1\workingsapce\sep 2\sep\mapmanager.cpp(212): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+     1>e:\1\workingsapce\sep 2\sep\mapmanager.cpp(212): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
+         map.cpp
+         MainFlow.cpp
+         datainterface.cpp
+         코드를 생성하고 있습니다...
+       Lib:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\1\workingsapce\DE\Debug\DE.lib" /NOLOGO Debug\datainterface.obj
+         Debug\MainFlow.obj
+         Debug\map.obj
+         Debug\MapManager.obj
+         Debug\movemanager.obj
+         Debug\robot.obj
+         Debug\sensor.obj
+         Debug\source.obj
+         Debug\virtualrobot.obj
+     1>source.obj : warning LNK4221: 이 개체 파일은 이전에 정의되지 않은 공용 기호를 정의하지 않으므로 이 라이브러리를 사용하는 어떠한 링크 작업에도 사용되지 않습니다.
+     1>MainFlow.obj : warning LNK4221: 이 개체 파일은 이전에 정의되지 않은 공용 기호를 정의하지 않으므로 이 라이브러리를 사용하는 어떠한 링크 작업에도 사용되지 않습니다.
+         DE.vcxproj -> E:\1\workingsapce\DE\Debug\DE.lib
+     1>"E:\1\workingsapce\DE\DE\DE.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:02.60

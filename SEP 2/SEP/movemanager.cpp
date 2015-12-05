@@ -183,29 +183,25 @@ void MoveManager::InitMoveManager(int startY, int startX, int mapHeight, int map
 	Position start;
 	start.x = startX;
 	start.y = startY;
-	MapNode m, n, k, l;
-	m.position.x = 0;
-	m.position.y = 0;
-	n.position.x = 19;
-	n.position.y = 7;
-	k.position.x = 0;
-	k.position.y = 2;
-	l.position.x = 9;
-	l.position.y = 13;
+
 	dataInterface = new DataInterface(start, 2);
 	virtualRobot = new VirtualRobot(start, 2);;// 2는 처음 바라보는 방향이 2번 방향이라는 뜻
 	SetMapModel(mapWidth, mapHeight, start);
 
-	RemainSearchSpotList.push_front(n);
-	RemainSearchSpotList.push_front(m);
-	RemainSearchSpotList.push_front(k);
-	RemainSearchSpotList.push_front(l);
 	mapModel = mapManager->getMapModel();
 	Map = mapModel->getMapNode();
 }
 
 int MoveManager::generator(){
 	return ran.get();
+}
+
+void MoveManager::addExplorationPoint(int y, int x)
+{
+	MapNode m;
+	m.position.y = y;
+	m.position.x = x;
+	RemainSearchSpotList.push_front(m);
 }
 
 void MoveManager::Explore()

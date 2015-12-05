@@ -30,6 +30,7 @@ public:
 	void InitMoveManager(int  startY, int startX, int mapWidth, int mapHeight);
 	MapManager *mapManager;
 	void RobotMoveRequest();
+	void addExplorationPoint(int y, int x);
 	static MoveManager* GetManager()
 	{
 		if (pInstance == NULL)

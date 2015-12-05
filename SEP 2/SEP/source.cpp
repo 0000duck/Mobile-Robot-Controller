@@ -1,5 +1,5 @@
 #pragma once
 #include<stdio.h>
-#include<sensor.h>
-#include<movement.h>
-#include<map.h>
+#include"sensor.h"
+#include"movemanager.h"
+#include"map.h"
