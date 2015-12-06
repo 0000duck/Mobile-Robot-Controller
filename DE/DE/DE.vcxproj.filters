@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -13,65 +9,68 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{c4332995-1b74-4f9a-aa01-af1f36f69d1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\SEP 2\SEP\Common.h">
+    <ClInclude Include="Common.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\datainterface.h">
+    <ClInclude Include="datainterface.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\global.h">
+    <ClInclude Include="global.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\map.h">
+    <ClInclude Include="map.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\mapmanager.h">
+    <ClInclude Include="mapmanager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\moveManager.h">
+    <ClInclude Include="moveManager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\robot.h">
+    <ClInclude Include="robot.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\sensor.h">
+    <ClInclude Include="sensor.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\SEP 2\SEP\VirtualRobot.h">
+    <ClInclude Include="VirtualRobot.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SEP 2\SEP\datainterface.cpp">
+    <ClCompile Include="datainterface.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\MainFlow.cpp">
+    <ClCompile Include="MainFlow.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\map.cpp">
+    <ClCompile Include="map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\MapManager.cpp">
+    <ClCompile Include="MapManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\movemanager.cpp">
+    <ClCompile Include="movemanager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\robot.cpp">
+    <ClCompile Include="robot.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\sensor.cpp">
+    <ClCompile Include="sensor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\source.cpp">
+    <ClCompile Include="source.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SEP 2\SEP\virtualrobot.cpp">
+    <ClCompile Include="virtualrobot.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

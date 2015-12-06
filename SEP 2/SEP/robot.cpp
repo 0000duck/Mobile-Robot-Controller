@@ -53,16 +53,16 @@ void Robot::Move()
 {
 	switch (rDirection)
 	{
-	case 8:
-		rPosition.y--;
-		break;
-	case 2:
+	case UP:
 		rPosition.y++;
 		break;
-	case 4:
+	case DOWN:
+		rPosition.y--;
+		break;
+	case LEFT:
 		rPosition.x--;
 		break;
-	case 6:
+	case RIGHT:
 		rPosition.x++;
 		break;
 	}

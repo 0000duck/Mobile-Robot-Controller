@@ -1,15 +1,15 @@
-﻿빌드 시작: 2015-12-05 오후 11:00:20
+﻿빌드 시작: 2015-12-06 오전 2:17:43
      1>2 노드의 "E:\1\workingsapce\DE\DE\DE.vcxproj" 프로젝트(Rebuild 대상)입니다.
      1>ClCompile:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "..\..\SEP 2\SEP\datainterface.cpp" "..\..\SEP 2\SEP\MainFlow.cpp" "..\..\SEP 2\SEP\map.cpp" "..\..\SEP 2\SEP\MapManager.cpp" "..\..\SEP 2\SEP\movemanager.cpp" "..\..\SEP 2\SEP\robot.cpp" "..\..\SEP 2\SEP\sensor.cpp" "..\..\SEP 2\SEP\source.cpp" "..\..\SEP 2\SEP\virtualrobot.cpp"
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt datainterface.cpp MainFlow.cpp map.cpp MapManager.cpp movemanager.cpp robot.cpp sensor.cpp source.cpp virtualrobot.cpp
          virtualrobot.cpp
          source.cpp
          sensor.cpp
          robot.cpp
          movemanager.cpp
          MapManager.cpp
-     1>e:\1\workingsapce\sep 2\sep\mapmanager.cpp(212): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-     1>e:\1\workingsapce\sep 2\sep\mapmanager.cpp(212): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
+     1>e:\1\workingsapce\de\de\mapmanager.cpp(212): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+     1>e:\1\workingsapce\de\de\mapmanager.cpp(212): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
          map.cpp
          MainFlow.cpp
          datainterface.cpp
@@ -31,4 +31,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:02.60
+경과 시간: 00:00:02.92

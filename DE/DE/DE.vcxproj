@@ -74,26 +74,26 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\SEP 2\SEP\Common.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\datainterface.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\global.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\map.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\mapmanager.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\moveManager.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\robot.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\sensor.h" />
-    <ClInclude Include="..\..\SEP 2\SEP\VirtualRobot.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="datainterface.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="mapmanager.h" />
+    <ClInclude Include="moveManager.h" />
+    <ClInclude Include="robot.h" />
+    <ClInclude Include="sensor.h" />
+    <ClInclude Include="VirtualRobot.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SEP 2\SEP\datainterface.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\MainFlow.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\map.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\MapManager.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\movemanager.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\robot.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\sensor.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\source.cpp" />
-    <ClCompile Include="..\..\SEP 2\SEP\virtualrobot.cpp" />
+    <ClCompile Include="datainterface.cpp" />
+    <ClCompile Include="MainFlow.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="movemanager.cpp" />
+    <ClCompile Include="robot.cpp" />
+    <ClCompile Include="sensor.cpp" />
+    <ClCompile Include="source.cpp" />
+    <ClCompile Include="virtualrobot.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

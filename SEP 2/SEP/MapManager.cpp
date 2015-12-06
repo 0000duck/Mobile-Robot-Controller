@@ -2,17 +2,12 @@
 #include"mapmanager.h"
 void MapManager::CreateMapModel()//입력을어떻게 할지 아직 못정함
 {
-	MapNode** Map = mapModel->getMapNode();
 	//우선은 전부 public으로 하고 나중에 private으로 바꿀 계획
 	for (int i = 0; i < mapHeight; i++)
 	{
 		for (int j = 0; j < mapWidth; j++)
 		{
-			Map[i][j].isDetected = false;
-			Map[i][j].position.x = i;
-			Map[i][j].position.y = j;
-			Map[i][j].isSensed = false;
-				Map[i][j].data.kind = INIT;
+			setMapInfo(false, i, j, false, INIT);
 			//map의 속성이 hazard가 아니면 INIT으로 설정.
 		}
 	}
@@ -21,32 +16,36 @@ void MapManager::CreateMapModel()//입력을어떻게 할지 아직 못정함
 	SetDisable();
 	//현재 위치에서 탐사할 수 없는 영역을 HAZARD라고 표시.
 
-	Map[starty][startx].isDetected = true;
+	setMapInfo(true, starty, startx, false, INIT);
 	//현재위치 = 탐험됨으로 바꿈
 }
 
 
+//			바꿔라바꿔라밖 ㅝ라 y춧ㄱy축
+//
+//
+//
+//
 
 void MapManager::AddColorBlob(int pos, Position robotPos)// 8,4,2,6의 방향을 1000,0100,0010,0001로 나타낸다.
 {
 	MapNode** Map = mapModel->getMapNode();
 	//우선 가상로봇을 전역으로 선언해 두었다. 후에 어디서 선언할지 결정한다.
-	int t = 8;//나중에 일관성있게 바꿈 
 	if (pos & UP)
 	{
-		Map[robotPos.y - 1][robotPos.x].data.kind = COLORBLOB;
+		setMapData(robotPos.y, robotPos.x, COLORBLOB);
 	}
 	if (pos & LEFT)
 	{
-		Map[robotPos.y][robotPos.x - 1].data.kind = COLORBLOB;
+		setMapData(robotPos.y, robotPos.x - 1, COLORBLOB);
 	}
 	if (pos & DOWN)
 	{
-		Map[robotPos.y + 1][robotPos.x].data.kind = COLORBLOB;
+		setMapData(robotPos.y, robotPos.x, COLORBLOB);
 	}
 	if (pos & RIGHT)
 	{
-		Map[robotPos.y][robotPos.x + 1].data.kind = COLORBLOB;
+		setMapData(robotPos.y, robotPos.x + 1, COLORBLOB);
 	}
 }
 
@@ -55,32 +54,30 @@ void MapManager::AddHazardPoint(int pos, Position robotPos)// 8,4,2,6의 방향을 1
 	MapNode** Map = mapModel->getMapNode();
 	if (pos & UP)
 	{
-		Map[robotPos.y - 1][robotPos.x].data.kind = HAZARD;
+		setMapData(robotPos.y + 1 , robotPos.x, HAZARD);
 	}
 	if (pos & LEFT)
 	{
-		Map[robotPos.y][robotPos.x - 1].data.kind = HAZARD;
+		setMapData(robotPos.y, robotPos.x-1, HAZARD);
 	}
 	if (pos & DOWN)
 	{
-		Map[robotPos.y + 1][robotPos.x].data.kind = HAZARD;
+		setMapData(robotPos.y - 1 , robotPos.x, HAZARD);
 	}
 	if (pos & RIGHT)
 	{
-		Map[robotPos.y][robotPos.x + 1].data.kind = HAZARD;
+		setMapData(robotPos.y, robotPos.x+1, HAZARD);
 	}
 }
 
 void MapManager::addHazardPointByPoint(int y, int x)
 {
-	MapNode** Map = mapModel->getMapNode();
-	Map[y][x].data.kind = HAZARD;
+	setMapData(y, x, HAZARD);
 }
 
 void MapManager::addColorBlobPointByPoint(int y, int x)
 {
-	MapNode** Map = mapModel->getMapNode();
-	Map[y][x].data.kind = COLORBLOB;
+	setMapData(y, x, HAZARD);
 }
 MapNode MapManager::GetForwardMapNode(Position robotPos, int robotDirection)//hazard 감지
 {
@@ -90,16 +87,16 @@ MapNode MapManager::GetForwardMapNode(Position robotPos, int robotDirection)//ha
 	*/
 	switch (robotDirection)
 	{
-	case 8:
-		y--;
-		break;
-	case 6:
-		x++;
-		break;
-	case 2:
+	case UP:
 		y++;
 		break;
-	case 4:
+	case RIGHT:
+		x++;
+		break;
+	case DOWN:
+		y--;
+		break;
+	case LEFT:
 		x--;
 		break;
 	}
@@ -164,31 +161,31 @@ void MapManager::CalAble(int x, int y)					//x, y에서 갈 수 있는 곳을 NORMAL로 �
 	MapNode** Map = mapModel->getMapNode();
 
 	if (i == mapWidth - 1);
-	else if (Map[j][i + 1].data.kind == HAZARD);
-	else if (Map[j][i + 1].data.kind == INIT)
+	else if (getMapData(j, i+1) == HAZARD);
+	else if (getMapData(j, i+1) == INIT)
 	{
-		Map[j][i + 1].data.kind = NORMAL;
+		setMapData(j,i+1,NORMAL);
 		CalAble(i + 1, j);
 	}
 	if (i == 0);
-	else if (Map[j][i - 1].data.kind == HAZARD);
-	else if (Map[j][i - 1].data.kind == INIT)
+	else if (getMapData(j, i - 1) == HAZARD);
+	else if (getMapData(j, i - 1) == INIT)
 	{
-		Map[j][i - 1].data.kind = NORMAL;
+		setMapData(j, i - 1,NORMAL);
 		CalAble(i - 1, j);
 	}
 	if (j == mapHeight - 1);
-	else if (Map[j + 1][i].data.kind == HAZARD);
-	else if (Map[j + 1][i].data.kind == INIT)
+	else if (getMapData(j+1, i ) == HAZARD);
+	else if (getMapData(j + 1, i) == INIT)
 	{
-		Map[j + 1][i].data.kind = NORMAL;
+		setMapData(j + 1, i,NORMAL);
 		CalAble(i, j + 1);
 	}
 	if (j == 0);
-	else if (Map[j - 1][i].data.kind == HAZARD);
-	else if (Map[j - 1][i].data.kind == INIT)
+	else if (getMapData(j -1, i) == HAZARD);
+	else if (getMapData(j - 1, i) == INIT)
 	{
-		Map[j - 1][i].data.kind = NORMAL;
+		setMapData(j - 1, i,NORMAL);
 		CalAble(i, j - 1);
 	}
 
@@ -202,24 +199,27 @@ void MapManager::SetDisable()					//CalAble()후에도 INIT으로 남아있는 부분은 가�
 	{
 		for (i = 0; i<mapWidth; i++)
 		{
-			if (Map[j][i].data.kind == INIT)
-				Map[j][i].data.kind = HAZARD;
+			if (getMapData(j,i)== INIT)
+				setMapData(j,i, HAZARD);
 		}
 	}
 }
-void MapManager::SearchDis()
+void MapManager::SearchDis(int type)
 {
 	int i, j;
-	MapNode** Map = mapModel->getMapNode();
+
 
 	for (int i = 0; i < mapHeight; i++)
 	{
 		for (int j = 0; j < mapWidth; j++)
 		{
-			if (Map[i][j].data.kind == HAZARD);
-			else if (Map[i][j].data.kind == COLORBLOB);
+
+			if (getMapData(i,j)== HAZARD);
+			else if (getMapData(i, j) == COLORBLOB);
+			else if (getMapData(i, j) == EXPLROATIONPOINT);
+			else if ((type == 1) && (getMapData(i, j) == DIS));
 			else
-				Map[i][j].data.kind = INIT;
+				setMapData(i,j,INIT);
 			//map의 속성이 hazard가 아니면 INIT으로 설정.
 		}
 	}
@@ -227,4 +227,24 @@ void MapManager::SearchDis()
 	CalAble(startx, starty);
 	SetDisable();
 
+}
+
+int MapManager::getMapData(int y, int x)
+{
+	return mapModel->getMapData(y, x);
+}
+void MapManager::setMapData(int y, int x, int kind)
+{
+	mapModel->setMapData(y, x, kind);
+}
+
+
+void MapManager::setMapInfo(bool isDetected, int y, int x, bool isSensed, int kind)
+{
+	MapNode** Map = mapModel->getMapNode();
+	Map[y][x].isDetected = isDetected;
+	Map[y][x].position.y = y;
+	Map[y][x].position.x = x;
+	Map[y][x].isSensed = isSensed;
+	Map[y][x].data.kind = kind;
 }

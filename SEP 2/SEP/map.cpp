@@ -28,3 +28,14 @@ int MapModel::getMapWidth()
 {
 	return mapWidth;
 }
+
+// 여기 수정함
+// y 좌표
+int MapModel::getMapData(int y, int x)
+{
+	return Map[y][x].data.kind;
+}
+void MapModel::setMapData(int y, int x, int kind)
+{
+	Map[y][x].data.kind = kind;
+}

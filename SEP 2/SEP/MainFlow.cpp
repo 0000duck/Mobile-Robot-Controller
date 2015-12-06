@@ -9,11 +9,11 @@ class MovementInterface
 {
 public :
 	MoveManager* m;
-	MovementInterface(int startY, int startX, int mapHeight, int mapWidth)
+	void init(int startY, int startX, int mapHeight, int mapWidth)
 	{
 		m = MoveManager::GetManager();
 		m->InitMoveManager(startY, startX, mapHeight, mapWidth);
-		m->Explore();
+		
 	}
 	void AddHazardPoint(int y, int x)
 	{
@@ -31,5 +31,19 @@ public :
 	{
 		m->addExplorationPoint(y, x);
 	}
+	void start()
+	{
+		m->Explore();
+	}
 };
+int main()
+{
+	MovementInterface m;
+	m.init(3,2 , 15, 15);
+	m.addExplorationPoint(4, 5);
+	m.addExplorationPoint(10, 12);
+	m.addExplorationPoint(3, 0);
+
+	m.start();
+}
 
