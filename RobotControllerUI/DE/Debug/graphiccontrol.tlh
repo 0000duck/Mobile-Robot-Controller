@@ -1,0 +1,271 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.23026.0 (c198e104).
+//
+// c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\debug\graphiccontrol.tlh
+//
+// C++ source equivalent of Win32 type library GraphicControl.tlb
+// compiler-generated file created 12/07/15 at 13:03:45 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("209e3855-2201-4851-8d84-ed134880f359"))
+/* LIBID */ __GraphicControl;
+struct /* coclass */ MoveActionObject;
+struct /* coclass */ CreateActionObject;
+struct /* coclass */ FrameTimer;
+struct /* coclass */ GraphicManager;
+struct /* coclass */ ModelActionController;
+struct __declspec(uuid("9b6b2618-2abb-3f8e-88bf-314d3fc3f89c"))
+/* dual interface */ IActionObject;
+struct __declspec(uuid("91d3be1b-2a5f-4300-957e-abe2dc66188f"))
+/* dual interface */ iLibInterface;
+struct /* coclass */ InterfaceImplement;
+struct /* coclass */ DrawObj;
+struct /* coclass */ ModelForDraw;
+struct /* coclass */ MySprite;
+struct /* coclass */ ModelManager;
+struct __declspec(uuid("fefd1f5d-bbc9-33d5-893c-62f8c1b4da91"))
+/* dual interface */ _MoveActionObject;
+struct __declspec(uuid("a9770646-1234-3666-b03a-5ec38abf3a9f"))
+/* dual interface */ _CreateActionObject;
+struct __declspec(uuid("8e6f04f2-4d73-3991-8d21-f32e8e150d4c"))
+/* dual interface */ _FrameTimer;
+struct __declspec(uuid("ab7a025f-babd-3420-a5b5-b0c86ac9cea4"))
+/* dual interface */ _GraphicManager;
+struct __declspec(uuid("fabc3963-57b0-37c8-b416-099d138d4489"))
+/* dual interface */ _ModelActionController;
+struct __declspec(uuid("03467539-0f6f-37f2-ac82-e756b9092cbe"))
+/* dual interface */ _InterfaceImplement;
+struct __declspec(uuid("375f38dd-9c26-364f-a6af-ed65638299c5"))
+/* dual interface */ _DrawObj;
+struct __declspec(uuid("a152a67b-5949-3f91-9a70-5594fb925750"))
+/* dual interface */ _ModelForDraw;
+struct __declspec(uuid("6464e1ec-ef7e-3ea6-b1ce-80695ef5d778"))
+/* dual interface */ _MySprite;
+struct __declspec(uuid("a99aac50-8c13-323d-8737-f2d2f3775198"))
+/* dual interface */ _ModelManager;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IActionObject, __uuidof(IActionObject));
+_COM_SMARTPTR_TYPEDEF(iLibInterface, __uuidof(iLibInterface));
+_COM_SMARTPTR_TYPEDEF(_MoveActionObject, __uuidof(_MoveActionObject));
+_COM_SMARTPTR_TYPEDEF(_CreateActionObject, __uuidof(_CreateActionObject));
+_COM_SMARTPTR_TYPEDEF(_FrameTimer, __uuidof(_FrameTimer));
+_COM_SMARTPTR_TYPEDEF(_GraphicManager, __uuidof(_GraphicManager));
+_COM_SMARTPTR_TYPEDEF(_ModelActionController, __uuidof(_ModelActionController));
+_COM_SMARTPTR_TYPEDEF(_InterfaceImplement, __uuidof(_InterfaceImplement));
+_COM_SMARTPTR_TYPEDEF(_DrawObj, __uuidof(_DrawObj));
+_COM_SMARTPTR_TYPEDEF(_ModelForDraw, __uuidof(_ModelForDraw));
+_COM_SMARTPTR_TYPEDEF(_MySprite, __uuidof(_MySprite));
+_COM_SMARTPTR_TYPEDEF(_ModelManager, __uuidof(_ModelManager));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("85d3c955-83d0-3d14-ba8d-6f25a96b5b0d"))
+MoveActionObject;
+    // [ default ] interface _MoveActionObject
+    // interface _Object
+    // interface IActionObject
+
+struct __declspec(uuid("ec8ccced-c378-3368-a246-c7cb75b6929d"))
+CreateActionObject;
+    // [ default ] interface _CreateActionObject
+    // interface _Object
+    // interface IActionObject
+
+struct __declspec(uuid("9b9de900-d21a-3f7f-a1f4-1fb10d4e1a7d"))
+FrameTimer;
+    // [ default ] interface _FrameTimer
+    // interface _Object
+
+struct __declspec(uuid("bd16929b-99b6-3cba-bc62-c3812fcf8a2d"))
+GraphicManager;
+    // [ default ] interface _GraphicManager
+    // interface _Object
+
+struct __declspec(uuid("1a807dc8-6f09-3088-9b8a-4d0080e77c3f"))
+ModelActionController;
+    // [ default ] interface _ModelActionController
+    // interface _Object
+
+struct __declspec(uuid("9b6b2618-2abb-3f8e-88bf-314d3fc3f89c"))
+IActionObject : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT DoAction ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_DoAction ( ) = 0;
+};
+
+struct __declspec(uuid("91d3be1b-2a5f-4300-957e-abe2dc66188f"))
+iLibInterface : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT MoveRobot (
+        long Direction );
+    HRESULT CreateObj (
+        long KindObj,
+        float X2d,
+        float Y2d );
+    HRESULT Start ( );
+    HRESULT End ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_MoveRobot (
+        /*[in]*/ long Direction ) = 0;
+      virtual HRESULT __stdcall raw_CreateObj (
+        /*[in]*/ long KindObj,
+        /*[in]*/ float X2d,
+        /*[in]*/ float Y2d ) = 0;
+      virtual HRESULT __stdcall raw_Start ( ) = 0;
+      virtual HRESULT __stdcall raw_End ( ) = 0;
+};
+
+struct __declspec(uuid("6d1ea255-73d8-4480-b75d-4ec5387293c9"))
+InterfaceImplement;
+    // [ default ] interface _InterfaceImplement
+    // interface _Object
+    // interface iLibInterface
+
+struct __declspec(uuid("7bba4faa-8686-3d82-b9c7-4efab72a4993"))
+DrawObj;
+    // [ default ] interface _DrawObj
+    // interface _Object
+
+struct __declspec(uuid("88fb211c-a43a-371a-9f33-186efe53cc5b"))
+ModelForDraw;
+    // [ default ] interface _ModelForDraw
+    // interface _Object
+
+struct __declspec(uuid("72aba3d4-92eb-3914-9c36-467e23568260"))
+MySprite;
+    // [ default ] interface _MySprite
+    // interface _Object
+
+struct __declspec(uuid("deb31b02-0c56-3b26-b237-24a08be495e9"))
+ModelManager;
+    // [ default ] interface _ModelManager
+    // interface _Object
+
+struct __declspec(uuid("fefd1f5d-bbc9-33d5-893c-62f8c1b4da91"))
+_MoveActionObject : IDispatch
+{};
+
+struct __declspec(uuid("a9770646-1234-3666-b03a-5ec38abf3a9f"))
+_CreateActionObject : IDispatch
+{};
+
+struct __declspec(uuid("8e6f04f2-4d73-3991-8d21-f32e8e150d4c"))
+_FrameTimer : IDispatch
+{};
+
+struct __declspec(uuid("ab7a025f-babd-3420-a5b5-b0c86ac9cea4"))
+_GraphicManager : IDispatch
+{};
+
+struct __declspec(uuid("fabc3963-57b0-37c8-b416-099d138d4489"))
+_ModelActionController : IDispatch
+{};
+
+struct __declspec(uuid("03467539-0f6f-37f2-ac82-e756b9092cbe"))
+_InterfaceImplement : IDispatch
+{};
+
+struct __declspec(uuid("375f38dd-9c26-364f-a6af-ed65638299c5"))
+_DrawObj : IDispatch
+{};
+
+struct __declspec(uuid("a152a67b-5949-3f91-9a70-5594fb925750"))
+_ModelForDraw : IDispatch
+{};
+
+struct __declspec(uuid("6464e1ec-ef7e-3ea6-b1ce-80695ef5d778"))
+_MySprite : IDispatch
+{};
+
+struct __declspec(uuid("a99aac50-8c13-323d-8737-f2d2f3775198"))
+_ModelManager : IDispatch
+{};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_GraphicControl =
+    {0x209e3855,0x2201,0x4851,{0x8d,0x84,0xed,0x13,0x48,0x80,0xf3,0x59}};
+extern "C" const GUID __declspec(selectany) CLSID_MoveActionObject =
+    {0x85d3c955,0x83d0,0x3d14,{0xba,0x8d,0x6f,0x25,0xa9,0x6b,0x5b,0x0d}};
+extern "C" const GUID __declspec(selectany) CLSID_CreateActionObject =
+    {0xec8ccced,0xc378,0x3368,{0xa2,0x46,0xc7,0xcb,0x75,0xb6,0x92,0x9d}};
+extern "C" const GUID __declspec(selectany) CLSID_FrameTimer =
+    {0x9b9de900,0xd21a,0x3f7f,{0xa1,0xf4,0x1f,0xb1,0x0d,0x4e,0x1a,0x7d}};
+extern "C" const GUID __declspec(selectany) CLSID_GraphicManager =
+    {0xbd16929b,0x99b6,0x3cba,{0xbc,0x62,0xc3,0x81,0x2f,0xcf,0x8a,0x2d}};
+extern "C" const GUID __declspec(selectany) CLSID_ModelActionController =
+    {0x1a807dc8,0x6f09,0x3088,{0x9b,0x8a,0x4d,0x00,0x80,0xe7,0x7c,0x3f}};
+extern "C" const GUID __declspec(selectany) IID_IActionObject =
+    {0x9b6b2618,0x2abb,0x3f8e,{0x88,0xbf,0x31,0x4d,0x3f,0xc3,0xf8,0x9c}};
+extern "C" const GUID __declspec(selectany) IID_iLibInterface =
+    {0x91d3be1b,0x2a5f,0x4300,{0x95,0x7e,0xab,0xe2,0xdc,0x66,0x18,0x8f}};
+extern "C" const GUID __declspec(selectany) CLSID_InterfaceImplement =
+    {0x6d1ea255,0x73d8,0x4480,{0xb7,0x5d,0x4e,0xc5,0x38,0x72,0x93,0xc9}};
+extern "C" const GUID __declspec(selectany) CLSID_DrawObj =
+    {0x7bba4faa,0x8686,0x3d82,{0xb9,0xc7,0x4e,0xfa,0xb7,0x2a,0x49,0x93}};
+extern "C" const GUID __declspec(selectany) CLSID_ModelForDraw =
+    {0x88fb211c,0xa43a,0x371a,{0x9f,0x33,0x18,0x6e,0xfe,0x53,0xcc,0x5b}};
+extern "C" const GUID __declspec(selectany) CLSID_MySprite =
+    {0x72aba3d4,0x92eb,0x3914,{0x9c,0x36,0x46,0x7e,0x23,0x56,0x82,0x60}};
+extern "C" const GUID __declspec(selectany) CLSID_ModelManager =
+    {0xdeb31b02,0x0c56,0x3b26,{0xb2,0x37,0x24,0xa0,0x8b,0xe4,0x95,0xe9}};
+extern "C" const GUID __declspec(selectany) IID__MoveActionObject =
+    {0xfefd1f5d,0xbbc9,0x33d5,{0x89,0x3c,0x62,0xf8,0xc1,0xb4,0xda,0x91}};
+extern "C" const GUID __declspec(selectany) IID__CreateActionObject =
+    {0xa9770646,0x1234,0x3666,{0xb0,0x3a,0x5e,0xc3,0x8a,0xbf,0x3a,0x9f}};
+extern "C" const GUID __declspec(selectany) IID__FrameTimer =
+    {0x8e6f04f2,0x4d73,0x3991,{0x8d,0x21,0xf3,0x2e,0x8e,0x15,0x0d,0x4c}};
+extern "C" const GUID __declspec(selectany) IID__GraphicManager =
+    {0xab7a025f,0xbabd,0x3420,{0xa5,0xb5,0xb0,0xc8,0x6a,0xc9,0xce,0xa4}};
+extern "C" const GUID __declspec(selectany) IID__ModelActionController =
+    {0xfabc3963,0x57b0,0x37c8,{0xb4,0x16,0x09,0x9d,0x13,0x8d,0x44,0x89}};
+extern "C" const GUID __declspec(selectany) IID__InterfaceImplement =
+    {0x03467539,0x0f6f,0x37f2,{0xac,0x82,0xe7,0x56,0xb9,0x09,0x2c,0xbe}};
+extern "C" const GUID __declspec(selectany) IID__DrawObj =
+    {0x375f38dd,0x9c26,0x364f,{0xa6,0xaf,0xed,0x65,0x63,0x82,0x99,0xc5}};
+extern "C" const GUID __declspec(selectany) IID__ModelForDraw =
+    {0xa152a67b,0x5949,0x3f91,{0x9a,0x70,0x55,0x94,0xfb,0x92,0x57,0x50}};
+extern "C" const GUID __declspec(selectany) IID__MySprite =
+    {0x6464e1ec,0xef7e,0x3ea6,{0xb1,0xce,0x80,0x69,0x5e,0xf5,0xd7,0x78}};
+extern "C" const GUID __declspec(selectany) IID__ModelManager =
+    {0xa99aac50,0x8c13,0x323d,{0x87,0x37,0xf2,0xd2,0xf3,0x77,0x51,0x98}};
+
+//
+// Wrapper method implementations
+//
+
+#include "c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\debug\graphiccontrol.tli"
+
+#pragma pack(pop)

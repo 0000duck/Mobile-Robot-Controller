@@ -1,0 +1,42 @@
+﻿빌드 시작: 2015-12-07 오후 1:03:44
+     1>2 노드의 "C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\DE\DE.vcxproj" 프로젝트(Rebuild 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\DE.pdb" /Gd /TP /analyze- /errorReport:prompt CSGraphicCall.cpp datainterface.cpp MainFlow.cpp map.cpp MapManager.cpp movemanager.cpp robot.cpp sensor.cpp source.cpp virtualrobot.cpp
+         virtualrobot.cpp
+         source.cpp
+         sensor.cpp
+         robot.cpp
+         movemanager.cpp
+         MapManager.cpp
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(38): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(48): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(53): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(63): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(73): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(78): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(218): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
+     1>c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\mapmanager.cpp(218): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+         map.cpp
+         MainFlow.cpp
+         datainterface.cpp
+         CSGraphicCall.cpp
+         코드를 생성하고 있습니다...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\Debug\DE.lib" /NOLOGO Debug\CSGraphicCall.obj
+         Debug\datainterface.obj
+         Debug\MainFlow.obj
+         Debug\map.obj
+         Debug\MapManager.obj
+         Debug\movemanager.obj
+         Debug\robot.obj
+         Debug\sensor.obj
+         Debug\source.obj
+         Debug\virtualrobot.obj
+         DE.vcxproj -> C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\Debug\DE.lib
+     1>"C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\DE\DE.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:06.67

@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionObject.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="DrawObject\DrawObj.cs" />
     <Compile Include="DrawObject\Grid.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="DrawObject\MySprite.cs" />
     <Compile Include="FrameTimer.cs" />
     <Compile Include="GraphicManager.cs" />
+    <Compile Include="Interface\IActionObject.cs" />
     <Compile Include="Interface\iLibInterface.cs" />
     <Compile Include="DrawObject\ModelManager.cs" />
     <Compile Include="ModelMoveController.cs" />

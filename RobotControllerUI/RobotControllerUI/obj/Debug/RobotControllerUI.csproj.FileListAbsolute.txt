@@ -29,3 +29,5 @@ C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControll
 C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\RobotControllerUI\bin\Debug\GraphicControl.dll
 C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\RobotControllerUI\bin\Debug\GraphicControl.pdb
 C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\RobotControllerUI\obj\Debug\RobotControllerUI.MapLoadDialog.resources
+C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\RobotControllerUI\bin\Debug\LogicDll.dll
+C:\Users\byeonghun\Documents\SETermProject\Mobile-Robot-Controller\RobotControllerUI\RobotControllerUI\bin\Debug\LogicDll.pdb

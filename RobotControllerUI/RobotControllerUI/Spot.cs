@@ -38,6 +38,7 @@ namespace RobotControllerUI
 
         public void StringToSpot(string str)
         {
+            if (str == null || str == "") return;
             var parts = str.Split(' ');
             x = Convert.ToInt32(parts[0]);
             y = Convert.ToInt32(parts[1]);

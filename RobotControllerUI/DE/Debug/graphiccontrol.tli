@@ -1,0 +1,46 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.23026.0 (c198e104).
+//
+// c:\users\byeonghun\documents\setermproject\mobile-robot-controller\robotcontrollerui\de\debug\graphiccontrol.tli
+//
+// Wrapper implementations for Win32 type library GraphicControl.tlb
+// compiler-generated file created 12/07/15 at 13:03:45 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IActionObject wrapper method implementations
+//
+
+inline HRESULT IActionObject::DoAction ( ) {
+    HRESULT _hr = raw_DoAction();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+//
+// interface iLibInterface wrapper method implementations
+//
+
+inline HRESULT iLibInterface::MoveRobot ( long Direction ) {
+    HRESULT _hr = raw_MoveRobot(Direction);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT iLibInterface::CreateObj ( long KindObj, float X2d, float Y2d ) {
+    HRESULT _hr = raw_CreateObj(KindObj, X2d, Y2d);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT iLibInterface::Start ( ) {
+    HRESULT _hr = raw_Start();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT iLibInterface::End ( ) {
+    HRESULT _hr = raw_End();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}

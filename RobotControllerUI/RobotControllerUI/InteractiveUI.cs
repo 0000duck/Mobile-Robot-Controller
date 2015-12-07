@@ -21,7 +21,7 @@ namespace RobotControllerUI
         private List<Spot> SpotList;
         private List<Spot> HazardList;
         private Spot MapSize;
-
+        private LogicDll.LogicWraper LogicWraper;
         /// <summary>
         /// View의 프레임을 조절하는 타이머
         /// </summary>
@@ -30,7 +30,7 @@ namespace RobotControllerUI
         public InteractiveUI()
         {
             InitializeComponent();
-            
+            LogicWraper = new LogicDll.LogicWraper();
         }
 
         private void GraphicView_Paint(object sender, PaintEventArgs e)
@@ -76,9 +76,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void Upbtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().MoveRobot(ModelMoveController.UP);
-           
-            
+            GraphicManager.GetManager().MoveRobot(ModelActionController.UP);
         }
         /// <summary>
         /// Test용 Robot Down 함수
@@ -87,7 +85,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void DownBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().MoveRobot(ModelMoveController.DOWN);
+            GraphicManager.GetManager().MoveRobot(ModelActionController.DOWN);
           
         }
         /// <summary>
@@ -97,7 +95,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void LeftBtn_Click(object sender, EventArgs e)
         {
-             GraphicManager.GetManager().MoveRobot(ModelMoveController.LEFT);
+             GraphicManager.GetManager().MoveRobot(ModelActionController.LEFT);
            
         }
         /// <summary>
@@ -107,7 +105,7 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void RightBtn_Click(object sender, EventArgs e)
         {
-            GraphicManager.GetManager().MoveRobot(ModelMoveController.RIGHT);
+            GraphicManager.GetManager().MoveRobot(ModelActionController.RIGHT);
       
         }
         /// <summary>
@@ -136,6 +134,7 @@ namespace RobotControllerUI
         /// <param name="LBox"></param>
         private void HandleDeleteItemToList(List<Spot> RealList, ListBox LBox)
         {
+            if (RealList.Count == 0) return;
             int SelectedIndex = LBox.SelectedIndex;
 
             try
@@ -244,10 +243,26 @@ namespace RobotControllerUI
         /// <param name="e"></param>
         private void StartBtn_Click(object sender, EventArgs e)
         {
+            GraphicManager.GetManager().ListInit();
+            string Start = StartTxtInput.Text;
+            Spot StartSpot;
+            if (Start == null || Start == "")
+                StartSpot = new Spot(0, 0);
+            else StartSpot = new Spot(Start);
+            GraphicManager.GetManager().RobotPostInit(new Microsoft.DirectX.Vector3(StartSpot.x, 0, StartSpot.y));
+            LogicWraper.init((int)StartSpot.y, (int)StartSpot.x, (int)MapSize.x, (int)MapSize.y);
+
             foreach (Spot s in HazardList)
             {
                 GraphicManager.GetManager().CreateHazard(s.x, s.y);
+                LogicWraper.AddHazardPoint((int)s.y, (int)s.x);
             }
+
+            foreach (Spot s in SpotList)
+            {
+                LogicWraper.addExplorationPoint((int)s.y, (int)s.x);
+            }
+            LogicWraper.start();
         }
     }
 }

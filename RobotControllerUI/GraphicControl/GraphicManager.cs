@@ -22,7 +22,7 @@ namespace GraphicControl
 
         ModelManager DrawModelManager;
         DrawObj RobotObj;
-        ModelMoveController RobotMover;
+        ModelActionController RobotMover;
 
         MapforDraw Map;
 
@@ -80,6 +80,25 @@ namespace GraphicControl
         public void MoveRobot(int Direction)
         {
             if (UIState < UI_READY) return;
+            RobotBufferdMove(Direction);
+        }
+
+        /// <summary>
+        /// 외부에서 입력받은 움직임을 RobotAction의 버퍼에 추가함
+        /// </summary>
+        /// <param name="Direction"></param>
+        public void RobotBufferdMove(int Direction)
+        {
+            MoveActionObject NewMove = new MoveActionObject(Direction);
+            RobotMover.EnqueueAction(NewMove);
+        }
+
+
+        /// <summary>
+        /// 실제로 로봇을 움직이는함수
+        /// </summary>
+        public void RobotRealMove(int Direction)
+        {
             RobotMover.OnMove(Direction);
         }
         /// <summary>
@@ -89,8 +108,18 @@ namespace GraphicControl
         public void CreateObj(int KindObj , float X2d, float Y2d)
         {
             if (UIState < UI_READY) return;
+            CreateActionObject NewAction = new CreateActionObject(new Vector3(X2d, 0, Y2d), KindObj);
+            RobotMover.EnqueueAction(NewAction);
+        }
+
+        /// <summary>
+        /// type을 받아서 객체 생성
+        /// </summary>
+        /// <param name="KindObj"></param>
+        public void RealCreateObj(int KindObj, float X2d, float Y2d)
+        {
             DrawObj NewObj = new DrawObj(dx_Device, KindObj);
-            NewObj.ObjectPosInit(new Vector3(X2d , 0 , Y2d));
+            NewObj.ObjectPosInit(new Vector3(X2d, 0, Y2d));
         }
         /// <summary>
         /// 탐색이 시작됨을 알려줌
@@ -98,6 +127,7 @@ namespace GraphicControl
         public void Start()
         {
             UIState = UI_RUNING;
+      
         }
         /// <summary>
         /// 탐색이 종료됨을 알려줌
@@ -155,7 +185,7 @@ namespace GraphicControl
                 obj.Update();
             }
 
-            RobotMover.MoveUnit();
+            RobotMover.Act();
         }
         /// <summary>
         /// Rendering 초기화작업
@@ -165,16 +195,25 @@ namespace GraphicControl
             DrawModelManager = new ModelManager(dx_Device);
             DrawModelManager.CreateDrawModel(dx_Device, ModelManager.ROBOT, "Robot.dds");
             DrawModelManager.CreateDrawModel(dx_Device, ModelManager.HAZARD, "Hazard.jpg");
+            DrawModelManager.CreateDrawModel(dx_Device, ModelManager.COLOR, "ColorBlob.png");
 
 
             RobotObj = new DrawObj(dx_Device, ModelManager.ROBOT);
             
             //움직임 초기화
-            RobotMover = new ModelMoveController(RobotObj);
+            RobotMover = new ModelActionController(RobotObj);
 
             MainCamera = new Camera(dx_Device);
             UIState = UI_READY;
 
+        }
+        /// <summary>
+        /// 로봇 초기값 설정
+        /// </summary>
+        /// <param name="Pos"></param>
+        public void RobotPostInit(Vector3 Pos)
+        {
+            RobotObj.ObjectPosInit(Pos);
         }
 
         public void MapLoad(int SizeX , int SizeY)
@@ -246,5 +285,18 @@ namespace GraphicControl
             //Newobj.ObjectPosInit(new Vector3(x,0,y));
             CreateObj(ModelManager.HAZARD, x, y);
         }
+
+        /// <summary>
+        /// 객체 리스트 초기화
+        /// </summary>
+        public void ListInit()
+        {
+            DrawObjectList.Clear();
+            DrawObjectList.Add(RobotObj);
+
+        }
+
+       
+        
     }
 }

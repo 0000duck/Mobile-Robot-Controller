@@ -31,7 +31,7 @@ namespace GraphicControl.DrawObject
         /// <summary>
         /// 이동중인지 여부
         /// </summary>
-        public bool bMoving = false;
+        public bool bActing = false;
 
         private int modelname;
         public int ModelName
@@ -73,7 +73,7 @@ namespace GraphicControl.DrawObject
         /// </summary>
         public virtual void Update()
         {
-            if (bMoving)
+            if (bActing)
                 DynamicMove();
             Matrix mPos = Matrix.Translation(Position.X + 0.5f, Position.Y + 0.5f, Position.Z + 0.5f);
             Matrix mRot = Matrix.RotationY(Rotation.Y);
@@ -93,7 +93,7 @@ namespace GraphicControl.DrawObject
             if (Distance < 0.001f)
             {
                 Position.X = DesireVector.X; Position.Y = DesireVector.Y; Position.Z = DesireVector.Z;
-                bMoving = false;
+                bActing = false;
                 return;
             }
             MoveVector.Normalize();

@@ -20,7 +20,7 @@ namespace RobotControllerUI.AddOn.Map
         public MapNode this[int y ,int x]
         {
             get { return GetMapNode(x,y); }
-            protected set { MapData[y][x] = value; }
+            protected set { MapData[(int)MapSize.y - y-1][x] = value; }
         }
         /// <summary>
         /// MapModel 생성자
@@ -52,10 +52,10 @@ namespace RobotControllerUI.AddOn.Map
             {
                 for (int x = 0; x < MapData.GetLength(1); x++)
                 {
-                    MapData[y][x].InitNearNode(GetMapNode(x,y+1),
-                        GetMapNode(x, y -1),
-                        GetMapNode(x -1, y),
-                        GetMapNode(x + 1, y)); 
+                    MapData[y][x].InitNearNode(this[x,y+1],
+                        this[x, y - 1],
+                        this[x - 1, y],
+                        this[x +1, y]); 
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace RobotControllerUI.AddOn.Map
             if (x < 0 || y < 0) return null;
             //Size 초과시 Null 반환
             else if (x >= MapSize.x || y >= MapSize.y) return null;
-            else return MapData[y][x];
+            else return MapData[(int)MapSize.y - y - 1][x];
         }
         /// <summary>
         /// 노드 특정 위치에 오브젝트 추가

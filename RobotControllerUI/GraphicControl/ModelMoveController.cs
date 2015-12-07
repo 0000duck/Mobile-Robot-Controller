@@ -5,15 +5,16 @@ using Microsoft.DirectX;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
 using GraphicControl.DrawObject;
+using GraphicControl.Interface;
 
 namespace GraphicControl
 {
     /// <summary>
     /// 특정유닛의 움직임을 관리해주는 컨트롤러
     /// </summary>
-    public class ModelMoveController
+    public class ModelActionController
     {
-        protected Queue<Vector3> MoveQueue;
+        protected Queue<IActionObject> ActionBuffer;
         protected DrawObj ManagedUnit;
 
 
@@ -31,10 +32,10 @@ namespace GraphicControl
         /// 생성자
         /// </summary>
         /// <param name="Unit"></param>
-        public ModelMoveController(DrawObj Unit)
+        public ModelActionController(DrawObj Unit)
         {
             ManagedUnit = Unit;
-            MoveQueue = new Queue<Vector3>();
+            ActionBuffer = new Queue<IActionObject>();
             MoveCallBack = DefaultMoveFunc;
         }
 
@@ -50,44 +51,52 @@ namespace GraphicControl
         }
 
         /// <summary>
+        /// 액션을 추가
+        /// </summary>
+        /// <param name="Act"></param>
+        public void EnqueueAction(IActionObject Act)
+        {
+            ActionBuffer.Enqueue(Act);
+        }
+        /// <summary>
+        /// 등록되있는 다음 액션을 실행
+        /// </summary>
+        public void Act()
+        {
+            if (ManagedUnit.bActing == true) return;
+            if (ActionBuffer == null || ActionBuffer.Count <= 0) return;
+            ActionBuffer.Dequeue().DoAction();
+        }
+        /// <summary>
         /// Default Move 함수
         /// </summary>
         /// <param name="Direction"> 방향 상수</param>
         protected void DefaultMoveFunc(int Direction)
         {
-            if (ManagedUnit == null) return;
-            switch (Direction)
+            if (ManagedUnit == null || ManagedUnit.bActing == true) return;
+            if (ActionBuffer.Count > 0)
             {
-                case UP:
-                    MoveQueue.Enqueue(new Vector3(0, 0, 1));
-                    break;
-                case DOWN:
-                    MoveQueue.Enqueue(new Vector3(0, 0, -1));
-                    break;
-                case LEFT:
-                    MoveQueue.Enqueue(new Vector3(-1, 0, 0));
-                    break;
-                case RIGHT:
-                    MoveQueue.Enqueue(new Vector3(1, 0, 0));
-                    break;
-                default:
-                    break;
+                ManagedUnit.bActing = true;
+                switch (Direction)
+                {
+                    case UP:
+                        ManagedUnit.AddDesireVector(new Vector3(0, 0, 1));
+                        break;
+                    case DOWN:
+                        ManagedUnit.AddDesireVector(new Vector3(0, 0, -1));
+                        break;
+                    case LEFT:
+                        ManagedUnit.AddDesireVector(new Vector3(-1, 0, 0));
+                        break;
+                    case RIGHT:
+                        ManagedUnit.AddDesireVector(new Vector3(1, 0, 0));
+                        break;
+                    default:
+                        break;
 
+                }
             }
         }
-        /// <summary>
-        /// 실제로 관리하는 유닛에 이동을 적용
-        /// </summary>
-        public void MoveUnit()
-        {
-            if (ManagedUnit == null || ManagedUnit.bMoving == true) return;
-
-            if (MoveQueue.Count > 0)
-            {
-                ManagedUnit.bMoving = true;
-                ManagedUnit.AddDesireVector(MoveQueue.Dequeue());
-            }
-
-        }
+      
     }
 }
